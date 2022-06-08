@@ -56,8 +56,8 @@ session_start(); ?>
         <form id="admin_login">
             <a href="#" class="logo"><img src="../assets/images/official_logo.png" alt=""></a>
             <h3>sign in</h3>
-            <span>email</span>
-            <input type="email" id="email" name="email" class="box" placeholder="enter your email" value="<?php if (isset($_SESSION['admin_email'])) { echo $_SESSION['admin_email']; } if(isset($_COOKIE['admin_email'])) { echo $_COOKIE['admin_email']; } ?>">
+            <span>email/username</span>
+            <input type="text" id="email_username" name="email_username" class="box" placeholder="enter your email or username" value="<?php if (isset($_SESSION['admin_email'])) { echo $_SESSION['admin_email']; } if(isset($_COOKIE['admin_email'])) { echo $_COOKIE['admin_email']; } ?>">
             <input type="hidden" name="" id="error-email">
             <span>password</span>
             <input type="password" id="password" name="password" class="box" placeholder="enter your password" value="<?php if(isset($_COOKIE['admin_password'])) { echo $_COOKIE['admin_password']; } ?>">
@@ -76,7 +76,7 @@ session_start(); ?>
             e.preventDefault();
 
             if ($('#email').val() == '') {
-                $('#error-email').val('Input email!');
+                $('#error-email').val('Input email or username!');
             } else {
                 $('#error-email').val('');
             }
@@ -91,7 +91,7 @@ session_start(); ?>
                 $('#toast').addClass('active');
                 $('.progress').addClass('active');
                 $('.text-1').text('Error!');
-                $('.text-2').text('Input email!');
+                $('.text-2').text('Input email or username!');
 
                 setTimeout(() => {
                     $('#toast').removeClass("active");

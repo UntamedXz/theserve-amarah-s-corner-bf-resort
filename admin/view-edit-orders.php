@@ -55,7 +55,9 @@ $decode_id = base64_decode(urldecode($id));
         <ul class="breadcrumbs">
             <li><a href="index">Home</a></li>
             <li class="divider">/</li>
-            <li><a href="view-category" class="active">View Orders</a></li>
+            <li><a href="order">View Orders</a></li>
+            <li class="divider">/</li>
+            <li><a href="view-category" class="active">View/Edit Orders</a></li>
         </ul>
         <section class="orders-view-edit">
             <?php
@@ -309,7 +311,7 @@ $decode_id = base64_decode(urldecode($id));
                         <h2>Current Order Status Pending</h2>
 
                         <form id="update_status">
-                            <input type="text" name="order_id" id="order_id" value="<?php echo $decode_id; ?>">
+                            <input type="hidden" name="order_id" id="order_id" value="<?php echo $decode_id; ?>">
                             <span>Change Order Status</span>
                             <select name="selected_status" id="selected_status" required>
                                 <option value="">SELECT PROCESS</option>

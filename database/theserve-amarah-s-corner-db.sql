@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2022 at 06:40 AM
+-- Generation Time: Jun 08, 2022 at 02:11 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -31,17 +31,39 @@ USE `theserve-amarah-s-corner-db`;
 
 CREATE TABLE `admin` (
   `admin_id` int(11) NOT NULL,
+  `admin_name` varchar(255) DEFAULT NULL,
   `admin_username` varchar(255) DEFAULT NULL,
+  `admin_phone_number` varchar(255) DEFAULT NULL,
   `admin_email` varchar(255) DEFAULT NULL,
-  `admin_password` varchar(255) DEFAULT NULL
+  `admin_password` varchar(255) DEFAULT NULL,
+  `profile_image` varchar(255) DEFAULT NULL,
+  `admin_type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_email`, `admin_password`) VALUES
-(1, 'jovy', 'jovelyn.ocampo@cvsu.edu.ph', 'jovyyy');
+INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_username`, `admin_phone_number`, `admin_email`, `admin_password`, `profile_image`, `admin_type`) VALUES
+(1, 'Jovelyn Ocampo', 'jovy.dulce', '09915362419', 'jovelyn.ocampo@cvsu.edu.ph', '$2y$10$VIs3W/iIczKMbT8gjezcbODKeujxeYiEOoNu8nRRJ4M1Ce0tTU7KW', '62a08c6f50c8f.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_type`
+--
+
+CREATE TABLE `admin_type` (
+  `admin_type_id` int(11) NOT NULL,
+  `admin_type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `admin_type`
+--
+
+INSERT INTO `admin_type` (`admin_type_id`, `admin_type`) VALUES
+(1, 'admin');
 
 -- --------------------------------------------------------
 
@@ -64,14 +86,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`user_id`, `cart_id`, `category_id`, `subcategory_id`, `product_id`, `product_qty`, `product_total`) VALUES
-(8, 26, 2, 0, 37, 1, '129.00'),
-(8, 27, 2, 0, 37, 1, '129.00'),
-(8, 28, 2, 0, 37, 1, '129.00'),
-(8, 29, 2, 0, 37, 1, '129.00'),
-(8, 30, 2, 0, 37, 1, '129.00'),
-(2, 31, 2, 0, 38, 5, '645.00'),
-(2, 32, 1, 2, 25, 2, '398.00'),
-(2, 33, 21, 13, 50, 5, '400.00');
+(1, 178, 1, 0, 1, 1, '199.00');
 
 -- --------------------------------------------------------
 
@@ -90,13 +105,13 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_title`, `categoty_thumbnail`) VALUES
-(1, 'Pizza', '628d243bf079e.png'),
-(2, 'Chicken Wings', '628655e6eb31f-wings.png'),
-(3, 'Pasta ', '628d24768fdc2.png'),
-(4, 'Cheesy Snacks', '628656d4224d5-cheesy.png'),
-(5, 'Milk Tea', '62865c1cde79d-milktea.png'),
-(10, 'Coffee', '62865e94d281a-hotCoffee.png'),
-(21, 'Refreshing Drinks', '6298ba65b8b3b.png');
+(1, 'Pasta', '629e3fab89c02.png'),
+(2, 'Milktea', '629e3fc513386.png'),
+(3, 'Pizza', '629e40015781f.png'),
+(4, 'Chicken Wings', '629e4018c89ea.png'),
+(5, 'Coffee', '629e4025508bd.png'),
+(6, 'Refreshing Drinks', '629e403931a3e.png'),
+(7, 'Cheesy Snacks', '629e404e7693f.png');
 
 -- --------------------------------------------------------
 
@@ -106,36 +121,169 @@ INSERT INTO `category` (`category_id`, `category_title`, `categoty_thumbnail`) V
 
 CREATE TABLE `customers` (
   `user_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `phone_number` varchar(11) DEFAULT NULL,
+  `user_birthday` date DEFAULT NULL,
+  `user_gender` varchar(255) DEFAULT NULL,
+  `user_profile_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`user_id`, `username`, `email`, `password`) VALUES
-(1, 'KayeB', 'kaye.billones@cvsu.edu.ph', 'kayeeeb'),
-(2, 'untamed', 'untamedandromeda@gmail.com', 'untamed_jenn'),
-(3, 'markyyy', 'markryan.jancorda@cvsu.edu.ph', 'markyyyboy'),
-(4, 'kenetBiot', 'kenneth.estabillo@cvsu.edu.ph', 'kenetbiot'),
-(5, 'jess', 'jessica.capoquian@cvsu.edu.ph', 'jessica.capoquian'),
-(6, 'kamil', 'camille.tubo@cvsu.edu.ph', 'camille.tubo'),
-(7, 'nikol', 'nicolekay.anacleto@cvsu.edu.ph', 'nicolekay.anacleto'),
-(8, '', '', '');
+INSERT INTO `customers` (`user_id`, `name`, `username`, `email`, `password`, `phone_number`, `user_birthday`, `user_gender`, `user_profile_image`) VALUES
+(1, 'Jennifer Sabado', 'Jennifer Sabado', 'untamedandromeda@gmail.com', 'Untamed_Jenn', NULL, '0000-00-00', '', '629e44beb377e.jpg'),
+(2, 'Kaye Billones', 'kaye billones', 'kaye.billones@cvsu.edu.ph', 'kayeeebbb', NULL, '2000-10-13', '', '629e46b95ca7b.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `default_product_variation`
+-- Table structure for table `delivery`
 --
 
-CREATE TABLE `default_product_variation` (
-  `default_variation_id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `product_variation_id` int(11) DEFAULT NULL
+CREATE TABLE `delivery` (
+  `delivery_id` int(11) NOT NULL,
+  `delivery_title` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `delivery`
+--
+
+INSERT INTO `delivery` (`delivery_id`, `delivery_title`) VALUES
+(1, 'Pick Up'),
+(2, 'Delivery via Lalamove'),
+(3, 'Delivery within BF');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `payment_method` int(11) DEFAULT NULL,
+  `delivery_method` int(11) DEFAULT NULL,
+  `shipping_fee` varchar(255) DEFAULT NULL,
+  `screenshot_payment` varchar(255) DEFAULT NULL,
+  `reference` varchar(255) DEFAULT NULL,
+  `order_total` varchar(255) DEFAULT NULL,
+  `order_date` varchar(255) DEFAULT NULL,
+  `order_status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `payment_method`, `delivery_method`, `shipping_fee`, `screenshot_payment`, `reference`, `order_total`, `order_date`, `order_status`) VALUES
+(33, 1, 1, 2, '200.00', NULL, NULL, '3080.00', 'June 7, 2022 03:53 PM', 3),
+(34, 2, 2, 2, '200.00', '629f6bdfbf068.png', '9237927827438285', '1678.00', 'June 7, 2022 11:16 PM', 1),
+(35, 1, 2, 2, '200.00', '629f6e5139b55.jpg', '242536343634636', '1768.00', 'June 7, 2022 11:27 PM', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_address`
+--
+
+CREATE TABLE `order_address` (
+  `order_address_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `billing_name` varchar(255) DEFAULT NULL,
+  `billing_number` int(11) DEFAULT NULL,
+  `block_street_building` varchar(255) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `city_municipality` varchar(255) DEFAULT NULL,
+  `barangay` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_address`
+--
+
+INSERT INTO `order_address` (`order_address_id`, `order_id`, `billing_name`, `billing_number`, `block_street_building`, `province`, `city_municipality`, `barangay`) VALUES
+(19, 33, 'Jennifer Sabado', 2147483647, 'test block', 'test province', 'test city', 'test brgy'),
+(20, 34, NULL, NULL, 'test block', 'test province', 'test city', 'test brgy'),
+(21, 35, NULL, NULL, 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `order_items_id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `subcategory_id` int(11) DEFAULT NULL,
+  `qty` varchar(255) DEFAULT NULL,
+  `product_total` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_items_id`, `order_id`, `product_id`, `subcategory_id`, `qty`, `product_total`) VALUES
+(38, 33, 4, 1, '2', '180.00'),
+(39, 33, 2, 3, '2', '900.00'),
+(40, 33, 2, 3, '4', '1800.00'),
+(41, 34, 2, 3, '2', '900.00'),
+(42, 34, 5, 1, '2', '180.00'),
+(43, 34, 1, 0, '2', '398.00'),
+(44, 35, 2, 3, '2', '900.00'),
+(45, 35, 5, 1, '3', '270.00'),
+(46, 35, 1, 0, '2', '398.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `order_status_id` int(11) NOT NULL,
+  `order_status_name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_status`
+--
+
+INSERT INTO `order_status` (`order_status_id`, `order_status_name`) VALUES
+(1, 'Pending'),
+(2, 'Order Confirmed'),
+(3, 'Preparing'),
+(4, 'To be Received'),
+(5, 'Order Delivered'),
+(6, 'Cancelled');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `payment_id` int(11) NOT NULL,
+  `payment_title` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `payment_title`) VALUES
+(1, 'Cash on Delivery'),
+(2, 'Gcash');
 
 -- --------------------------------------------------------
 
@@ -148,6 +296,7 @@ CREATE TABLE `product` (
   `subcategory_id` int(11) DEFAULT NULL,
   `product_id` int(11) NOT NULL,
   `product_title` varchar(255) DEFAULT NULL,
+  `product_desc` varchar(255) DEFAULT NULL,
   `product_slug` varchar(255) DEFAULT NULL,
   `product_img1` varchar(255) DEFAULT NULL,
   `product_img2` varchar(255) DEFAULT NULL,
@@ -162,81 +311,12 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`category_id`, `subcategory_id`, `product_id`, `product_title`, `product_slug`, `product_img1`, `product_img2`, `product_img3`, `product_keyword`, `product_price`, `product_sale`, `product_status`) VALUES
-(1, 2, 7, 'Ham & Cheese', 'ham-cheese', '6292ebfd901ff.jpg', NULL, NULL, 'Ham & Cheese', '129.00', '', NULL),
-(4, 0, 8, 'Cheesy Fries', 'cheesy-fries', '62937e2f83136.jpg', NULL, NULL, 'Cheesy Fries', '130.00', '', NULL),
-(4, 0, 9, 'Cheesy Nachos', 'cheesy-nachos', '6293811ba42ed.jpg', NULL, NULL, 'Cheesy Nachos', '130.00', '', NULL),
-(3, 0, 10, 'Saucy Spaghetti', 'saucy-spaghetti', '6293867d16ba1.jpg', NULL, NULL, 'Saucy Spaghetti', '119.00', '', NULL),
-(3, 0, 11, 'Creamy Carbonara', 'creamy-carbonara', '6293870491837.jpg', NULL, NULL, 'Creamy Carbonara', '119.00', '', NULL),
-(5, 7, 13, 'Classic Milktea', 'classic-milktea', '6294534c7dff1.jpg', NULL, NULL, 'Classic Milktea', '90.00', '', NULL),
-(5, 7, 14, 'Taro Milktea', 'taro-milktea', '629453b16d9a7.jpg', NULL, NULL, 'Taro Milktea', '90.00', '', NULL),
-(5, 7, 15, 'Vanilla Milktea', 'vanilla-milktea', '629454397c7e9.jpg', NULL, NULL, 'Vanilla Milktea', '90.00', '', NULL),
-(5, 7, 16, 'Okinawa Milktea', 'okinawa-milktea', '629454d6aacd9.jpg', NULL, NULL, 'Okinawa Milktea', '100.00', '', NULL),
-(5, 7, 17, 'Wintermelon Milktea', 'wintermelon-milktea', '6294553abc77b.jpg', NULL, NULL, 'Wintermelon Milktea', '90.00', '', NULL),
-(5, 7, 18, 'Dark Chocolate Milktea', 'dark-chocolate-milktea', '62945599ad0d0.jpg', NULL, NULL, 'Dark Chocolate Milktea', '95.00', '', NULL),
-(5, 7, 19, 'Cookies & Cream Milktea', 'cookies-cream-milktea', '629462738203e.jpg', NULL, NULL, 'Cookies & Cream Milktea', '100.00', '', NULL),
-(5, 7, 20, 'Double Dutch Milktea', 'double-dutch-milktea', '629462beee633.jpg', NULL, NULL, 'Double Dutch Milktea', '95.00', '', NULL),
-(1, 2, 25, 'Hawaiian Pizza', 'hawaiian-pizza', '6294c1d06cf4e.jpg', NULL, NULL, 'Hawaiian Pizza', '199.00', '', NULL),
-(1, 2, 26, 'Beef & Mushroom Pizza', 'beef-mushroom-pizza', '6294c2081e8bb.jpg', NULL, NULL, 'Beef & Mushroom Pizza', '199.00', '', NULL),
-(1, 2, 27, 'Pepperoni Pizza', 'pepperoni-pizza', '6294c22d5cd69.jpg', NULL, NULL, 'Pepperoni Pizza', '199.00', '', NULL),
-(1, 3, 28, 'Pepperoni Overload Pizza', 'pepperoni-overload-pizza', '6294c25a50468.jpg', NULL, NULL, 'Pepperoni Overload Pizza', '249.00', '', NULL),
-(1, 3, 29, 'Beef & Mushroom Overload Pizza', 'beef-mushroom-overload-pizza', '6294c278a7656.jpg', NULL, NULL, 'Beef & Mushroom Overload Pizza', '249.00', '', NULL),
-(1, 3, 30, 'Bacon & Ham Pizza', 'bacon-ham-pizza', '6294c29ce9644.jpg', NULL, NULL, 'Bacon & Ham Pizza', '249.00', '', NULL),
-(1, 3, 31, 'Triple Cheese Pizza', 'triple-cheese-pizza', '6294c2b6586d8.jpg', NULL, NULL, 'Triple Cheese Pizza', '249.00', '', NULL),
-(1, 3, 32, 'All Meat Pizza', 'all-meat-pizza', '6294c2d1c1ece.jpg', NULL, NULL, 'All Meat Pizza', '249.00', '', NULL),
-(1, 3, 33, 'Creamcheese Supreme Pizza', 'creamcheese-supreme-pizza', '6294c2ec1c0bd.jpg', NULL, NULL, 'Creamcheese Supreme Pizza', '249.00', '', NULL),
-(1, 3, 34, 'Spinach Overload Pizza', 'spinach-overload-pizza', '6294c30304d5d.jpg', NULL, NULL, 'Spinach Overload Pizza', '249.00', '', NULL),
-(2, 0, 36, 'Honey Garlic', 'honey-garlic', '6294c39181159.jpg', NULL, NULL, 'Honey Garlic', '129.00', '', NULL),
-(2, 0, 37, 'Buffalo', 'buffalo', '6294c48d360a2.jpg', NULL, NULL, 'Buffalo', '129.00', '', NULL),
-(2, 0, 38, 'Garlic Parmesan', 'garlic-parmesan', '6294c4fb394d6.jpg', NULL, NULL, 'Garlic Parmesan', '129.00', '', NULL),
-(2, 0, 39, 'Buttered Garlic', 'buttered-garlic', '6294c524d2114.jpg', NULL, NULL, 'Buttered Garlic', '129.00', '', NULL),
-(2, 0, 40, 'Salted Egg', 'salted-egg', '6294c5450b238.jpg', NULL, NULL, 'Salted Egg', '129.00', '', NULL),
-(21, 13, 47, 'Strawberry Jasmine', 'strawberry-jasmine', NULL, NULL, NULL, 'Strawberry Jasmine', '80.00', '', NULL),
-(21, 13, 48, 'Green Apple Jasmine', 'green-apple-jasmine', NULL, NULL, NULL, 'green apple jasmine', '80.00', '', NULL),
-(21, 13, 49, 'Blueberry Jasmine', 'blueberry-jasmine', NULL, NULL, NULL, 'Blueberry Jasmine', '80.00', '', NULL),
-(21, 13, 50, 'Mango Jasmine', 'mango-jasmine', NULL, NULL, NULL, 'mango jasmine', '80.00', '', NULL),
-(21, 13, 51, 'Passionfruit Jasmine', 'passionfruit-jasmine', NULL, NULL, NULL, 'passionfruit jasmine', '80.00', '', NULL),
-(21, 14, 52, 'Strawberry Lemonade', 'strawberry-lemonade', NULL, NULL, NULL, 'strawberry lemonade', '140.00', '', NULL),
-(21, 14, 53, 'Passionfruit Lemonade', 'passionfruit-lemonade', NULL, NULL, NULL, 'passionfruit lemonade', '140.00', '', NULL),
-(21, 14, 54, 'Cucumber Lemonade', 'cucumber-lemonade', NULL, NULL, NULL, 'cucumber lemonade', '140.00', '', NULL),
-(21, 14, 55, 'Blueberry Lemonade', 'blueberry-lemonade', NULL, NULL, NULL, 'blueberry lemonade', '140.00', '', NULL),
-(21, 14, 56, 'Green Apple Lemonade', 'green-apple-lemonade', NULL, NULL, NULL, 'green apple lemonade', '140.00', '', NULL),
-(21, 15, 57, 'Avocado Cheesecake', 'avocado-cheesecake', NULL, NULL, NULL, 'avocado cheesecake', '159.00', '', NULL),
-(21, 15, 58, 'Strawberry Cheesecake', 'strawberry-cheesecake', NULL, NULL, NULL, 'strawberry cheesecake', '159.00', '', NULL),
-(21, 15, 59, 'Blueberry Cheesecake', 'blueberry-cheesecake', NULL, NULL, NULL, 'blueberry cheesecake', '159.00', '', NULL),
-(21, 15, 60, 'Mango Cheesecake', 'mango-cheesecake', NULL, NULL, NULL, 'mango cheesecake', '159.00', '', NULL),
-(21, 15, 61, 'Vanilla Cheesecake', 'vanilla-cheesecake', NULL, NULL, NULL, 'vanilla cheesecake', '159.00', '', NULL),
-(21, 16, 62, 'Strawberry Queen', 'strawberry-queen', NULL, NULL, NULL, 'strawberry queen', '130.00', '', NULL),
-(21, 16, 63, 'Avocado Delight', 'avocado-delight', NULL, NULL, NULL, 'avocado delight', '130.00', '', NULL),
-(21, 16, 64, 'Taro', 'taro', NULL, NULL, NULL, 'taro', '130.00', '', NULL),
-(21, 16, 65, 'Matcha', 'matcha', NULL, NULL, NULL, 'matcha', '130.00', '', NULL),
-(21, 16, 66, 'Milo Dino', 'milo-dino', NULL, NULL, NULL, 'milo dino', '130.00', '', NULL),
-(5, 7, 67, 'Matcha Milktea', 'matcha-milktea', NULL, NULL, NULL, 'matcha milktea', '90.00', '', NULL),
-(5, 12, 68, 'Classic Brown Sugar', 'classic-brown-sugar', NULL, NULL, NULL, 'classic brown sugar', '125.00', '', NULL),
-(5, 12, 69, 'House Blend Wintermelon', 'house-blend-wintermelon', NULL, NULL, NULL, 'house blend wintermelon', '125.00', '', NULL),
-(5, 12, 70, 'White Rabbit', 'white-rabbit', NULL, NULL, NULL, 'white rabbit', '125.00', '', NULL),
-(5, 12, 71, 'Red Velvet Cheesecake Milktea', 'red-velvet-cheesecake-milktea', '6298da3b90311.jpg', NULL, NULL, 'Red Velvet Cheesecake Milktea', '125.00', '', NULL),
-(5, 12, 72, 'Milky Taro', 'milky-taro', NULL, NULL, NULL, 'milky taro', '125.00', '', NULL),
-(5, 12, 73, 'Overload Oreo Cheesecake Milktea', 'overload-oreo-cheesecake-milktea', '6298df277ef0f.jpg', NULL, NULL, 'Overload Oreo Cheesecake Milktea', '125.00', '', NULL),
-(5, 12, 74, 'Choco Lava Milktea', 'choco-lava-milktea', '6298df556cef5.jpg', NULL, NULL, 'Choco Lava Milktea', '125.00', '', NULL),
-(10, 4, 75, 'Americano', 'americano', NULL, NULL, NULL, 'americano', '145.00', '', NULL),
-(10, 4, 76, 'Espresso', 'espresso', NULL, NULL, NULL, 'espresso', '145.00', '', NULL),
-(10, 4, 77, 'Mocha', 'mocha', NULL, NULL, NULL, 'mocha', '145.00', '', NULL),
-(10, 4, 78, 'Vanilla Latte', 'vanilla-latte', NULL, NULL, NULL, 'vanilla latte', '145.00', '', NULL),
-(10, 4, 79, 'Hazelnut Latte', 'hazelnut-latte', NULL, NULL, NULL, 'hazelnut latte', '145.00', '', NULL),
-(10, 4, 80, 'Capuccino', 'capuccino', NULL, NULL, NULL, 'capuccino', '145.00', '', NULL),
-(10, 5, 81, 'Spanish Cold Brew', 'spanish-cold-brew', NULL, NULL, NULL, 'spanish cold brew', '130.00', '', NULL),
-(10, 5, 82, 'Iced Latte', 'iced-latte', NULL, NULL, NULL, 'iced latte', '130.00', '', NULL),
-(10, 5, 83, 'Iced Mocha', 'iced-mocha', NULL, NULL, NULL, 'iced mocha', '130.00', '', NULL),
-(10, 5, 84, 'Iced Vanilla', 'iced-vanilla', NULL, NULL, NULL, 'iced vanilla', '130.00', '', NULL),
-(10, 5, 85, 'Iced Hazelnut', 'iced-hazelnut', NULL, NULL, NULL, 'iced hazelnut', '130.00', '', NULL),
-(10, 5, 86, 'Iced Caramel', 'iced-caramel', NULL, NULL, NULL, 'iced caramel', '130.00', '', NULL),
-(10, 6, 87, 'Vanilla', 'vanilla', NULL, NULL, NULL, 'vanilla', '150.00', '', NULL),
-(10, 6, 88, 'Red Velvet', 'red-velvet', NULL, NULL, NULL, 'red velvet', '150.00', '', NULL),
-(10, 6, 89, 'Java Chips', 'java-chips', NULL, NULL, NULL, 'java chips', '150.00', '', NULL),
-(10, 6, 90, 'Choco Fudge', 'choco-fudge', NULL, NULL, NULL, 'choco fudge', '150.00', '', NULL),
-(10, 6, 91, 'Oreo Delight', 'oreo-delight', NULL, NULL, NULL, 'oreo delight', '150.00', '', NULL),
-(10, 6, 92, 'Coffee Jelly', 'coffee-jelly', NULL, NULL, NULL, 'coffee jelly', '150.00', '', NULL);
+INSERT INTO `product` (`category_id`, `subcategory_id`, `product_id`, `product_title`, `product_desc`, `product_slug`, `product_img1`, `product_img2`, `product_img3`, `product_keyword`, `product_price`, `product_sale`, `product_status`) VALUES
+(1, NULL, 1, 'Saucy Spaghetti', 'Spaghetti with sauce', 'saucy-spaghetti', '629e4286ae190.jpg', NULL, NULL, 'Saucy Spaghetti', '199.00', '', NULL),
+(3, 3, 2, 'Hawaiian Pizza', 'Pizza from Hawaii', 'hawaiian-pizza', '629e42d5081f3.jpg', NULL, NULL, 'Hawaiian Pizza', '450.00', '', NULL),
+(2, 1, 3, 'Classic Milktea', '', 'classic-milktea', '629e479a1d05a.jpg', NULL, NULL, 'Classic Milktea', '90.00', '', NULL),
+(2, 1, 4, 'Taro Milktea', '', 'taro-milktea', '629e48270621a.jpg', NULL, NULL, 'Taro milktea', '90.00', '', NULL),
+(2, 1, 5, 'Vanilla Milktea', '', 'vanilla-milktea', '629e485e4a0f0.jpg', NULL, NULL, 'Vanilla Milktea', '90.00', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -245,6 +325,7 @@ INSERT INTO `product` (`category_id`, `subcategory_id`, `product_id`, `product_t
 --
 
 CREATE TABLE `product_attribute` (
+  `product_id` int(11) DEFAULT NULL,
   `variant_id` int(11) DEFAULT NULL,
   `attribute_id` int(11) NOT NULL,
   `attribute_title` varchar(255) DEFAULT NULL
@@ -266,8 +347,8 @@ CREATE TABLE `product_variant` (
 --
 
 INSERT INTO `product_variant` (`variant_id`, `variant_title`) VALUES
-(1, 'SIZE'),
-(2, 'FLAVOR');
+(1, 'FLAVOR'),
+(6, 'SIZE');
 
 -- --------------------------------------------------------
 
@@ -303,17 +384,15 @@ CREATE TABLE `subcategory` (
 --
 
 INSERT INTO `subcategory` (`category_id`, `subcategory_id`, `subcategory_title`) VALUES
-(1, 2, 'Classic Flavor'),
-(1, 3, 'Special Flavor'),
-(10, 4, 'Hot Coffee'),
-(10, 5, 'Cold Coffee'),
-(10, 6, 'Frappe'),
-(5, 7, 'Classic Series'),
-(5, 12, 'Special Series'),
-(21, 13, 'Fruit Tea'),
-(21, 14, 'Lemonade'),
-(21, 15, 'Cheesecake Series'),
-(21, 16, 'Milkshake');
+(2, 1, 'Classic Series'),
+(2, 2, 'Special Series'),
+(3, 3, 'Classic Flavor'),
+(3, 4, 'Special Flavor'),
+(5, 7, 'Cold Coffee'),
+(5, 8, 'Hot Coffee'),
+(5, 9, 'Frappe'),
+(6, 10, 'Fruit Tea'),
+(6, 11, 'Lemonade');
 
 --
 -- Indexes for dumped tables
@@ -323,7 +402,14 @@ INSERT INTO `subcategory` (`category_id`, `subcategory_id`, `subcategory_title`)
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
+  ADD PRIMARY KEY (`admin_id`),
+  ADD KEY `admin_type` (`admin_type`);
+
+--
+-- Indexes for table `admin_type`
+--
+ALTER TABLE `admin_type`
+  ADD PRIMARY KEY (`admin_type_id`);
 
 --
 -- Indexes for table `cart`
@@ -346,10 +432,45 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `default_product_variation`
+-- Indexes for table `delivery`
 --
-ALTER TABLE `default_product_variation`
-  ADD PRIMARY KEY (`default_variation_id`);
+ALTER TABLE `delivery`
+  ADD PRIMARY KEY (`delivery_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `payment_method` (`payment_method`),
+  ADD KEY `delivery_method` (`delivery_method`),
+  ADD KEY `order_status` (`order_status`);
+
+--
+-- Indexes for table `order_address`
+--
+ALTER TABLE `order_address`
+  ADD PRIMARY KEY (`order_address_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`order_items_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`order_status_id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`payment_id`);
 
 --
 -- Indexes for table `product`
@@ -364,7 +485,8 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_attribute`
   ADD PRIMARY KEY (`attribute_id`),
-  ADD KEY `variant_id` (`variant_id`);
+  ADD KEY `variant_id` (`variant_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `product_variant`
@@ -397,46 +519,82 @@ ALTER TABLE `admin`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `admin_type`
+--
+ALTER TABLE `admin_type`
+  MODIFY `admin_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `default_product_variation`
+-- AUTO_INCREMENT for table `delivery`
 --
-ALTER TABLE `default_product_variation`
-  MODIFY `default_variation_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `delivery`
+  MODIFY `delivery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `order_address`
+--
+ALTER TABLE `order_address`
+  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `order_items_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
-  MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_variant`
 --
 ALTER TABLE `product_variant`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_variation`
@@ -448,17 +606,43 @@ ALTER TABLE `product_variation`
 -- AUTO_INCREMENT for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  MODIFY `subcategory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `subcategory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `admin`
+--
+ALTER TABLE `admin`
+  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`admin_type`) REFERENCES `admin_type` (`admin_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `customers` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`payment_method`) REFERENCES `payment` (`payment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`delivery_method`) REFERENCES `delivery` (`delivery_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`order_status_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_address`
+--
+ALTER TABLE `order_address`
+  ADD CONSTRAINT `order_address_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product`
@@ -471,7 +655,8 @@ ALTER TABLE `product`
 -- Constraints for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
-  ADD CONSTRAINT `product_attribute_ibfk_1` FOREIGN KEY (`variant_id`) REFERENCES `product_variant` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_attribute_ibfk_1` FOREIGN KEY (`variant_id`) REFERENCES `product_variant` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_attribute_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_variation`

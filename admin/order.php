@@ -99,7 +99,46 @@ require_once '../includes/database_conn.php';
 </head>
 
 <body>
+    
     <?php include 'top.php';?>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <div class="toast-content" id="toast-content">
+            <i id="toast-icon" class="fa-solid fa-triangle-exclamation warning"></i>
+
+            <div class="message">
+                <span class="text text-1" id="text-1"></span>
+                <span class="text text-2" id="text-2"></span>
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+        <div class="progress"></div>
+    </div>
+
+    <!-- DELETE -->
+    <div id="popup-box" class="popup-box delete-modal">
+        <div class="top">
+            <h3>Delete Order</h3>
+            <div id="modalClose" class="fa-solid fa-xmark"></div>
+        </div>
+        <hr>
+        <form id="delete_order">
+            <div style="display: none;" class="form-group">
+                <span>Category ID</span>
+                <input type="text" id="delete_order_id" name="delete_order_id" value="">
+            </div>
+            <p>Are you sure, you want to delete this order?</p>
+        </form>
+        <hr>
+        <div class="bottom">
+            <div class="buttons">
+                <button id="modalClose" type="button" class="cancel">CLOSE</button>
+                <button form="delete_order" id="deleteProduct" type="submit" class="save">DELETE</button>
+            </div>
+
+        </div>
+    </div>
 
     <!-- MAIN -->
     <main>
@@ -160,6 +199,70 @@ require_once '../includes/database_conn.php';
                     }
                 })
             });
+            
+            $('.action').on('click', function(e) {
+                e.preventDefault();
+                
+                if($('.action-list').hasClass('active')) {
+                    $('.action-list').removeClass('active');
+                } else {
+                $('.action-list').addClass('active');
+                }
+            })
+
+            // GET DELETE
+            $(document).on('click', '#getDelete', function (e) {
+                e.preventDefault();
+                $('.delete-modal').addClass('active');
+                var order_id = $(this).data('id');
+                $("#delete_order_id").val(order_id);
+            });
+
+            $(document).on('click', '#modalClose', function() {
+                $(".delete-modal").removeClass("active");
+            })
+
+            // SUBMIT DELETE
+            $("#delete_order").on('submit', function(e) {
+                    e.preventDefault();
+                    console.log('test');
+                    $.ajax({
+                        type: "POST",
+                        url: "./functions/delete-order",
+                        data: new FormData(this),
+                        dataType: 'text',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response === 'deleted') {
+                                $('.delete-modal').removeClass("active");
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-check warning');
+                                $('.text-1').text('Success!');
+                                $('.text-2').text('Product deleted successfully!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
+                                $('#example').DataTable().ajax.reload();
+                            } else {
+                                $('.delete-modal').removeClass("active");
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('.text-1').text('Error!');
+                                $('.text-2').text('Something went wrong!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
+                                $('#example').DataTable().ajax.reload();
+                            }
+                            console.log(response);
+                        }
+                    })
+                })
         </script>
 
 

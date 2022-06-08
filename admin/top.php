@@ -33,11 +33,7 @@
         </li>
         <li class="divider" data-text="settings">settings</li>
         <li>
-            <a href="#"><i class='bx bxs-user-circle icon'></i>Users <i class="bx bx-chevron-right icon-right"></i></a>
-            <ul class="side-dropdown">
-                <li><a href="#">Insert User</a></li>
-                <li><a href="#">View User</a></li>
-            </ul>
+            <a href="users"><i class='bx bxs-user-circle icon'></i>Users</a>
             <a href="#"><i class='bx bxs-palette icon'></i>Home Appearance</a>
             <a href="#"><i class='bx bxs-cog icon'></i>Admin Settings</a>
         </li>

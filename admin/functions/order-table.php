@@ -4,11 +4,14 @@ require_once '../../includes/database_conn.php';
 $request = $_REQUEST;
 $col = array(
     0 => 'order_id',
-    1 => 'ship_to',
+    1 => 'block_street_building',
+    2 => 'barangay',
+    3 => 'city_municipality',
+    4 => 'province',
     5 => 'email',
     6 => 'order_date',
     7 => 'order_total',
-    8 => 'order_status_name'
+    8 => 'order_status_name',
 );
 
 $sql = "SELECT orders.order_id, order_address.block_street_building, order_address.barangay, order_address.city_municipality, order_address.province, customers.email, orders.order_date, orders.order_total, order_status.order_status_name
@@ -36,15 +39,15 @@ LEFT JOIN customers
 ON orders.user_id = customers.user_id WHERE 1=1";
 
 if (!empty($request['search']['value'])) {
-    $sql .= " AND (order_id LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR block_street_building LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR barangay LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR city_municipality LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR province LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR email LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR order_date LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR order_total LIKE '" . $request['search']['value'] . "%' ";
-    $sql .= " OR order_status LIKE '" . $request['search']['value'] . "%' )";
+    $sql .= " AND (orders.order_id LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR order_address.block_street_building LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR order_address.barangay LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR order_address.city_municipality LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR order_address.province LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR customers.email LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR orders.order_date LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR orders.order_total LIKE '" . $request['search']['value'] . "%' ";
+    $sql .= " OR order_status.order_status_name LIKE '" . $request['search']['value'] . "%' )";
 }
 
 $query = mysqli_query($conn, $sql);
@@ -72,10 +75,10 @@ while ($row = mysqli_fetch_array($query)) {
 }
 
 $json_data = array(
-    "draw"              =>  intval($request['draw']),
-    "recordsTotal"      =>  intval($totalData),
-    "recordsFiltered"   =>  intval($totalFilter),
-    "data"              =>  $data
+    "draw" => intval($request['draw']),
+    "recordsTotal" => intval($totalData),
+    "recordsFiltered" => intval($totalFilter),
+    "data" => $data,
 );
 
 echo json_encode($json_data);

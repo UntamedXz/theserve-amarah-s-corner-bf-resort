@@ -30,9 +30,9 @@ if($oldImgDatabase == '') {
 
     $newImageName = uniqid() . '.' . $imgExt;
     move_uploaded_file($image_tmp, '../assets/images/' . $newImageName);
-    unlink('../assets/images/' . $oldImage);
+    unlink('../assets/images/' . $oldImageDatabase);
 
-    $updateProfileImg = mysqli_query($conn, "UPDATE customers SET user_profile_image = '$newImageName'");
+    $updateProfileImg = mysqli_query($conn, "UPDATE customers SET user_profile_image = '$newImageName' user_id = $userId");
 
     if($updateProfileImg) {
         echo 'success';
