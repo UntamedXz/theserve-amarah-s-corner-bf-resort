@@ -1,9 +1,17 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
 
 if (isset($_SESSION['alert'])) {
     $product_id = $_SESSION['product_id'];

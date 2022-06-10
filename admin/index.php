@@ -1,9 +1,17 @@
 <?php 
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +29,7 @@ require_once '../includes/database_conn.php';
 
 <body>
     <?php include 'top.php'; ?>
+
         <!-- MAIN -->
         <main>
             <h1 class="title">Dashboard</h1>
@@ -28,8 +37,192 @@ require_once '../includes/database_conn.php';
                 <li><a href="#" class="active">Home</a></li>
             </ul>
             <section class="dashboard">
-                <div style="display: flex; justify-content: center; align-items: center;" class="dashboard-wrapper">
-                    <h1 style="font-size: 38px;">UNDER DEVELOPMENT</h1>
+                <div class="dashboard-wrapper">
+                    <!-- <div class="box">
+                        <div class="titles">
+                            <i class='bx bxs-category icon'></i>
+                            <div class="label">
+                                <span class="count">
+                                    13
+                                </span>
+                                <span>Category</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                            <i class='bx bxs-category icon'></i>
+                            <div class="label">
+                                <span class="count">
+                                    13
+                                </span>
+                                <span>Subcategory</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                            <i class='bx bxs-category icon'></i>
+                            <div class="label">
+                                <span class="count">
+                                    13
+                                </span>
+                                <span>Product Variants</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                            <i class='bx bxs-category icon'></i>
+                            <div class="label">
+                                <span class="count">
+                                    13
+                                </span>
+                                <span>Products</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div> -->
+
+                    <div class="box">
+                        <div class="titles">
+                            <i class='bx bx-recycle'></i>
+                            <div class="label">
+                                <?php
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 1");
+
+                                foreach($get_pending as $pending) {
+                                ?>
+                                <span class="count">
+                                    <?php echo $pending['count'] ?>
+                                </span>
+                                <?php
+                                }
+                                ?>
+                                <span>Pending Orders</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                        <i class='bx bx-list-check' ></i>
+                            <div class="label">
+                            <?php
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 2");
+
+                                foreach($get_pending as $confirmed) {
+                                ?>
+                                <span class="count">
+                                    <?php echo $confirmed['count'] ?>
+                                </span>
+                                <?php
+                                }
+                                ?>
+                                <span>Order Confirmed</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                        <i class='bx bxs-bowl-hot' ></i>
+                            <div class="label">
+                            <?php
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 3");
+
+                                foreach($get_pending as $preparing) {
+                                ?>
+                                <span class="count">
+                                    <?php echo $preparing['count'] ?>
+                                </span>
+                                <?php
+                                }
+                                ?>
+                                <span>Preparing Order</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                        <i class='bx bxs-package' ></i>
+                            <div class="label">
+                            <?php
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 1");
+
+                                foreach($get_pending as $to_be_received) {
+                                ?>
+                                <span class="count">
+                                    <?php echo $to_be_received['count'] ?>
+                                </span>
+                                <?php
+                                }
+                                ?>
+                                <span>To be Received</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="titles">
+                        <i class='bx bx-fork' ></i>
+                            <div class="label">
+                            <?php
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 1");
+
+                                foreach($get_pending as $delivered) {
+                                ?>
+                                <span class="count">
+                                    <?php echo $delivered['count'] ?>
+                                </span>
+                                <?php
+                                }
+                                ?>
+                                <span>Order Delivered</span>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="view">
+                            <span>View Details</span>
+                            <button><i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
                 </div>
 
                 

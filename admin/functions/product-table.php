@@ -3,13 +3,13 @@ require_once '../../includes/database_conn.php';
 
 $request = $_REQUEST;
 $col = array(
-    // 0   =>  'category_id',
-    0   =>  'product_img1',
-    1   =>  'category_title',
-    2   =>  'subcategory_title',
-    3   =>  'product_title',
-    4   =>  'product_slug',
-    5   =>  'product_price'
+    0   =>  'product_id',
+    1   =>  'product_img1',
+    2   =>  'category_title',
+    3   =>  'subcategory_title',
+    4   =>  'product_title',
+    5   =>  'product_slug',
+    6   =>  'product_price'
 );
 //create column like table in database
 
@@ -42,6 +42,7 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
+    $subdata[] = $row[0];
     $subdata[] = '<img style="width: 80px; border-radius: 50%;" src="../assets/images/' . $row[1] . '" alt="">';
     $subdata[] = $row[2];
     $subdata[] = $row[3];

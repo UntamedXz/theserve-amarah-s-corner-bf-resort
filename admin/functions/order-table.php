@@ -21,7 +21,8 @@ ON orders.order_id = order_address.order_id
 LEFT JOIN order_status
 ON orders.order_status = order_status.order_status_id
 LEFT JOIN customers
-ON orders.user_id = customers.user_id";
+ON orders.user_id = customers.user_id
+WHERE order_status != 5";
 
 $query = mysqli_query($conn, $sql);
 
@@ -36,7 +37,8 @@ ON orders.order_id = order_address.order_id
 LEFT JOIN order_status
 ON orders.order_status = order_status.order_status_id
 LEFT JOIN customers
-ON orders.user_id = customers.user_id WHERE 1=1";
+ON orders.user_id = customers.user_id
+WHERE order_status != 5 AND 1=1";
 
 if (!empty($request['search']['value'])) {
     $sql .= " AND (orders.order_id LIKE '" . $request['search']['value'] . "%' ";

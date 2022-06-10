@@ -13,7 +13,7 @@ $row = mysqli_fetch_array($get_user_password);
 
 $user_old_password = $row['password'];
 
-if($old_password == $user_old_password) {
+if(password_verify($old_password, $user_old_password)) {
     if($new_password == $confirm_password) {
         $update_password = mysqli_query($conn, "UPDATE customers SET password = '$new_password' WHERE user_id = $user_id");
 

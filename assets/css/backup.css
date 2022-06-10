@@ -1783,16 +1783,26 @@ footer .footer-wrapper .copyright span {
   color: #ffaf08;
   gap: 5px;
 }
-.product-details .product-details__wrapper .right .form-group input {
-  height: 30px;
-  width: 100%;
-  line-height: 30px;
+.product-details .product-details__wrapper .right .form-group textarea {
   color: #070506;
-  padding: 0 10px;
-  background-color: #ffaf08;
+  padding: 5px;
+  height: 50px;
+  width: 100%;
   border: none;
   outline: none;
   border-radius: 5px;
+}
+.product-details .product-details__wrapper .right .form-group input {
+  padding: 10px;
+  size: 25px;
+  accent-color: #ffaf08;
+}
+.product-details .product-details__wrapper .right .form-group fieldset {
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  text-decoration: bold;
+  border: 2px solid;
 }
 .product-details .product-details__wrapper .right .form-group span {
   text-transform: capitalize;
@@ -2447,7 +2457,9 @@ footer .footer-wrapper .copyright span {
   flex-direction: column;
   background-color: #fff;
   padding: 5px 10px;
+  padding-bottom: 10px;
   border-radius: 3px;
+  border: 1px solid #070506;
 }
 .checkout .checkout_wrapper .left_checkout_wrapper form .group_form_group .form_group input {
   height: 25px;
@@ -2458,6 +2470,9 @@ footer .footer-wrapper .copyright span {
   font-weight: 500;
   font-size: 14px;
   width: 100%;
+  padding: 0 5px;
+  border: 2px solid rgba(7, 5, 6, 0.2235294118);
+  border-radius: 3px;
 }
 .checkout .checkout_wrapper .left_checkout_wrapper form .group_form_group .form_group span {
   color: #070506;
@@ -2473,7 +2488,7 @@ footer .footer-wrapper .copyright span {
   background-color: #fff;
   flex-direction: column;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   display: none;
   transition: all 0.6s ease;
 }
@@ -2511,6 +2526,7 @@ footer .footer-wrapper .copyright span {
   flex-direction: column;
   background-color: #fff;
   padding: 5px 10px;
+  padding-bottom: 10px;
   border-radius: 3px;
 }
 .checkout .checkout_wrapper .left_checkout_wrapper form .form_group input {
@@ -2528,6 +2544,11 @@ footer .footer-wrapper .copyright span {
   font-size: 13px;
   font-weight: 600;
   padding: 0;
+}
+.checkout .checkout_wrapper .left_checkout_wrapper form .form_group #email {
+  border: 2px solid rgba(7, 5, 6, 0.2235294118);
+  border-radius: 3px;
+  padding: 0 5px;
 }
 .checkout .checkout_wrapper .left_checkout_wrapper form button {
   height: 50px;
@@ -2551,7 +2572,7 @@ footer .footer-wrapper .copyright span {
   flex-direction: column;
   background-color: #fff;
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  border-radius: 3px;
   color: #070506;
   padding: 10px;
   gap: 5px;
@@ -2568,7 +2589,7 @@ footer .footer-wrapper .copyright span {
   background: #fff;
   height: 100%;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 3px;
   gap: 5px;
 }
 .checkout .checkout_wrapper .left_checkout_wrapper .payment-wrapper .option_wrapper .option {

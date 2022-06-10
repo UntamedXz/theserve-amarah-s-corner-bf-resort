@@ -1,5 +1,9 @@
 <?php
-session_start(); ?>
+session_start();
+if (isset($_SESSION['admin_id']) && !empty($_SESSION['id'])) {
+    header("Location: ./index");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,14 +133,9 @@ session_start(); ?>
                                 $('#toast').removeClass("active");
                                 $('.progress').removeClass("active");
                             }, 5000);
-                        }
-
-                        if (response == 'wrong password') {
+                        } else if (response == 'wrong password') {
                             $('#toast').addClass('active');
                             $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass(
-                            //     'fa-solid fa-triangle-exclamation').addClass(
-                            //     'fa-solid fa-check warning');
                             $('.text-1').text('Error!');
                             $('.text-2').text('Wrong password');
 
@@ -144,10 +143,18 @@ session_start(); ?>
                                 $('#toast').removeClass("active");
                                 $('.progress').removeClass("active");
                             }, 5000);
-                        }
-
-                        if (response == 'success') {
+                        } else if (response == 'success') {
                             window.location.replace("index");
+                        } else if(response == 'email or username not registered') {
+                            $('#toast').addClass('active');
+                            $('.progress').addClass('active');
+                            $('.text-1').text('Error!');
+                            $('.text-2').text('Email or Username not registered!');
+
+                            setTimeout(() => {
+                                $('#toast').removeClass("active");
+                                $('.progress').removeClass("active");
+                            }, 5000);
                         }
                         console.log(response);
                     }

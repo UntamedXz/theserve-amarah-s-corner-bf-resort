@@ -1,9 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
+$admin_type = $info['admin_type'];
 
 $id = $_GET['id'];
 $decode_id = base64_decode(urldecode($id));
@@ -132,19 +141,19 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
 
     <!-- MAIN -->
     <main>
-        <h1 class="title">Insert Simple Product</h1>
+        <h1 class="title">Update Product</h1>
         <ul class="breadcrumbs">
             <li><a href="index">Home</a></li>
             <li class="divider">/</li>
             <li><a href="product">View Product</a></li>
             <li class="divider">/</li>
-            <li><a href="insert-simple-product" class="active">Insert Simple Product</a></li>
+            <li><a href="insert-simple-product" class="active">Update Product</a></li>
         </ul>
 
         <section class="insert-product">
             <div class="insert-product-wrapper">
-
                 <div class="product-container">
+                    <input type="hidden" name="admin_type" id="admin_type" value="<?php echo $admin_type; ?>">
                     <h1>Product Details</h1>
                     <hr>
                     <form action="" enctype="multipart/form-data" id="update-simpleProductForm">
@@ -157,51 +166,51 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                             <select name="category-list" id="category-list">
                                 <option selected="selected" value="SELECT CATEGORY">SELECT CATEGORY</option>
                                 <?php
-$fetchCategory = mysqli_query($conn, "SELECT * FROM category");
+                                $fetchCategory = mysqli_query($conn, "SELECT * FROM category");
 
-foreach ($fetchCategory as $categoryRow) {
-    $isSelected = '';
-    if ($result_array['category_id'] == $categoryRow['category_id']) {
-        $isSelected = "selected";
-    }
-    ?>
+                                foreach ($fetchCategory as $categoryRow) {
+                                    $isSelected = '';
+                                    if ($result_array['category_id'] == $categoryRow['category_id']) {
+                                        $isSelected = "selected";
+                                }
+                                ?>
 
                                     <option value="<?php echo $categoryRow['category_id']; ?>" <?php echo $isSelected; ?>><?php echo $categoryRow['category_title']; ?></option>
                                 <?php
-}
-?>
+                                }
+                                ?>
                             </select>
                             <span class="error error-category"></span>
                         </div>
                         <?php
-$categoryId = $result_array['category_id'];
-$getSubcategory = mysqli_query($conn, "SELECT * FROM subcategory WHERE category_id = '$categoryId'");
+                        $categoryId = $result_array['category_id'];
+                        $getSubcategory = mysqli_query($conn, "SELECT * FROM subcategory WHERE category_id = '$categoryId'");
 
-if (mysqli_num_rows($getSubcategory) > 0) {
-    ?>
+                        if (mysqli_num_rows($getSubcategory) > 0) {
+                        ?>
                             <div class="form-group subcategory-group">
                                 <span>Product Subcategory</span>
                                 <select name="subcategory-list" id="subcategory-list">
                                     <option selected="selected" value="SELECT SUBCATEGORY">SELECT SUBCATEGORY</option>
                                     <?php
-$getSubcategoryOptions = mysqli_query($conn, "SELECT * FROM subcategory WHERE category_id = '$categoryId'");
+                                    $getSubcategoryOptions = mysqli_query($conn, "SELECT * FROM subcategory WHERE category_id = '$categoryId'");
 
-    foreach ($getSubcategoryOptions as $subcategoryOptions) {
-        $isSelected = '';
-        if ($result_array['subcategory_id'] == $subcategoryOptions['subcategory_id']) {
-            $isSelected = "selected";
-        }
-        ?>
+                                    foreach ($getSubcategoryOptions as $subcategoryOptions) {
+                                        $isSelected = '';
+                                        if ($result_array['subcategory_id'] == $subcategoryOptions['subcategory_id']) {
+                                            $isSelected = "selected";
+                                    }
+                                    ?>
                                         <option value="<?php echo $subcategoryOptions['subcategory_id']; ?>" <?php echo $isSelected; ?>><?php echo $subcategoryOptions['subcategory_title']; ?></option>
                                     <?php
-}
-    ?>
-                                </select>
-                                <span class="error error-subcategory"></span>
-                            </div>
-                        <?php
-}
-?>
+                                    }
+                                        ?>
+                                                                    </select>
+                                                                    <span class="error error-subcategory"></span>
+                                                                </div>
+                                                            <?php
+                                    }
+                                    ?>
                         <div class="form-group">
                             <span>Product Title</span>
                             <input type="text" name="product_title" id="simpleProduct-title" value="<?php echo $result_array['product_title']; ?>">
@@ -241,11 +250,40 @@ $getSubcategoryOptions = mysqli_query($conn, "SELECT * FROM subcategory WHERE ca
                             <input type="text" name="product_oldImage" id="simpleProduct-oldImage" value="<?php echo $result_array['product_img1']; ?>">
                             <span class="error error-keyword"></span>
                         </div>
+                        <div class="form-group">
+                            <span>Product Status</span>
+                            <select name="product_status" id="product_status" required>
+                                <option value="">SELECT</option>
+                                <?php
+                                $get_product_status = mysqli_query($conn, "SELECT * FROM product_status");
+
+                                foreach($get_product_status as $status) {
+                                ?>
+                                <option value="<?php echo $status['product_status_id'] ?>"><?php echo $status['product_status'] ?></option>
+                                <?php 
+                                }
+                                ?>
+                            </select>
+                        </div>
                         <button type="submit" id="update-simple-product">UPDATE</button>
                     </form>
                 </div>
             </div>
         </section>
+
+        <script>
+            if($('#admin_type').val() != 1) {
+                $('#category-list').attr('disabled','disabled');
+                $('#subcategory-list').attr('disabled','disabled');
+                $('#simpleProduct-title').attr('disabled','disabled');
+                $('#simpleProduct-url').attr('disabled','disabled');
+                $('#simpleProduct-desc').attr('disabled','disabled');
+                $('#simpleProduct-price').attr('disabled','disabled');
+                $('#simpleProduct-salePrice').attr('disabled','disabled');
+                $('#simpleProduct-image1').attr('disabled','disabled');
+                $('#simpleProduct-keyword').attr('disabled','disabled');
+            }
+        </script>
 
         <!-- IMAGE PREVIEW -->
         <script>
@@ -414,7 +452,10 @@ $getSubcategoryOptions = mysqli_query($conn, "SELECT * FROM subcategory WHERE ca
                                         $('.progress').removeClass("active");
                                     }, 5000);
                                     $('#example').DataTable().ajax.reload();
-                                }                            }
+                                }
+
+                                console.log(data);
+                            }
                         })
                     }
                 });

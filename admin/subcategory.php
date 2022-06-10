@@ -1,9 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
+$admin_type = $info['admin_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,6 +107,8 @@ require_once '../includes/database_conn.php';
 </head>
 
 <body>
+    <input type="hidden" name="admin_type" id="admin_type" value="<?php echo $admin_type; ?>">
+
     <!-- TOAST -->
     <div class="toast" id="toast">
         <div class="toast-content" id="toast-content">
@@ -229,6 +240,7 @@ require_once '../includes/database_conn.php';
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Sub Category ID</th>
                             <th>Category Title</th>
                             <th>Sub Category Title</th>
                             <th>Action</th>
@@ -238,6 +250,17 @@ require_once '../includes/database_conn.php';
             </div>
         </section>
 
+        <script>
+            if($('#admin_type').val() != 1) {
+                $('#getInsert').hide();
+                $('.edit-modal').hide();
+                $('.delete-modal').hide();
+            } else {
+                $('#getInsert').show();
+                $('.edit-modal').show();
+                $('.delete-modal').show();
+            }
+        </script>
 
         <script>
             var dataTable = $('#example').DataTable({

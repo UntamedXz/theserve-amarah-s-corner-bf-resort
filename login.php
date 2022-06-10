@@ -81,8 +81,8 @@ if(isset($_SESSION['id'])) {
         <form id="login">
             <a href="#" class="logo"><img src="./assets/images/official_logo.png" alt=""></a>
             <h3>sign in</h3>
-            <span>email</span>
-            <input type="email" name="loginEmail" id="loginEmail" class="box" placeholder="enter your email"
+            <span>email/username</span>
+            <input type="text" name="loginEmail" id="loginEmail" class="box" placeholder="enter your email"
                 value="<?php if(isset($_COOKIE['email'])) {echo $_COOKIE['email'];} ?>">
             <input type="hidden" name="" id="error-email">
             <span>password</span>
@@ -104,7 +104,7 @@ if(isset($_SESSION['id'])) {
             e.preventDefault();
 
             if ($('#loginEmail').val() == '') {
-                $('#error-email').val('Input email!');
+                $('#error-email').val('Input email or username!');
             } else {
                 $('#error-email').val('');
             }
@@ -118,12 +118,8 @@ if(isset($_SESSION['id'])) {
             if ($('#error-email').val() != '') {
                 $('#toast').addClass('active');
                 $('.progress').addClass('active');
-                // $('#toast-icon').removeClass(
-                //     'fa-solid fa-triangle-exclamation').addClass(
-                //     'fa-solid fa-check warning');
                 $('.text-1').text('Error!');
                 $('.text-2').text('Input email!');
-
                 setTimeout(() => {
                     $('#toast').removeClass("active");
                     $('.progress').removeClass("active");
@@ -131,12 +127,8 @@ if(isset($_SESSION['id'])) {
             } else if ($('#error-password').val() != '') {
                 $('#toast').addClass('active');
                 $('.progress').addClass('active');
-                // $('#toast-icon').removeClass(
-                //     'fa-solid fa-triangle-exclamation').addClass(
-                //     'fa-solid fa-check warning');
                 $('.text-1').text('Error!');
                 $('.text-2').text('Input password!');
-
                 setTimeout(() => {
                     $('#toast').removeClass("active");
                     $('.progress').removeClass("active");
@@ -183,6 +175,8 @@ if(isset($_SESSION['id'])) {
                         if (response == 'success') {
                             location.href = 'http://localhost/theserve-amarah-s-corner-las-pinas';
                         }
+
+                        console.log(response);
                     }
                 })
             }

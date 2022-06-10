@@ -3,11 +3,12 @@ require_once '../../includes/database_conn.php';
 
 $request = $_REQUEST;
 $col = array(
-    0 => 'category_title',
-    1 => 'subcategory_title'
+    0 => 'subcategory_id',
+    1 => 'category_title',
+    2 => 'subcategory_title'
 );
 
-$sql = "SELECT category.category_title, subcategory.subcategory_id, subcategory.subcategory_title
+$sql = "SELECT subcategory.subcategory_id, category.category_title, subcategory.subcategory_title
 FROM subcategory
 INNER JOIN category
 ON subcategory.category_id=category.category_id";
@@ -17,7 +18,7 @@ $totalData = mysqli_num_rows($query);
 
 $totalFilter = $totalData;
 
-$sql = "SELECT category.category_title, subcategory.subcategory_id, subcategory.subcategory_title
+$sql = "SELECT subcategory.subcategory_id, category.category_title, subcategory.subcategory_title
 FROM subcategory
 INNER JOIN category
 ON subcategory.category_id=category.category_id WHERE 1=1";
@@ -37,10 +38,11 @@ $data = array();
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
     $subdata[] = $row[0];
+    $subdata[] = $row[1];
     $subdata[] = $row[2];
     $subdata[] = '
-    <button type="button" id="getEdit" data-id="' . $row[1] . '"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
-    <button type="button" id="getDelete" data-id="' . $row[1] . '"><i class="fa-solid fa-trash-can"></i><span>Delete</span></button>
+    <button type="button" id="getEdit" data-id="' . $row[0] . '"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
+    <button type="button" id="getDelete" data-id="' . $row[0] . '"><i class="fa-solid fa-trash-can"></i><span>Delete</span></button>
     ';
     $data[] = $subdata;
 }

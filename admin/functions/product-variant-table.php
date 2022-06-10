@@ -3,7 +3,8 @@ require_once '../../includes/database_conn.php';
 
 $request = $_REQUEST;
 $col = array(
-    0 => 'variant_title'
+    0 => 'variant_id',
+    1 => 'variant_title'
 );
 
 $sql = "SELECT * FROM product_variant";
@@ -28,6 +29,7 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
+    $subdata[] = $row[0];
     $subdata[] = $row[1];
     $subdata[] = '
     <button type="button" id="getEdit" data-id="' . $row[0] . '"><i class="fa-solid fa-pen"></i><span>Edit</span></button>

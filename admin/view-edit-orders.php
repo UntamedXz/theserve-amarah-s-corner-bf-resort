@@ -1,9 +1,17 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
 
 $id = $_GET['id'];
 $decode_id = base64_decode(urldecode($id));
@@ -94,9 +102,9 @@ $decode_id = base64_decode(urldecode($id));
                             <?php
                             $get_items = mysqli_query($conn, "SELECT product.product_title, subcategory.subcategory_title, order_items.qty, order_items.product_total
                             FROM order_items
-                            INNER JOIN product
+                            LEFT JOIN product
                             ON product.product_id = order_items.product_id
-                            INNER JOIN subcategory
+                            LEFT JOIN subcategory
                             ON order_items.subcategory_id = subcategory.subcategory_id
                             WHERE order_items.order_id = $decode_id");
 
@@ -237,7 +245,7 @@ $decode_id = base64_decode(urldecode($id));
                             ?>
                             <div class="customer_items">
                                 <span>Name:</span>
-                                <span><?php echo $name['billing_name'] ?></span>
+                                <span id="name"><?php echo $name['billing_name'] ?></span>
                             </div>
                             <?php
                             }
@@ -254,7 +262,7 @@ $decode_id = base64_decode(urldecode($id));
                             ?>
                             <div class="customer_items">
                                 <span>Email:</span>
-                                <span><?php echo $email['email']; ?></span>
+                                <span id="email"><?php echo $email['email']; ?></span>
                             </div>
                             <?php
                             }
@@ -311,6 +319,8 @@ $decode_id = base64_decode(urldecode($id));
                         <h2>Current Order Status Pending</h2>
 
                         <form id="update_status">
+                            <input type="text" name="email" id="email" value="<?php echo $email['email']; ?>">
+                            <input type="text" name="name" id="name" value="<?php echo $billing['billing_name']; ?>">
                             <input type="hidden" name="order_id" id="order_id" value="<?php echo $decode_id; ?>">
                             <span>Change Order Status</span>
                             <select name="selected_status" id="selected_status" required>
@@ -336,11 +346,35 @@ $decode_id = base64_decode(urldecode($id));
                 </div>
         </section>
 
+        <?php
+        if(isset($_SESSION['update'])) {
+            $update = $_SESSION['update'];
+
+            if($update == 'success') {
+                echo "
+                    <script>
+                        $('#toast').addClass('active');
+                        $('.progress').addClass('active');
+                        $('#toast-icon').removeClass(
+                            'fa-solid fa-triangle-exclamation').addClass(
+                            'fa-solid fa-check warning');
+                        $('.text-1').text('Success!');
+                        $('.text-2').text('Order status updated successfully!');
+                        setTimeout(() => {
+                            $('#toast').removeClass('active');
+                            $('.progress').removeClass('active');
+                        }, 5000);
+                    </script>
+                ";
+                unset($_SESSION['update']);
+            }
+            unset($_SESSION['update']);
+        }
+        ?>
+
         <script>
             $('#update_status').on('submit', function(e) {
                 e.preventDefault();
-
-                console.log(status);
 
                 $.ajax({
                     type: "POST",
@@ -350,18 +384,7 @@ $decode_id = base64_decode(urldecode($id));
                     contentType: false,
                     success: function(response) {
                         if(response == 'success') {
-                            $('.insert-modal').removeClass("active");
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('#toast-icon').removeClass(
-                                    'fa-solid fa-triangle-exclamation').addClass(
-                                    'fa-solid fa-check warning');
-                                $('.text-1').text('Success!');
-                                $('.text-2').text('Order status updated successfully!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
+                            location.reload();
                         } else {
                             $('#toast').addClass('active');
                                 $('.progress').addClass('active');
@@ -372,6 +395,7 @@ $decode_id = base64_decode(urldecode($id));
                                     $('.progress').removeClass("active");
                                 }, 5000);
                         }
+                        console.log(response);
                     }
                 })
             })

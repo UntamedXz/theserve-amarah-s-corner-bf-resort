@@ -1,9 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
+$admin_type = $info['admin_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +108,7 @@ require_once '../includes/database_conn.php';
 </head>
 
 <body>
+    <input type="hidden" name="admin_type" id="admin_type" value="<?php echo $admin_type; ?>">
     <!-- TOAST -->
     <div class="toast" id="toast">
         <div class="toast-content" id="toast-content">
@@ -120,18 +130,19 @@ require_once '../includes/database_conn.php';
             <div id="modalClose" class="fa-solid fa-xmark"></div>
         </div>
         <hr>
-        <form id="delete_category">
+        <form id="delete_admin">
             <div style="display: none;" class="form-group">
                 <span>Category ID</span>
-                <input type="text" id="delete_category_id" name="delete_category_id" value="">
+                <input type="text" name="admin_id" id="admin_id" value="<?php echo $admin_id; ?>">
+                <input type="text" id="delete_admin_id" name="delete_admin_id" value="">
             </div>
-            <p>Are you sure, you want to delete this category?</p>
+            <p>Are you sure, you want to delete this user?</p>
         </form>
         <hr>
         <div class="bottom">
             <div class="buttons">
                 <button id="modalClose" type="button" class="cancel">CLOSE</button>
-                <button form="delete_category" id="deleteSubCategory" type="submit" class="save">DELETE</button>
+                <button form="delete_admin" id="deleteSubCategory" type="submit" class="save">DELETE</button>
             </div>
 
         </div>
@@ -144,22 +155,25 @@ require_once '../includes/database_conn.php';
             <div id="modalClose" class="fa-solid fa-xmark"></div>
         </div>
         <hr>
-        <form enctype="multipart/form-data" id="insert-category">
+        <form id="insert-user">
             <div class="form-group">
                 <span>Name</span>
                 <input type="text" id="insert_admin_name" name="insert_admin_name" value="">
+                <span style="color: #fff; font-size: 13px; font-weight: 800;" class="error-name"></span>
             </div>
             <div class="form-group">
                 <span>Username</span>
                 <input type="text" id="insert_admin_username" name="insert_admin_username" value="">
+                <span style="color: #fff; font-size: 13px; font-weight: 800;" class="error-username"></span>
             </div>
             <div class="form-group">
                 <span>Password</span>
-                <input type="text" id="insert_admin_password" name="insert_admin_password" value="">
+                <input type="password" id="insert_admin_password" name="insert_admin_password" value="">
+                <span style="color: #fff; font-size: 13px; font-weight: 800;" class="error-password"></span>
             </div>
             <div class="form-group">
                 <span>Admin Type</span>
-                <select name="" id="">
+                <select name="admin_type" id="admin_type">
                     <option value="">Select</option>
                     <?php
                     $get_admin_types = mysqli_query($conn, "SELECT * FROM admin_type");
@@ -171,13 +185,14 @@ require_once '../includes/database_conn.php';
                     }
                     ?>
                 </select>
+                <span style="color: #fff; font-size: 13px; font-weight: 800;" class="error-type"></span>
             </div>
         </form>
         <hr>
         <div class="bottom">
             <div class="buttons">
                 <button id="modalClose" type="button" class="cancel">CANCEL</button>
-                <button form="insert-category" type="submit" id="insert_category_btn" name="insert_category_btn"
+                <button form="insert-user" type="submit" id="insert_category_btn" name="insert_category_btn"
                     class="save">INSERT</button>
             </div>
         </div>
@@ -199,10 +214,10 @@ require_once '../includes/database_conn.php';
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Profile Image</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Profile Image</th>
                             <th>Phone Number</th>
                             <th>Admin Type</th>
                             <th>Action</th>
@@ -212,6 +227,15 @@ require_once '../includes/database_conn.php';
             </div>
         </section>
 
+        <script>
+            if($('#admin_type').val() != 1) {
+                $('#getInsert').hide();
+                $('.delete-modal').hide();
+            } else {
+                $('#getInsert').show();
+                $('.delete-modal').show();
+            }
+        </script>
 
         <script>
             // DATA TABLES
@@ -232,57 +256,6 @@ require_once '../includes/database_conn.php';
                     type: "post"
                 }
             });
-        </script>
-
-        <!-- IMAGE PREVIEW -->
-        <script>
-            $('#update_category_thumbnail').on('change', function () {
-                var file = this.files[0];
-
-                if (file) {
-                    var reader = new FileReader();
-
-                    reader.addEventListener('load', function () {
-                        $('#file').attr("src", this.result);
-                    })
-
-                    reader.readAsDataURL(file);
-                }
-            })
-
-            $('#insert_category_thumbnail').on('change', function () {
-                var file = this.files[0];
-
-                if (file) {
-                    var reader = new FileReader();
-
-                    reader.addEventListener('load', function () {
-                        $('#insertFile').attr("src", this.result);
-                    })
-
-                    reader.readAsDataURL(file);
-                }
-            })
-        </script>
-
-        <script>
-            // GET EDIT
-            $(document).on('click', '#getEdit', function (e) {
-                e.preventDefault();
-                var category_id_edit = $(this).data('id');
-                $.ajax({
-                    url: './functions/processing',
-                    type: 'POST',
-                    data: 'category_id_edit=' + category_id_edit,
-                    success: function (res) {
-                        var obj = JSON.parse(res);
-                        $(".edit-modal").addClass("active");
-                        $("#update_category_id").val(obj.category_id);
-                        $("#update_category_title").val(obj.category_title);
-                        $("#file").attr("src", "../assets/images/" + obj.category_thumbnail);
-                    }
-                })
-            });
 
             // GET INSERT
             $(document).on('click', '#getInsert', function (e) {
@@ -293,9 +266,9 @@ require_once '../includes/database_conn.php';
             // GET DELETE
             $(document).on('click', '#getDelete', function (e) {
                 e.preventDefault();
+                var admin_id = $(this).data('id');
                 $('.delete-modal').addClass('active');
-                var category_id_edit = $(this).data('id');
-                $("#delete_category_id").val(category_id_edit);
+                $('#delete_admin_id').val(admin_id);
             });
 
             // CLOSE MODAL
@@ -311,176 +284,57 @@ require_once '../includes/database_conn.php';
         </script>
 
         <script>
-            // SUBMIT EDIT
-            $(document).ready(function () {
-                $("#edit-category").on('submit', function (e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: "POST",
-                        url: "./functions/update-category",
-                        data: new FormData(this),
-                        dataType: 'text',
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (response) {
-                            if (response === 'category is empty') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('Category title field is empty!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'category title already exist') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('Category title already exist!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'title updated') {
-                                $('.edit-modal').removeClass("active");
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('#toast-icon').removeClass(
-                                    'fa-solid fa-triangle-exclamation').addClass(
-                                    'fa-solid fa-check warning');
-                                $('.text-1').text('Success!');
-                                $('.text-2').text('Category title updated successfully!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                                $('#example').DataTable().ajax.reload();
-                                $("#edit-category")[0].reset();
-                                $("#insert-category")[0].reset();
-                                $('#file').attr("src", '');
-                            } else if (response === 'invalid file') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('File not supported!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                                $('#example').DataTable().ajax.reload();
-                            } else if (response === 'invalid file') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('File is too large!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                                $('#example').DataTable().ajax.reload();
-                            } else if (response === 'updated successfully') {
-                                $('.edit-modal').removeClass("active");
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('#toast-icon').removeClass(
-                                    'fa-solid fa-triangle-exclamation').addClass(
-                                    'fa-solid fa-check warning');
-                                $('.text-1').text('Success!');
-                                $('.text-2').text(
-                                    'Category title and thumbnail updated successfully!'
-                                );
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                                $('#example').DataTable().ajax.reload();
-                                $("#edit-category")[0].reset();
-                                $("#insert-category")[0].reset();
-                                $('#file').attr("src", '');
-                            } else {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text(response);
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                                $('#example').DataTable().ajax.reload();
-                            }
-                        }
-                    })
-                })
+            // SUBMIT INSERT
+            $('#insert-user').on('submit', function (e) {
+                e.preventDefault();
 
-                // SUBMIT INSERT
-                $('#insert-category').on('submit', function (e) {
-                    e.preventDefault();
-                    $.ajax({
+                if($('#insert_admin_name').val() == 0) {
+                    $('#toast').addClass('active');
+                    $('.progress').addClass('active');
+                    $('.text-1').text('Error!');
+                    $('.text-2').text('Input name!');
+                    setTimeout(() => {
+                        $('#toast').removeClass("active");
+                        $('.progress').removeClass("active");
+                    }, 5000);
+                } else if ($('#insert_admin_username').val() == 0) {
+                    $('#toast').addClass('active');
+                    $('.progress').addClass('active');
+                    $('.text-1').text('Error!');
+                    $('.text-2').text('Input username!');
+                    setTimeout(() => {
+                        $('#toast').removeClass("active");
+                        $('.progress').removeClass("active");
+                    }, 5000);
+                } else if($('#insert_admin_password').val() == 0) {
+                    $('#toast').addClass('active');
+                    $('.progress').addClass('active');
+                    $('.text-1').text('Error!');
+                    $('.text-2').text('Input password!');
+                    setTimeout(() => {
+                        $('#toast').removeClass("active");
+                        $('.progress').removeClass("active");
+                    }, 5000);
+                } else if($('#admin_type').val() == "") {
+                    $('#toast').addClass('active');
+                    $('.progress').addClass('active');
+                    $('.text-1').text('Error!');
+                    $('.text-2').text('Set user type!');
+                    setTimeout(() => {
+                        $('#toast').removeClass("active");
+                        $('.progress').removeClass("active");
+                    }, 5000);
+                } else {
+                    $.ajax ({
                         type: "POST",
-                        url: "./functions/insert-category",
+                        url: "./functions/insert-user",
                         data: new FormData(this),
                         dataType: 'text',
                         contentType: false,
                         cache: false,
                         processData: false,
                         success: function (response) {
-                            if (response === 'empty fields') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('All fields are required!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'empty category title') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('Category title is empty!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'empty thumbnail') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('Category thumbnail is empty!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'file not supported') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('File is not supported!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'file too large') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('File is too large!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'title already exist') {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text('Category title already exists!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            } else if (response === 'successful') {
+                            if (response === 'success') {
                                 $('.insert-modal').removeClass("active");
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
@@ -488,70 +342,78 @@ require_once '../includes/database_conn.php';
                                     'fa-solid fa-triangle-exclamation').addClass(
                                     'fa-solid fa-check warning');
                                 $('.text-1').text('Success!');
-                                $('.text-2').text('Category successfully added!!');
+                                $('.text-2').text('Account successfully created!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");
                                 }, 5000);
                                 $('#example').DataTable().ajax.reload();
-                                $("#edit-category")[0].reset();
-                                $("#insert-category")[0].reset();
-                                $('#file').attr("src", '');
+                                $("#insert-user")[0].reset();
                             } else {
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
                                 $('.text-1').text('Error!');
-                                $('.text-2').text(response);
+                                $('.text-2').text('Something went wrong!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");
                                 }, 5000);
-                                $('#example').DataTable().ajax.reload();
                             }
+                            console.log(response);
                         }
                     })
-                })
+                }
+            })
 
-                // SUBMIT DELETE
-                $("#delete_category").on('submit', function (e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: "POST",
-                        url: "./functions/delete-category",
-                        data: new FormData(this),
-                        dataType: 'text',
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (response) {
-                            if (response === 'deleted') {
-                                $('.delete-modal').removeClass("active");
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('#toast-icon').removeClass(
-                                    'fa-solid fa-triangle-exclamation').addClass(
-                                    'fa-solid fa-check warning');
-                                $('.text-1').text('Success!');
-                                $('.text-2').text('Category deleted successfully!');
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                                $('#example').DataTable().ajax.reload();
-                            } else {
-                                $('#toast').addClass('active');
-                                $('.progress').addClass('active');
-                                $('.text-1').text('Error!');
-                                $('.text-2').text(response);
-                                setTimeout(() => {
-                                    $('#toast').removeClass("active");
-                                    $('.progress').removeClass("active");
-                                }, 5000);
-                            }
+            // SUBMIT DELETE
+            $("#delete_admin").on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "./functions/delete-user",
+                    data: new FormData(this),
+                    dataType: 'text',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response === 'success') {
+                            $('.delete-modal').removeClass("active");
+                            $('#toast').addClass('active');
+                            $('.progress').addClass('active');
+                            $('#toast-icon').removeClass(
+                                'fa-solid fa-triangle-exclamation').addClass(
+                                'fa-solid fa-check warning');
+                            $('.text-1').text('Success!');
+                            $('.text-2').text('User deleted successfully!');
+                            setTimeout(() => {
+                                $('#toast').removeClass("active");
+                                $('.progress').removeClass("active");
+                            }, 5000);
+                            $('#example').DataTable().ajax.reload();
+                        } else if(response === 'failed') {
+                            $('#toast').addClass('active');
+                            $('.progress').addClass('active');
+                            $('.text-1').text('Error!');
+                            $('.text-2').text('You can\'t delete your own account!');
+                            setTimeout(() => {
+                                $('#toast').removeClass("active");
+                                $('.progress').removeClass("active");
+                            }, 5000);
+                        } else {
+                            $('#toast').addClass('active');
+                            $('.progress').addClass('active');
+                            $('.text-1').text('Error!');
+                            $('.text-2').text('Something went wrong!');
+                            setTimeout(() => {
+                                $('#toast').removeClass("active");
+                                $('.progress').removeClass("active");
+                            }, 5000);
                         }
-                    })
+                        console.log(response);
+                    }
                 })
-            });
+            })
         </script>
 
 

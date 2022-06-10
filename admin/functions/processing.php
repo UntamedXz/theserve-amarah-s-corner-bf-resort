@@ -147,7 +147,7 @@ if (isset($_POST['simple_product_id'])) {
     echo json_encode($result_array);
 }
 
-// EDIT PRODUCT PAGE
+// EDIT ORDER STATUS
 if (isset($_POST['order_id'])) {
     $order_id = $_POST['order_id'];
 
@@ -157,5 +157,18 @@ if (isset($_POST['order_id'])) {
 
     if(mysqli_num_rows($checkOrder) > 0) {
         echo "view-edit-orders?id=" . $encryptedId;
+    }
+}
+
+// VIEW ORDER DELIVERED
+if (isset($_POST['order_id_view'])) {
+    $order_id_view = $_POST['order_id_view'];
+
+    $checkOrder = mysqli_query($conn, "SELECT * FROM orders WHERE order_id = $order_id_view");
+
+    $encryptedId = urlencode(base64_encode($order_id_view));
+
+    if(mysqli_num_rows($checkOrder) > 0) {
+        echo "view-order-delivered?id=" . $encryptedId;
     }
 }

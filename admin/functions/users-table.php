@@ -61,10 +61,10 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
+    $subdata[] = '<img style="width: 80px; border-radius: 50%;" src="../assets/images/'.$row[4].'" alt="">';
     $subdata[] = $row[1];
     $subdata[] = $row[2];
     $subdata[] = $row[3];
-    $subdata[] = '<img style="width: 100px;" src="../assets/images/'.$row[4].'" alt="">';
     $subdata[] = $row[5];
     $subdata[] = strtoupper($row[6]);
     $subdata[] = '

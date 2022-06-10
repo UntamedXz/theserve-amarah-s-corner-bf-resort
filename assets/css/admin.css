@@ -833,9 +833,86 @@ main .dashboard .dashboard-wrapper {
   background-position: center;
   background-size: cover;
   width: 100%;
-  height: 300px;
-  padding: 10px;
+  height: auto;
+  padding: 20px;
   color: #ffaf08;
+  display: flex;
+  border-radius: 5px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+main .dashboard .dashboard-wrapper .box {
+  width: 100%;
+  height: auto;
+  background-color: #ffaf08;
+  color: #070506;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (min-width: 768px) {
+  main .dashboard .dashboard-wrapper .box {
+    width: 45%;
+  }
+}
+@media (min-width: 1100px) {
+  main .dashboard .dashboard-wrapper .box {
+    width: 22.5%;
+  }
+}
+main .dashboard .dashboard-wrapper .box .titles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+main .dashboard .dashboard-wrapper .box .titles i {
+  width: 50%;
+  font-size: 70px;
+}
+main .dashboard .dashboard-wrapper .box .titles .label {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+main .dashboard .dashboard-wrapper .box .titles .label .count {
+  font-size: 42px;
+  font-weight: 600;
+  align-self: flex-end;
+  justify-self: flex-end;
+  line-height: 42px;
+}
+main .dashboard .dashboard-wrapper .box .titles .label span {
+  font-weight: 500;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+main .dashboard .dashboard-wrapper .box .hr {
+  height: 1px;
+  background-color: rgba(7, 5, 6, 0.3137254902);
+  width: 100%;
+  margin: 2px 0;
+}
+main .dashboard .dashboard-wrapper .box .view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main .dashboard .dashboard-wrapper .box .view span {
+  font-size: 14px;
+  font-weight: 500;
+}
+main .dashboard .dashboard-wrapper .box .view button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+}
+main .dashboard .dashboard-wrapper .box .view button i {
+  font-size: 24px;
 }
 main .insert-category {
   width: 100%;
@@ -1343,24 +1420,40 @@ main .orders-view-edit h1 {
   color: #fff;
   text-align: center;
   text-transform: capitalize;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   width: 100%;
   padding: 10px;
   border-radius: 5px;
 }
+@media (min-width: 768px) {
+  main .orders-view-edit h1 {
+    font-size: 20px;
+  }
+}
 main .orders-view-edit .wrapper {
   margin-top: 20px;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: 20px;
 }
+@media (min-width: 768px) {
+  main .orders-view-edit .wrapper {
+    flex-direction: row;
+  }
+}
 main .orders-view-edit .wrapper .left-wrapper {
   background-color: #070506;
-  width: 60%;
+  width: 100%;
   color: #fff;
   padding: 20px;
   border-radius: 5px;
+}
+@media (min-width: 768px) {
+  main .orders-view-edit .wrapper .left-wrapper {
+    width: 60%;
+  }
 }
 main .orders-view-edit .wrapper .left-wrapper h3 {
   font-weight: 400;
@@ -1460,10 +1553,14 @@ main .orders-view-edit .wrapper .left-wrapper .gcash_details_sec .gcash_containe
   justify-content: center;
 }
 main .orders-view-edit .wrapper .left-wrapper .gcash_details_sec .gcash_container .reference_container {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 5px;
   font-size: 17px;
   font-weight: 500;
+  word-wrap: break-word;
+  white-space: wrap;
 }
 main .orders-view-edit .wrapper .left-wrapper .gcash_details_sec .gcash_container .screenshot_container {
   width: 150px;
@@ -1511,6 +1608,8 @@ main .orders-view-edit .wrapper .left-wrapper .customer_details_sec .customer_co
 main .orders-view-edit .wrapper .left-wrapper .customer_details_sec .customer_container .customer_items {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
   justify-content: space-between;
 }
 main .orders-view-edit .wrapper .left-wrapper .billing_details_sec {
@@ -1528,10 +1627,15 @@ main .orders-view-edit .wrapper .left-wrapper .billing_details_sec .billing_cont
 main .orders-view-edit .wrapper .right-wrapper {
   background-color: #070506;
   color: #fff;
-  width: 40%;
+  width: 100%;
   padding: 20px;
   height: auto;
   border-radius: 5px;
+}
+@media (min-width: 768px) {
+  main .orders-view-edit .wrapper .right-wrapper {
+    width: 40%;
+  }
 }
 main .orders-view-edit .wrapper .right-wrapper h3 {
   font-weight: 400;

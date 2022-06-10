@@ -186,9 +186,9 @@ if(isset($_SESSION['order_id'])) {
                                     <?php
                                     $get_order_items = mysqli_query($conn, "SELECT order_items.order_id, product.product_title, product.product_img1, subcategory.subcategory_title, order_items.qty, order_items.product_total
                                     FROM order_items
-                                    INNER JOIN product
+                                    LEFT JOIN product
                                     ON order_items.product_id = product.product_id
-                                    INNER JOIN subcategory
+                                    LEFT JOIN subcategory
                                     ON order_items.subcategory_id = subcategory.subcategory_id
                                     WHERE order_items.order_id = $order_id");
 

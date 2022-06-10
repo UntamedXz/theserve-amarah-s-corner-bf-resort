@@ -31,11 +31,14 @@
         <li>
             <a href="order"><i class='bx bxs-cart icon'></i>Orders</a>
         </li>
+        <li>
+            <a href="order-delivered"><i class='bx bx-package icon'></i>Order Delivered</a>
+        </li>
         <li class="divider" data-text="settings">settings</li>
         <li>
             <a href="users"><i class='bx bxs-user-circle icon'></i>Users</a>
-            <a href="#"><i class='bx bxs-palette icon'></i>Home Appearance</a>
-            <a href="#"><i class='bx bxs-cog icon'></i>Admin Settings</a>
+            <!-- <a href="#"><i class='bx bxs-palette icon'></i>Home Appearance</a>
+            <a href="#"><i class='bx bxs-cog icon'></i>Admin Settings</a> -->
         </li>
     </ul>
 </section>
@@ -68,15 +71,26 @@
             </div>
             <span class="divider"></span>
             <div class="profile">
-                <img src="../assets/images/Eramie.jpg">
+                <img style="border: 2px solid #ffaf08;" id="profileIcon" src="">
                 <ul class="profile-link">
-                    <li><a href="#"><i class="bx bxs-user-circle icon"></i>Profile</a></li>
-                    <li><a href="#"><i class="bx bxs-cog"></i>Settings</a></li>
+                    <li><a href="profile"><i class="bx bxs-user-circle icon"></i>Profile</a></li>
                     <li><a href="./functions/logout"><i class="bx bxs-log-out-circle"></i>Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- NAVBAR -->
+
+    <input type="hidden" id="profileIconCheck" value="<?php echo $userProfileIcon; ?>">
+
+    <script>
+        $(window).on('load', function() {
+            if($('#profileIconCheck').val() == '') {
+                $('#profileIcon').attr("src","../assets/images/no_profile_pic.png");
+            } else {
+                $('#profileIcon').attr("src","../assets/images/" + $('#profileIconCheck').val());
+            }
+        })
+    </script>
 
     <div id="overlay" class="hide"></div>

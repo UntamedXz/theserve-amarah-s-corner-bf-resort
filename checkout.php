@@ -122,20 +122,20 @@ foreach ($get_info as $info) {
                     <div class="group_form_group">
                         <div class="form_group left">
                             <span>Billing Fullname</span>
-                            <input class="default" type="text" name="billing_name" id="fullname" placeholder="Input fullname"
+                            <input class="default" type="text" name="billing_name" id="fullname"
                                 value="<?php echo $info['name'] ?>">
                             <span class="error-fullname" style="color: #dc3545;"></span>
                         </div>
                         <div class="form_group right">
                             <span>Phone Number</span>
-                            <input class="default" type="tel" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="11" name="billing_phone" id="phone_number" placeholder="Input phone number"
+                            <input class="default" type="tel" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="11" name="billing_phone" id="phone_number"
                                 value="<?php echo $info['phone_number'] ?>">
                             <span class="error-phone_number" style="color: #dc3545;"></span>
                         </div>
                     </div>
                     <div class="form_group">
                         <span>Email Address</span>
-                        <input class="default" type="text" name="billing_email" id="email" placeholder="Input email address" readonly
+                        <input class="default" type="text" name="billing_email" id="email" readonly
                             value="<?php echo $info['email'] ?>">
                         <span class="error-email_address" style="color: #dc3545;"></span>
                     </div>
@@ -145,25 +145,25 @@ foreach ($get_info as $info) {
                     <span class="click_here"><a href="account">Click here</a> to update personal information</span>
                     <div class="group_form_group">
                         <div class="form_group">
-                            <span>Block Number, Building and Street Name</span>
-                            <input type="text" name="address" id="block" placeholder="Input Block, Building and St. name">
+                            <span>Block No., Bldg. & St. Name</span>
+                            <input type="text" name="address" id="block">
                             <span class="error-block" style="color: #dc3545;"></span>
                         </div>
                         <div class="form_group">
                             <span>Province</span>
-                            <input type="text" name="province" id="province" placeholder="Input Province">
+                            <input type="text" name="province" id="province">
                             <span class="error-province" style="color: #dc3545;"></span>
                         </div>
                     </div>
                     <div class="group_form_group">
                         <div class="form_group">
                             <span>City/Municipality</span>
-                            <input type="text" name="city" id="city" placeholder="Input City/Municipality">
+                            <input type="text" name="city" id="city">
                             <span class="error-city" style="color: #dc3545;"></span>
                         </div>
                         <div class="form_group">
                             <span>Barangay</span>
-                            <input type="text" name="barangay" id="barangay" placeholder="Input Barangay">
+                            <input type="text" name="barangay" id="barangay">
                             <span class="error-barangay" style="color: #dc3545;"></span>
                         </div>
                     </div>

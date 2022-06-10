@@ -108,7 +108,7 @@ if(isset($_SESSION['id'])) {
                     }
                     ?>
                     <button data-id="<?php echo $userId ?>" id="remove">REMOVE</button>
-                    <span style="color: #dc3545; font-size: 12px;" class="error-image"></span>
+                    <span style="color: #fff; font-size: 13px; font-weight: 800;" class="error-image"></span>
                     <form id="update_img">
                         <div class="form-group">
                             <input type="hidden" name="user_id" id="user_id" value="<?php echo $userId; ?>">
@@ -164,7 +164,7 @@ if(isset($_SESSION['id'])) {
                         <span class="basicInformation">BASIC INFORMATION</span>
                         <hr>
                         <div class="basicInfoWrapper">
-                            <span>Birthday: <strong><?php echo $rowInfo['user_birthday'] ?></strong></span>
+                            <span>Birthday: <strong><?php if($rowInfo['user_birthday'] != '0000-00-00') { echo $rowInfo['user_birthday']; }  ?></strong></span>
                             <span>Gender: <strong><?php echo $rowInfo['user_gender'] ?></strong></span>
                         </div>
                     </div>
@@ -219,17 +219,17 @@ if(isset($_SESSION['id'])) {
                         <div class="form-group">
                             <span>Old Password</span>
                             <input type="password" name="old_password" id="old_password" placeholder="Input old password">
-                            <span style="color: #dc3545; font-size: 12px;" class="error-old_password"></span>
+                            <span style="color: #000; font-size: 13px; font-weight: 800;" class="error-old_password"></span>
                         </div>
                         <div class="form-group">
                             <span>New Password</span>
                             <input type="password" name="new_password" id="new_password" placeholder="Input new password">
-                            <span style="color: #dc3545; font-size: 12px;" class="error-new_password"></span>
+                            <span style="color: #000; font-size: 13px; font-weight: 800;" class="error-new_password"></span>
                         </div>
                         <div class="form-group">
                             <span>Confirm Password</span>
                             <input type="password" name="confirm_password" id="confirm_password" placeholder="Input confirm password">
-                            <span style="color: #dc3545; font-size: 12px;" class="error-confirm_password"></span>
+                            <span style="color: #000; font-size: 13px; font-weight: 800;" class="error-confirm_password"></span>
                         </div>
                         <button type="submit">UPDATE</button>
                     </form>

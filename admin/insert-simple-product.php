@@ -1,9 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
+$admin_type = $info['admin_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,7 +180,6 @@ require_once '../includes/database_conn.php';
 
         <section class="insert-product">
             <div class="insert-product-wrapper">
-
                 <div class="product-container">
                     <h1>Product Details</h1>
                     <hr>
@@ -239,6 +247,21 @@ require_once '../includes/database_conn.php';
                             <span>Product Keyword</span>
                             <input type="text" name="product_keyword" id="simpleProduct-keyword">
                             <span class="error error-keyword"></span>
+                        </div>
+                        <div class="form-group">
+                            <span>Product Status</span>
+                            <select name="product_status" id="product_status" required>
+                                <option value="">SELECT</option>
+                                <?php
+                                $get_product_status = mysqli_query($conn, "SELECT * FROM product_status");
+
+                                foreach($get_product_status as $status) {
+                                ?>
+                                <option value="<?php echo $status['product_status_id'] ?>"><?php echo $status['product_status'] ?></option>
+                                <?php 
+                                }
+                                ?>
+                            </select>
                         </div>
                         <button type="submit" id="insert-simple-product">INSERT</button>
                     </form>

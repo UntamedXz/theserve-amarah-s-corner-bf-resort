@@ -1,9 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == false) {
+if (!isset($_SESSION['adminloggedin']) || $_SESSION['adminloggedin'] != true) {
     header("Location: ./login");
+} else {
+    $admin_id = $_SESSION['admin_id'];
 }
 require_once '../includes/database_conn.php';
+
+$get_admin_info = mysqli_query($conn, "SELECT * FROM admin WHERE admin_id = $admin_id");
+
+$info = mysqli_fetch_array($get_admin_info);
+
+$userProfileIcon = $info['profile_image'];
+$admin_type = $info['admin_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,6 +112,8 @@ require_once '../includes/database_conn.php';
 </head>
 
 <body>
+    <input type="hidden" name="admin_type" id="admin_type" value="<?php echo $admin_type; ?>">
+
     <!-- TOAST -->
     <div class="toast" id="toast">
         <div class="toast-content" id="toast-content">
@@ -154,12 +165,15 @@ require_once '../includes/database_conn.php';
         <section class="view-category">
             <button onclick="location.href = 'insert-simple-product';" id="getInsert" class="insert_cat"
                 type="button"><i class="fa-solid fa-plus"></i> <span>INSERT SIMPLE PRODUCT</span> </button>
+
             <button onclick="location.href = 'insert-variable-product';" id="getInsert" class="insert_cat"
                 type="button"><i class="fa-solid fa-plus"></i> <span>INSERT VARIABLE PRODUCT</span> </button>
+
             <div class="wrapper">
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Product ID</th>
                             <th>Product Image</th>
                             <th>Category</th>
                             <th>Subcategory</th>
@@ -172,6 +186,16 @@ require_once '../includes/database_conn.php';
                 </table>
             </div>
         </section>
+
+        <script>
+            if($('#admin_type').val() != 1) {
+                $('#getInsert').hide();
+                $('.delete-modal').hide();
+            } else {
+                $('#getInsert').show();
+                $('.delete-modal').show();
+            }
+        </script>
 
 
         <script>

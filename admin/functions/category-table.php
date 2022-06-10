@@ -3,9 +3,9 @@ require_once '../../includes/database_conn.php';
 
 $request = $_REQUEST;
 $col = array(
-    // 0   =>  'category_id',
-    0   =>  'category_title',
-    1   =>  'categoty_thumbnail',
+    0   =>  'category_id',
+    1   =>  'category_title',
+    2   =>  'categoty_thumbnail',
 );
 //create column like table in database
 
@@ -35,8 +35,9 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
+    $subdata[] = $row[0];
     $subdata[] = $row[1];
-    $subdata[] = $row[2];
+    $subdata[] = '<img style="width: 80px;" src="../assets/images/'.$row[2].'" alt="">';
     $subdata[] = '
     <button type="button" id="getEdit" data-id="' . $row[0] . '"><i class="fa-solid fa-pen"></i><span>Edit</span></button>
     <button type="button" id="getDelete" data-id="' . $row[0] . '"><i class="fa-solid fa-trash-can"></i><span>Delete</span></button>

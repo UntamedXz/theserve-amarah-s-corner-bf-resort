@@ -1,9 +1,9 @@
 <?php
 require_once '../../includes/database_conn.php';
 
-if ($_POST['update_category-list'] == "CATEGORY" && empty($_POST['update-subcategory'])) {
+if ($_POST['update_category-list'] == "" && empty($_POST['update-subcategory'])) {
     echo 'empty field';
-} else if ($_POST['update_category-list'] == "CATEGORY") {
+} else if ($_POST['update_category-list'] == "") {
     echo 'empty category';
 } else if (empty($_POST['update-subcategory'])) {
     echo 'empty subcategory';

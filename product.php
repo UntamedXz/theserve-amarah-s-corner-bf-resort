@@ -169,15 +169,51 @@ if(isset($_SESSION['id'])) {
                     </h1>
                     <span class="price"><small>Starts at </small> <b>P<span
                                 class="priceValue"><?php echo $row['product_price']; ?></span> </b></span>
-                    <!-- <span class="desc">
-                        Ham with Mozarella and Special Cheese
-                    </span> -->
+                    <span class="desc">
+                        <?php
+                            echo ucwords($row['product_desc']);
+                        ?>
+                    </span>
                 </div>
             </div>
             <div class="right">
                 <div class="form-group">
                     <span>Special Instructions (Optional)</span>
-                    <input type="text" name="" id="">
+                    <textarea class="instruction" type="text" name="" id=""></textarea>
+
+                    <fieldset>
+
+<legend> SIZE </legend>
+
+    <div>
+      <input type="radio" id="size" name="size" value="size"
+             checked>
+      <label for="size">10"</label>
+    </div>
+
+    <div>
+      <input type="radio" id="size" name="size" value="size">
+      <label for="size">12"</label>
+    </div>
+
+</fieldset>
+<fieldset>
+<legend> FLAVOR </legend>
+
+    <div>
+      <input type="radio" id="size" name="size" value="size"
+             checked>
+      <label for="size">CHEESECAKE</label>
+    </div>
+
+    <div>
+      <input type="radio" id="size" name="size" value="size">
+      <label for="size">OVERLOAD</label>
+    </div>
+
+</fieldset>
+
+
                 </div>
             </div>
         </div>
