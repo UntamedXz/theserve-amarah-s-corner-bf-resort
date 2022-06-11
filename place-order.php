@@ -109,7 +109,7 @@ if(isset($_SESSION['order_id'])) {
             <div class="col-md-8">
                 <div class="card">
                     <div class="text-left logo p-2 px-5"> <img src="./assets/images/logo.png" class="logoTop"> <a
-                            href="index.php" class="w3-xxxlarge"><i class="fa fa-home"></i></a> </div>
+                            href="index" class="w3-xxxlarge"><i class="fa fa-home"></i></a> </div>
                     <div class="invoice p-5">
                         <h5>Your order Confirmed!</h5>
                         <div class="forgif"><img class="gif" src="./assets/images/courier.gif"></div>

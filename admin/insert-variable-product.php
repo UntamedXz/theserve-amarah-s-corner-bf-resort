@@ -181,15 +181,15 @@ if (isset($_SESSION['alert'])) {
                             <select name="category-list" id="category-list">
                                 <option selected="selected" value="SELECT CATEGORY">SELECT CATEGORY</option>
                                 <?php
-$fetchCategory = mysqli_query($conn, "SELECT * FROM category");
+                                $fetchCategory = mysqli_query($conn, "SELECT * FROM category");
 
-foreach ($fetchCategory as $categoryRow) {
-    ?>
+                                foreach ($fetchCategory as $categoryRow) {
+                                ?>
                                 <option value="<?php echo $categoryRow['category_id']; ?>">
                                     <?php echo $categoryRow['category_title']; ?></option>
                                 <?php
-}
-?>
+                                }
+                                ?>
                             </select>
                             <span class="error error-category"></span>
                         </div>
@@ -250,15 +250,15 @@ foreach ($fetchCategory as $categoryRow) {
                             <select name="variant_list" id="variant_list">
                                 <option value="">SELECT VARIANT</option>
                                 <?php
-$get_variant = mysqli_query($conn, "SELECT * FROM product_variant");
+                                $get_variant = mysqli_query($conn, "SELECT * FROM product_variant");
 
-foreach ($get_variant as $variant_row) {
-    ?>
+                                foreach ($get_variant as $variant_row) {
+                                ?>
                                 <option value="<?php echo $variant_row['variant_id'] ?>">
                                     <?php echo $variant_row['variant_title'] ?></option>
                                 <?php
-}
-?>
+                                }
+                                ?>
                             </select>
                             <button id="add_variant">ADD</button>
                         </div>
@@ -273,35 +273,35 @@ foreach ($get_variant as $variant_row) {
                     </form>
 
                     <!-- VARIATIONS TAB -->
-                    <form id="variations_tab">
+                    <form id="variations_tab" style="display: none;">
                         <input type="hidden" name="product_id" id="" value="<?php echo $product_id; ?>">
                         <div class="form_group">
                             <span>Attributes</span>
 
                             <div class="select-wrapper">
                                 <?php
-$get_variant_product = mysqli_query($conn, "SELECT product_variant.variant_title, product_variant.variant_id FROM product_variant INNER JOIN product_attribute ON product_variant.variant_id = product_attribute.variant_id WHERE product_id = 193 GROUP BY product_variant.variant_title");
+                                $get_variant_product = mysqli_query($conn, "SELECT product_variant.variant_title, product_variant.variant_id FROM product_variant INNER JOIN product_attribute ON product_variant.variant_id = product_attribute.variant_id WHERE product_id = 193 GROUP BY product_variant.variant_title");
 
-foreach ($get_variant_product as $product_variant) {
-    $variant_id = $product_variant['variant_id'];
-    ?>
+                                foreach ($get_variant_product as $product_variant) {
+                                $variant_id = $product_variant['variant_id'];
+                                ?>
                                 <select name="attribute[]" class="attribute" id="attribute"
                                     onchange="getSelectedItems()" required>
                                     <option value=""><?php echo $product_variant['variant_title']; ?></option>
                                     <?php
-$get_product_attribute = mysqli_query($conn, "SELECT * FROM product_attribute WHERE product_id = 193 AND variant_id = $variant_id");
+                                    $get_product_attribute = mysqli_query($conn, "SELECT * FROM product_attribute WHERE product_id = 193 AND variant_id = $variant_id");
 
-    foreach ($get_product_attribute as $product_attribute) {
-        ?>
+                                    foreach ($get_product_attribute as $product_attribute) {
+                                    ?>
                                     <option value="<?php echo $product_attribute['attribute_id']; ?>">
                                         <?php echo $product_attribute['attribute_title']; ?></option>
                                     <?php
-}
-    ?>
+                                    }
+                                    ?>
                                 </select>
                                 <?php
-}
-?>
+                                }
+                                ?>
                                 <button id="add_variations">ADD</button>
                             </div>
                         </div>
@@ -607,14 +607,15 @@ if ($alert == 'success') {
                 output += '<td> <div class="group_form_group">';
                 output +=
                     '<div class="form_group left"> <span>Variant: </span> <input type="text" name="variant_name" id="variant_name" value="' +
-                    trim + '"> <input type="hidden" name="variant_id[]" value="' + selected_variant_id +
+                    trim + '"> <input type="text" class="variant_id" name="variant_id[]" value="' + selected_variant_id +
                     '"> </div>';
                 output +=
                     '<div class="form_group center"> <span>Attributes: </span> <input type="text" name="attributes[]" id="attributes" placeholder="Input attributes separated by comma" value=""> </div>';
 
                 output +=
                     '<div class="form_group right"> <button id="' + count +
-                    '" class="remove_variant"><i class="fa-solid fa-trash"></i></button> </div>';
+                    '" class="remove_variant" data-id="' + selected_variant_id +
+                    '"><i class="fa-solid fa-trash"></i></button> </div>';
 
                 output += '</div>';
 
@@ -627,6 +628,8 @@ if ($alert == 'success') {
 
             $(document).on('click', '.remove_variant', function () {
                 var row_id = $(this).attr("id");
+                var variant_id = $(this).data("id");
+                $("#variant_list option[value=" + variant_id + "]").removeAttr('disabled');
                 $('#row_' + row_id + '').remove();
             })
 

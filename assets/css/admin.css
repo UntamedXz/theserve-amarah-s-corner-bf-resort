@@ -854,12 +854,12 @@ main .dashboard .dashboard-wrapper .box {
 }
 @media (min-width: 768px) {
   main .dashboard .dashboard-wrapper .box {
-    width: 45%;
+    width: 32.33%;
   }
 }
 @media (min-width: 1100px) {
   main .dashboard .dashboard-wrapper .box {
-    width: 22.5%;
+    width: 16%;
   }
 }
 main .dashboard .dashboard-wrapper .box .titles {

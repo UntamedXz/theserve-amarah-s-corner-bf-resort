@@ -12,6 +12,7 @@ $productImage1Name = $_FILES['product_image1']['name'];
 $productImage1TmpName = $_FILES['product_image1']['tmp_name'];
 $productKeyword = $_POST['product_keyword'];
 $productDescription = $_POST['product_desc'];
+$productStatus = $_POST['product_status'];
 
 if ($productSubcategory == 'SELECT SUBCATEGORY') {
     if ($_FILES['product_image1']['error'] === 4) {
@@ -20,7 +21,7 @@ if ($productSubcategory == 'SELECT SUBCATEGORY') {
         if (mysqli_num_rows($checkProduct) > 0) {
             echo 'product already exist';
         } else {
-            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_keyword, product_price, product_sale, product_desc) VALUES ('$productCategory', NULL, '$productTitle', '$productUrl', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription')");
+            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_keyword, product_price, product_sale, product_desc, product_status) VALUES ('$productCategory', NULL, '$productTitle', '$productUrl', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription', '$productStatus')");
 
             if ($insertProduct) {
                 $getProductId = mysqli_query($conn, "SELECT * FROM product WHERE product_slug = '$productUrl'");
@@ -46,7 +47,7 @@ if ($productSubcategory == 'SELECT SUBCATEGORY') {
 
             move_uploaded_file($productImage1TmpName, '../../assets/images/' . $newImageName);
 
-            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_img1, product_keyword, product_price, product_sale, product_desc) VALUES ('$productCategory', NULL, '$productTitle', '$productUrl', '$newImageName', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription')");
+            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_img1, product_keyword, product_price, product_sale, product_desc, product_status) VALUES ('$productCategory', NULL, '$productTitle', '$productUrl', '$newImageName', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription', '$productStatus')");
 
             if ($insertProduct) {
                 $getProductId = mysqli_query($conn, "SELECT * FROM product WHERE product_slug = '$productUrl'");
@@ -67,7 +68,7 @@ if ($productSubcategory == 'SELECT SUBCATEGORY') {
         if (mysqli_num_rows($checkProduct) > 0) {
             echo 'product already exist';
         } else {
-            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_keyword, product_price, product_sale, product_desc) VALUES ('$productCategory', '$productSubcategory', '$productTitle', '$productUrl', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription')");
+            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_keyword, product_price, product_sale, product_desc, product_status) VALUES ('$productCategory', '$productSubcategory', '$productTitle', '$productUrl', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription', '$productStatus')");
 
             if ($insertProduct) {
                 $getProductId = mysqli_query($conn, "SELECT * FROM product WHERE product_slug = '$productUrl'");
@@ -93,7 +94,7 @@ if ($productSubcategory == 'SELECT SUBCATEGORY') {
 
             move_uploaded_file($productImage1TmpName, '../../assets/images/' . $newImageName);
 
-            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_img1, product_keyword, product_price, product_sale, product_desc) VALUES ('$productCategory', '$productSubcategory', '$productTitle', '$productUrl', '$newImageName', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription')");
+            $insertProduct = mysqli_query($conn, "INSERT INTO product (category_id, subcategory_id, product_title, product_slug, product_img1, product_keyword, product_price, product_sale, product_desc, product_status) VALUES ('$productCategory', '$productSubcategory', '$productTitle', '$productUrl', '$newImageName', '$productKeyword', '$productPrice', '$productSalePrice', '$productDescription', '$productStatus')");
 
             if ($insertProduct) {
                 $getProductId = mysqli_query($conn, "SELECT * FROM product WHERE product_slug = '$productUrl'");

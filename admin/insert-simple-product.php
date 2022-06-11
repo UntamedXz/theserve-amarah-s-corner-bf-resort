@@ -250,7 +250,7 @@ $admin_type = $info['admin_type'];
                         </div>
                         <div class="form-group">
                             <span>Product Status</span>
-                            <select name="product_status" id="product_status" required>
+                            <select name="product_status" id="product_status">
                                 <option value="">SELECT</option>
                                 <?php
                                 $get_product_status = mysqli_query($conn, "SELECT * FROM product_status");
@@ -262,6 +262,7 @@ $admin_type = $info['admin_type'];
                                 }
                                 ?>
                             </select>
+                            <span class="error error-status"></span>
                         </div>
                         <button type="submit" id="insert-simple-product">INSERT</button>
                     </form>
@@ -382,11 +383,17 @@ $admin_type = $info['admin_type'];
                 } else {
                     $('.error-keyword').text('');
                 }
+                if($.trim($('#product_status').val() == "")) {
+                    $('.error-status').text('Product Status required');
+                } else {
+                    $('.error-status').text('');
+                }
                 if ($('.error-category').text() != '' || $('.error-subcategory').text() != '' || $(
                         '.error-title').text() != '' || $('.error-desc').text() != '' || $('.error-url')
                     .text() != '' || $('.error-price').text() != '' || $('.error-price').text() != '' ||
                     $('.error-salePrice').text() != '' || $('.error-image').text() != '' || $(
-                        '.error-keyword').text() != '') {
+                        '.error-keyword').text() != '' || $(
+                        '.error-status').text() != '') {
                     $('#toast').addClass('active');
                     $('.progress').addClass('active');
                     $('.text-1').text('Error!');
@@ -501,240 +508,6 @@ $admin_type = $info['admin_type'];
                 url: "./functions/category-table",
                 type: "post"
             }
-        });
-        </script>
-
-        <script>
-        // SUBMIT EDIT
-        $(document).ready(function() {
-            $("#edit-category").on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "update-category",
-                    data: new FormData(this),
-                    dataType: 'text',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response === 'category is empty') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Category title field is empty!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'category title already exist') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Category title already exist!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'title updated') {
-                            $('.edit-modal').removeClass("active");
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('#toast-icon').removeClass(
-                                'fa-solid fa-triangle-exclamation').addClass(
-                                'fa-solid fa-check warning');
-                            $('.text-1').text('Success!');
-                            $('.text-2').text('Category title updated successfully!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                            $('#example').DataTable().ajax.reload();
-                        }
-
-                        if (response === 'invalid file') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('File not supported!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                            $('#example').DataTable().ajax.reload();
-                        }
-                        if (response === 'invalid file') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('File is too large!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                            $('#example').DataTable().ajax.reload();
-                        }
-
-                        if (response === 'updated successfully') {
-                            $('.edit-modal').removeClass("active");
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('#toast-icon').removeClass(
-                                'fa-solid fa-triangle-exclamation').addClass(
-                                'fa-solid fa-check warning');
-                            $('.text-1').text('Success!');
-                            $('.text-2').text(
-                                'Category title and thumbnail updated successfully!'
-                            );
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                            $('#example').DataTable().ajax.reload();
-                        }
-                    }
-                })
-            })
-
-            // SUBMIT INSERT
-            $('#insert-category').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "./functions/insert-category",
-                    data: new FormData(this),
-                    dataType: 'text',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response === 'empty fields') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('All fields are required!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'empty category title') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Category title is empty!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'empty thumbnail') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Category thumbnail is empty!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'file not supported') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('File is not supported!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'file too large') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('File is too large!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'title already exist') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Category title already exists!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response === 'successful') {
-                            $('.insert-modal').removeClass("active");
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('#toast-icon').removeClass(
-                                'fa-solid fa-triangle-exclamation').addClass(
-                                'fa-solid fa-check warning');
-                            $('.text-1').text('Success!');
-                            $('.text-2').text('Category successfully added!!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                            $('#example').DataTable().ajax.reload();
-                            $('#file').attr("src", '');
-                        }
-                    }
-                })
-            })
-
-            // SUBMIT DELETE
-            $("#delete_category").on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "./functions/delete-category",
-                    data: new FormData(this),
-                    dataType: 'text',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response === 'deleted') {
-                            $('.delete-modal').removeClass("active");
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('#toast-icon').removeClass(
-                                'fa-solid fa-triangle-exclamation').addClass(
-                                'fa-solid fa-check warning');
-                            $('.text-1').text('Success!');
-                            $('.text-2').text('Category deleted successfully!');
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                            $('#example').DataTable().ajax.reload();
-                        }
-                    }
-                })
-            })
         });
         </script>
 

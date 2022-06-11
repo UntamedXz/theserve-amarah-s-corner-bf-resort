@@ -319,8 +319,9 @@ $decode_id = base64_decode(urldecode($id));
                         <h2>Current Order Status Pending</h2>
 
                         <form id="update_status">
-                            <input type="text" name="email" id="email" value="<?php echo $email['email']; ?>">
-                            <input type="text" name="name" id="name" value="<?php echo $billing['billing_name']; ?>">
+                            <input type="hidden" name="email" id="email" value="<?php echo $email['email']; ?>">
+                            <input type="hidden" name="name" id="name" value="<?php echo $billing['billing_name']; ?>">
+                            <input type="hidden" name="number" id="number" value="<?php echo $number['billing_number']; ?>">
                             <input type="hidden" name="order_id" id="order_id" value="<?php echo $decode_id; ?>">
                             <span>Change Order Status</span>
                             <select name="selected_status" id="selected_status" required>

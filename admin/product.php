@@ -166,8 +166,8 @@ $admin_type = $info['admin_type'];
             <button onclick="location.href = 'insert-simple-product';" id="getInsert" class="insert_cat"
                 type="button"><i class="fa-solid fa-plus"></i> <span>INSERT SIMPLE PRODUCT</span> </button>
 
-            <button onclick="location.href = 'insert-variable-product';" id="getInsert" class="insert_cat"
-                type="button"><i class="fa-solid fa-plus"></i> <span>INSERT VARIABLE PRODUCT</span> </button>
+            <!-- <button onclick="location.href = 'insert-variable-product';" id="getInsert" class="insert_cat"
+                type="button"><i class="fa-solid fa-plus"></i> <span>INSERT VARIABLE PRODUCT</span> </button> -->
 
             <div class="wrapper">
                 <table id="example" class="table table-bordered table-striped">

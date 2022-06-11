@@ -121,11 +121,6 @@ $userProfileIcon = $info['profile_image'];
                                 <span>Pending Orders</span>
                             </div>
                         </div>
-                        <div class="hr"></div>
-                        <div class="view">
-                            <span>View Details</span>
-                            <button><i class='bx bx-right-arrow-alt'></i></button>
-                        </div>
                     </div>
                     <div class="box">
                         <div class="titles">
@@ -144,11 +139,6 @@ $userProfileIcon = $info['profile_image'];
                                 ?>
                                 <span>Order Confirmed</span>
                             </div>
-                        </div>
-                        <div class="hr"></div>
-                        <div class="view">
-                            <span>View Details</span>
-                            <button><i class='bx bx-right-arrow-alt'></i></button>
                         </div>
                     </div>
                     <div class="box">
@@ -169,18 +159,13 @@ $userProfileIcon = $info['profile_image'];
                                 <span>Preparing Order</span>
                             </div>
                         </div>
-                        <div class="hr"></div>
-                        <div class="view">
-                            <span>View Details</span>
-                            <button><i class='bx bx-right-arrow-alt'></i></button>
-                        </div>
                     </div>
                     <div class="box">
                         <div class="titles">
                         <i class='bx bxs-package' ></i>
                             <div class="label">
                             <?php
-                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 1");
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 4");
 
                                 foreach($get_pending as $to_be_received) {
                                 ?>
@@ -193,18 +178,13 @@ $userProfileIcon = $info['profile_image'];
                                 <span>To be Received</span>
                             </div>
                         </div>
-                        <div class="hr"></div>
-                        <div class="view">
-                            <span>View Details</span>
-                            <button><i class='bx bx-right-arrow-alt'></i></button>
-                        </div>
                     </div>
                     <div class="box">
                         <div class="titles">
                         <i class='bx bx-fork' ></i>
                             <div class="label">
                             <?php
-                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 1");
+                                $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 5");
 
                                 foreach($get_pending as $delivered) {
                                 ?>
@@ -216,11 +196,6 @@ $userProfileIcon = $info['profile_image'];
                                 ?>
                                 <span>Order Delivered</span>
                             </div>
-                        </div>
-                        <div class="hr"></div>
-                        <div class="view">
-                            <span>View Details</span>
-                            <button><i class='bx bx-right-arrow-alt'></i></button>
                         </div>
                     </div>
                 </div>

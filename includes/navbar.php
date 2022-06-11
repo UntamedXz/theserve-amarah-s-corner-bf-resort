@@ -14,6 +14,10 @@
                 <i class="bx bxs-cart"></i>
                 <span class="badge"></span>
             </a>
+            <a href="my-orders" class="nav-link">
+            <i class='bx bxs-shopping-bags'></i>
+                <span class="badge"></span>
+            </a>
             <a href="login" id="login-btn" class="bx bxs-user loginBtn"></a>
             <div id="navbar" class="bx bx-menu-alt-right"></div>
             <div class="profile">

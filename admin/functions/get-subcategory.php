@@ -10,7 +10,7 @@ if (isset($_POST['category_id'])) {
 ?>
         <span>Product Subcategory</span>
         <select name="subcategory-list" id="subcategory-list">
-            <option value="none" value="SELECT SUBCATEGORY" selected="selected">SELECT SUBCATEGORY</option>
+            <option value="SELECT SUBCATEGORY" selected="selected">SELECT SUBCATEGORY</option>
             <?php
             foreach ($getSubcategory as $subcategoryRow) {
             ?>

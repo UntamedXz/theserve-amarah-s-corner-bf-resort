@@ -93,6 +93,10 @@ if($cartCount < 1) {
         })
     </script>
 
+    <div class="check">
+        
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast">
         <div class="toast-content" id="toast-content">

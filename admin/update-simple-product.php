@@ -29,6 +29,7 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
     $result_array['product_sale'] = $result['product_sale'];
     $result_array['product_img1'] = $result['product_img1'];
     $result_array['product_keyword'] = $result['product_keyword'];
+    $result_array['product_status'] = $result['product_status'];
 }
 
 ?>
@@ -209,6 +210,17 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                                                                     <span class="error error-subcategory"></span>
                                                                 </div>
                                                             <?php
+                                    } else {
+                                    ?>
+                                    <div class="form-group subcategory-group" style="display: none;">
+                            <span>Product Subcategory</span>
+                            <select name="subcategory-list" id="subcategory-list">
+                                <option selected="selected" value="SELECT SUBCATEGORY">SELECT SUBCATEGORY</option>
+                            </select>
+                            <span class="error error-subcategory"></span>
+                        </div>
+
+                                    <?php
                                     }
                                     ?>
                         <div class="form-group">
@@ -252,14 +264,14 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                         </div>
                         <div class="form-group">
                             <span>Product Status</span>
-                            <select name="product_status" id="product_status" required>
+                            <select name="product_status" id="product_status">
                                 <option value="">SELECT</option>
                                 <?php
                                 $get_product_status = mysqli_query($conn, "SELECT * FROM product_status");
 
                                 foreach($get_product_status as $status) {
                                 ?>
-                                <option value="<?php echo $status['product_status_id'] ?>"><?php echo $status['product_status'] ?></option>
+                                <option value="<?php echo $status['product_status_id'] ?>" <?php if($status['product_status_id'] == $result_array['product_status']) { echo 'selected="selected"';} ?>><?php echo $status['product_status'] ?></option>
                                 <?php 
                                 }
                                 ?>
@@ -345,10 +357,15 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                     } else {
                         $('.error-category').text('');
                     }
-                    if ($('#subcategory-list').val() == 'SELECT SUBCATEGORY') {
-                        $('.error-subcategory').text('Subcategory required');
-                    } else {
+                    if ($('.subcategory-group').css('display') == 'none') {
+                        $('#subcategory-list').val('SELECT SUBCATEGORY')
                         $('.error-subcategory').text('');
+                    } else {
+                        if ($('#subcategory-list').val() == 'SELECT SUBCATEGORY' || $('#subcategory-list').val() == '' || $('#subcategory-list').val() == 'none') {
+                            $('.error-subcategory').text('Subcategory required');
+                        } else {
+                            $('.error-subcategory').text('');
+                        }
                     }
                     if ($.trim($('#simpleProduct-title').val()).length == 0) {
                         $('.error-title').text('Product Title required');
