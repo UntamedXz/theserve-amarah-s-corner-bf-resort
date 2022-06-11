@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2022 at 02:11 PM
+-- Generation Time: Jun 11, 2022 at 06:16 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -45,7 +45,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_username`, `admin_phone_number`, `admin_email`, `admin_password`, `profile_image`, `admin_type`) VALUES
-(1, 'Jovelyn Ocampo', 'jovy.dulce', '09915362419', 'jovelyn.ocampo@cvsu.edu.ph', '$2y$10$VIs3W/iIczKMbT8gjezcbODKeujxeYiEOoNu8nRRJ4M1Ce0tTU7KW', '62a08c6f50c8f.jpg', 1);
+(3, 'Jovelyn Ocampo', 'jovy.ocampo', '09364871637', 'jovelyn.ocampo@cvsu.edu.ph', '$2y$10$17Yg/icchirlCNiC9Jsgju9T73O.k0xNnf6YaK18ZL2O.icjHKKcC', '62a2af4d4add0.jpg', 1),
+(5, 'Eramie Metre', 'era.metre', '09423532536', 'eramie.metre@cvsu.edu.ph', '$2y$10$/wxP61DoA6zozs4GiuYt1eflkawPqVCaXjSLjVT.FA/xRSA8q/kJu', '62a2c79cbfbd1.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,8 @@ CREATE TABLE `admin_type` (
 --
 
 INSERT INTO `admin_type` (`admin_type_id`, `admin_type`) VALUES
-(1, 'admin');
+(1, 'admin'),
+(2, 'staff');
 
 -- --------------------------------------------------------
 
@@ -80,13 +82,6 @@ CREATE TABLE `cart` (
   `product_qty` int(11) DEFAULT NULL,
   `product_total` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`user_id`, `cart_id`, `category_id`, `subcategory_id`, `product_id`, `product_qty`, `product_total`) VALUES
-(1, 178, 1, 0, 1, 1, '199.00');
 
 -- --------------------------------------------------------
 
@@ -136,8 +131,15 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`user_id`, `name`, `username`, `email`, `password`, `phone_number`, `user_birthday`, `user_gender`, `user_profile_image`) VALUES
-(1, 'Jennifer Sabado', 'Jennifer Sabado', 'untamedandromeda@gmail.com', 'Untamed_Jenn', NULL, '0000-00-00', '', '629e44beb377e.jpg'),
-(2, 'Kaye Billones', 'kaye billones', 'kaye.billones@cvsu.edu.ph', 'kayeeebbb', NULL, '2000-10-13', '', '629e46b95ca7b.jpg');
+(1, 'Jennifer Sabado', 'Untamed Jenn', 'jennsabado22@gmail.com', '$2y$10$V0ztPibW3j945gCLYnMmveVkkaVwRJ2QEaGae8rjJ1lXsJrNpF9S2', '', '2000-12-22', 'FEMALE', '62a1bd4124e09.jpg'),
+(2, 'Kaye Billones', 'Kayeb', 'kaye.billones@cvsu.edu.ph', '$2y$10$L.qh5xo/3IKxWhBt8Tv0P.SruPyt2NAdPkKscPooPFRUKjD2fZ1QO', NULL, '0000-00-00', '', '62a324f492f48.jpg'),
+(3, NULL, 'xborg', 'xborg@gmail.com', '$2y$10$KZMh0q6SHtnjqqyMmJ8dtuOmVfPlmsSfjNkJv7.PY1.0AvwnoNK.y', NULL, NULL, NULL, '62a3642db9bd4.png'),
+(4, NULL, 'kenet.biot', 'kenneth.estabillo@cvsu.edu.ph', '$2y$10$QqfFSxki/gJvhweblAAR9uXfziW6tpa2J58sw8qU9JtjaVD33Kvmi', NULL, NULL, NULL, NULL),
+(5, 'Jennifer Sabado', 'Jennifer Sabado', 'untamedandromeda@gmail.com', '$2y$10$rztrpsu9L9r01set6RsZ/eCa/ue7vS4f.97gPIvbi7/rmvUmErn9u', NULL, '0000-00-00', '', '62a39fdf3f5f2.jpg'),
+(6, NULL, 'jomarc.bapor', 'jomarc.bapor@cvsu.edu.ph', '$2y$10$vIpyxdOcwnYrFvGVK.RWQuZfG7DbIwscnjMdePdO2fQlE2/HVVpwu', NULL, NULL, NULL, NULL),
+(7, NULL, 'paul.cayago', 'pauladrian.cayago@cvsu.edu.ph', '$2y$10$Poh2ckabupi8srKHOLAJAe7ve3gvJ0nVqkfeIp36x.ARpCcnGpFRi', NULL, NULL, NULL, NULL),
+(8, NULL, 'Nicole Kay', 'nicolekay.anacleto@cvsu.edu.ph', '$2y$10$4oKN3JGzgkpuAFeiJbWwC./eGItFV.hDhdXCYAZMnxVDmAne/lUG2', NULL, NULL, NULL, NULL),
+(9, NULL, 'Jessica Capoquian', 'jessica.capoquian@cvsu.edu.ph', '$2y$10$dOFC5k4/DWw4h1zVxL7lWOZ1MFHGZXndNJRTDO67tw0eVRiGGJcNG', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -183,9 +185,25 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `payment_method`, `delivery_method`, `shipping_fee`, `screenshot_payment`, `reference`, `order_total`, `order_date`, `order_status`) VALUES
-(33, 1, 1, 2, '200.00', NULL, NULL, '3080.00', 'June 7, 2022 03:53 PM', 3),
-(34, 2, 2, 2, '200.00', '629f6bdfbf068.png', '9237927827438285', '1678.00', 'June 7, 2022 11:16 PM', 1),
-(35, 1, 2, 2, '200.00', '629f6e5139b55.jpg', '242536343634636', '1768.00', 'June 7, 2022 11:27 PM', 1);
+(41, 1, 1, 2, '200.00', NULL, NULL, '1157.00', 'June 10, 2022 06:44 PM', 5),
+(42, 2, 1, 1, '0.00', NULL, NULL, '1943.00', 'June 10, 2022 07:08 PM', 2),
+(43, 1, 1, 2, '200.00', NULL, NULL, '1048.00', 'June 11, 2022 01:56 AM', 2),
+(45, 2, 1, 2, '200.00', NULL, NULL, '489.00', 'June 11, 2022 03:41 AM', 2),
+(46, 4, 1, 2, '200.00', NULL, NULL, '489.00', 'June 11, 2022 03:45 AM', 4),
+(47, 5, 1, 2, '200.00', NULL, NULL, '1067.00', 'June 11, 2022 03:48 AM', 5),
+(48, 6, 1, 1, '0.00', NULL, NULL, '578.00', 'June 11, 2022 03:52 AM', 2),
+(49, 7, 1, 1, '0.00', NULL, NULL, '289.00', 'June 11, 2022 03:58 AM', 2),
+(50, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
+(51, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
+(52, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
+(53, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
+(54, 8, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 12:00 PM', 1),
+(55, 1, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 12:01 PM', 1),
+(56, 9, 1, 1, '0.00', NULL, NULL, '289.00', 'June 11, 2022 12:04 PM', 1),
+(57, 5, 1, 2, '200.00', NULL, NULL, '939.00', 'June 11, 2022 12:14 PM', 1),
+(58, 5, 1, 2, '200.00', NULL, NULL, '939.00', 'June 11, 2022 12:14 PM', 1),
+(59, 1, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 10:59 PM', 1),
+(60, 1, 1, 1, '0.00', NULL, NULL, '90.00', 'June 11, 2022 11:10 PM', 5);
 
 -- --------------------------------------------------------
 
@@ -197,7 +215,7 @@ CREATE TABLE `order_address` (
   `order_address_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `billing_name` varchar(255) DEFAULT NULL,
-  `billing_number` int(11) DEFAULT NULL,
+  `billing_number` varchar(11) DEFAULT NULL,
   `block_street_building` varchar(255) DEFAULT NULL,
   `province` varchar(255) DEFAULT NULL,
   `city_municipality` varchar(255) DEFAULT NULL,
@@ -209,9 +227,25 @@ CREATE TABLE `order_address` (
 --
 
 INSERT INTO `order_address` (`order_address_id`, `order_id`, `billing_name`, `billing_number`, `block_street_building`, `province`, `city_municipality`, `barangay`) VALUES
-(19, 33, 'Jennifer Sabado', 2147483647, 'test block', 'test province', 'test city', 'test brgy'),
-(20, 34, NULL, NULL, 'test block', 'test province', 'test city', 'test brgy'),
-(21, 35, NULL, NULL, 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III');
+(27, 41, 'Jennifer Sabado', '09162622138', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(28, 42, 'Kaye Billones', '09423642846', 'Block 140, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(29, 43, 'Jennifer Sabado', '09542522353', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(31, 45, 'Kaye Billones', '09162622138', 'Block 140, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(32, 46, 'Kenneth Estabillo', '09542522353', 'Block 141, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(33, 47, 'Jennifer Sabado', '09162622138', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(34, 48, 'Jomarc Bapor', '09423642846', 'Block 145, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(35, 49, 'Paul Adrian Cayago', '09542522353', 'Block 132, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(36, 50, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(37, 51, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(38, 52, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(39, 53, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(40, 54, 'Nicole Kay Anacleto', '09542522353', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(41, 55, 'Jennifer Sabado', '09423642846', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(42, 56, 'Jessica Capoquian', '09423642846', 'Block 120, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(43, 57, 'Jennifer Sabado', '09542522353', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(44, 58, 'Jennifer Sabado', '09542522353', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(45, 59, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(46, 60, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III');
 
 -- --------------------------------------------------------
 
@@ -233,15 +267,34 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`order_items_id`, `order_id`, `product_id`, `subcategory_id`, `qty`, `product_total`) VALUES
-(38, 33, 4, 1, '2', '180.00'),
-(39, 33, 2, 3, '2', '900.00'),
-(40, 33, 2, 3, '4', '1800.00'),
-(41, 34, 2, 3, '2', '900.00'),
-(42, 34, 5, 1, '2', '180.00'),
-(43, 34, 1, 0, '2', '398.00'),
-(44, 35, 2, 3, '2', '900.00'),
-(45, 35, 5, 1, '3', '270.00'),
-(46, 35, 1, 0, '2', '398.00');
+(55, 41, 1, 0, '3', '597.00'),
+(56, 41, 3, 1, '4', '360.00'),
+(57, 42, 9, 4, '2', '498.00'),
+(58, 42, 5, 1, '5', '450.00'),
+(59, 42, 1, 0, '5', '995.00'),
+(60, 43, 5, 1, '5', '450.00'),
+(61, 43, 8, 3, '2', '398.00'),
+(63, 45, 1, 0, '1', '199.00'),
+(64, 45, 5, 1, '1', '90.00'),
+(65, 46, 1, 0, '1', '199.00'),
+(66, 46, 5, 1, '1', '90.00'),
+(67, 47, 5, 1, '3', '270.00'),
+(68, 47, 8, 3, '3', '597.00'),
+(69, 48, 1, 0, '2', '398.00'),
+(70, 48, 3, 1, '2', '180.00'),
+(71, 49, 1, 0, '1', '199.00'),
+(72, 49, 5, 1, '1', '90.00'),
+(73, 50, 5, 1, '1', '90.00'),
+(74, 50, 8, 3, '2', '398.00'),
+(75, 54, 1, 0, '1', '199.00'),
+(76, 55, 1, 0, '1', '199.00'),
+(77, 56, 4, 1, '1', '90.00'),
+(78, 56, 8, 3, '1', '199.00'),
+(79, 57, 1, 0, '1', '199.00'),
+(80, 57, 5, 1, '1', '90.00'),
+(81, 57, 2, 3, '1', '450.00'),
+(82, 59, 1, 0, '1', '199.00'),
+(83, 60, 4, 1, '1', '90.00');
 
 -- --------------------------------------------------------
 
@@ -304,7 +357,7 @@ CREATE TABLE `product` (
   `product_keyword` varchar(255) DEFAULT NULL,
   `product_price` decimal(10,2) DEFAULT NULL,
   `product_sale` varchar(255) DEFAULT NULL,
-  `product_status` varchar(255) DEFAULT NULL
+  `product_status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -312,11 +365,15 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`category_id`, `subcategory_id`, `product_id`, `product_title`, `product_desc`, `product_slug`, `product_img1`, `product_img2`, `product_img3`, `product_keyword`, `product_price`, `product_sale`, `product_status`) VALUES
-(1, NULL, 1, 'Saucy Spaghetti', 'Spaghetti with sauce', 'saucy-spaghetti', '629e4286ae190.jpg', NULL, NULL, 'Saucy Spaghetti', '199.00', '', NULL),
-(3, 3, 2, 'Hawaiian Pizza', 'Pizza from Hawaii', 'hawaiian-pizza', '629e42d5081f3.jpg', NULL, NULL, 'Hawaiian Pizza', '450.00', '', NULL),
-(2, 1, 3, 'Classic Milktea', '', 'classic-milktea', '629e479a1d05a.jpg', NULL, NULL, 'Classic Milktea', '90.00', '', NULL),
-(2, 1, 4, 'Taro Milktea', '', 'taro-milktea', '629e48270621a.jpg', NULL, NULL, 'Taro milktea', '90.00', '', NULL),
-(2, 1, 5, 'Vanilla Milktea', '', 'vanilla-milktea', '629e485e4a0f0.jpg', NULL, NULL, 'Vanilla Milktea', '90.00', '', NULL);
+(1, NULL, 1, 'Saucy Spaghetti', 'Spaghetti with sauce', 'saucy-spaghetti', '629e4286ae190.jpg', NULL, NULL, 'Saucy Spaghetti', '199.00', '', 2),
+(3, 3, 2, 'Hawaiian Pizza', 'Pizza from Hawaii', 'hawaiian-pizza', '629e42d5081f3.jpg', NULL, NULL, 'Hawaiian Pizza', '450.00', '', 2),
+(2, 1, 3, 'Classic Milktea', '', 'classic-milktea', '629e479a1d05a.jpg', NULL, NULL, 'Classic Milktea', '90.00', '', 2),
+(2, 1, 4, 'Taro Milktea', '', 'taro-milktea', '629e48270621a.jpg', NULL, NULL, 'Taro milktea', '90.00', '', 1),
+(2, 1, 5, 'Vanilla Milktea', '', 'vanilla-milktea', '629e485e4a0f0.jpg', NULL, NULL, 'Vanilla Milktea', '90.00', '', 1),
+(3, 3, 6, 'Pepperoni Pizza', '', 'pepperoni-pizza', '62a1717836410.jpg', NULL, NULL, 'Pepperoni Pizza', '199.00', '', 1),
+(3, 3, 7, 'Beef & Mushroom Pizza', '', 'beef-mushroom-pizza', '62a171ac5085c.jpg', NULL, NULL, 'Beef & Mushroom Pizza', '199.00', '', 1),
+(3, 3, 8, 'Ham & Cheese', '', 'ham-cheese', '62a171decb3fa.jpg', NULL, NULL, 'Ham & Cheese', '199.00', '', 1),
+(3, 4, 9, 'Beef & Mushroom Overload', 'Loaded with beef, mushroom, pineapple, onion & bellpepper plus mozarella cheese', 'beef-mushroom-overload', '62a2cbaf50695.jpg', NULL, NULL, 'Beef & Mushroom Overload', '249.00', '', 1);
 
 -- --------------------------------------------------------
 
@@ -330,6 +387,25 @@ CREATE TABLE `product_attribute` (
   `attribute_id` int(11) NOT NULL,
   `attribute_title` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_status`
+--
+
+CREATE TABLE `product_status` (
+  `product_status_id` int(11) NOT NULL,
+  `product_status` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product_status`
+--
+
+INSERT INTO `product_status` (`product_status_id`, `product_status`) VALUES
+(1, 'AVAILABLE'),
+(2, 'NOT AVAILABLE');
 
 -- --------------------------------------------------------
 
@@ -392,7 +468,8 @@ INSERT INTO `subcategory` (`category_id`, `subcategory_id`, `subcategory_title`)
 (5, 8, 'Hot Coffee'),
 (5, 9, 'Frappe'),
 (6, 10, 'Fruit Tea'),
-(6, 11, 'Lemonade');
+(6, 11, 'Lemonade'),
+(2, 12, 'Classic Flavor');
 
 --
 -- Indexes for dumped tables
@@ -478,7 +555,8 @@ ALTER TABLE `payment`
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`),
   ADD KEY `category_id` (`category_id`),
-  ADD KEY `subcategory_id` (`subcategory_id`);
+  ADD KEY `subcategory_id` (`subcategory_id`),
+  ADD KEY `product_status` (`product_status`);
 
 --
 -- Indexes for table `product_attribute`
@@ -487,6 +565,12 @@ ALTER TABLE `product_attribute`
   ADD PRIMARY KEY (`attribute_id`),
   ADD KEY `variant_id` (`variant_id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `product_status`
+--
+ALTER TABLE `product_status`
+  ADD PRIMARY KEY (`product_status_id`);
 
 --
 -- Indexes for table `product_variant`
@@ -516,31 +600,31 @@ ALTER TABLE `subcategory`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `admin_type`
 --
 ALTER TABLE `admin_type`
-  MODIFY `admin_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `delivery`
@@ -552,19 +636,19 @@ ALTER TABLE `delivery`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `order_address`
 --
 ALTER TABLE `order_address`
-  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_items_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `order_items_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -582,13 +666,19 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
   MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `product_status`
+--
+ALTER TABLE `product_status`
+  MODIFY `product_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_variant`
@@ -606,7 +696,7 @@ ALTER TABLE `product_variation`
 -- AUTO_INCREMENT for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  MODIFY `subcategory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `subcategory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -649,7 +739,8 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`subcategory_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`subcategory_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`product_status`) REFERENCES `product_status` (`product_status_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_attribute`
