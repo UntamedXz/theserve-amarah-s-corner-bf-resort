@@ -1,10 +1,6 @@
 <?php
 session_start();
 require_once './includes/database_conn.php';
-if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-    header("Location: ./login");
-}
-
 $user_id = $_SESSION['id'];
 
 $getAccountInfo = mysqli_query($conn, "SELECT * FROM customers WHERE user_id = '$user_id'");
@@ -63,8 +59,11 @@ if(isset($_SESSION['id'])) {
 
     <input type="hidden" id="profileIconCheck" value="<?php echo $userProfileIcon; ?>">
 
-    <h1 style="text-align: center; font-size: 80px;">GAGO KA KAYE BILLONES <br>
-    LALO KA NA PUTA KA RYAN</h1>
+    <section class="my_orders">
+        <div class="my_orders__wrapper">
+            
+        </div>
+    </section>
 
     <script>
         $(window).on('load', function() {

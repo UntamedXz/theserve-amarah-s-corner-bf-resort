@@ -136,9 +136,9 @@ if(isset($_SESSION['id'])) {
                                 <h4 style="filter: grayscale(100%);"><?php echo $rowProduct['product_title'] ?></h4>
                                 <h5 style="color: #ffaf08; font-weight: 400; filter: grayscale(100%);"><?php echo $rowProduct['subcategory_title']; ?></h5>
                                 <h5 style="filter: grayscale(100%);" class="price">P<?php echo $rowProduct['product_price'] ?></h5>
-                                <button style="filter: grayscale(100%);" class="order-btn"><i class='bx bxs-cart'></i>ORDER NOW</button>
+                                <button style="filter: grayscale(100%);" class="order-btn"><i class='bx bxs-cart'></i><span>ORDER NOW</span></button>
                             </div>
-                            <span style="color: #fff; font-weight: 800; font-size: 32px; position: absolute; filter: unset; top: 45%; transform: translateY(-60%); transform: rotate(-35deg);" class="status">NOT AVAILABLE</span>
+                            <span style="color: #fff; font-weight: 800; font-size: 32px; position: absolute; filter: unset; padding-left: 10px; top: 35%; transform: translateY(50%); transform: rotate(-15deg);" class="status">NOT AVAILABLE</span>
                         </a>
                     <?php
                         } else {

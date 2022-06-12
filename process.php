@@ -131,7 +131,7 @@
 
     .track .text {
 
-        display: block;
+        display: flex;
         margin-top: 7px;
     }
 
@@ -192,6 +192,11 @@
         margin: 20px;
     }
 
+    .summary .group {
+        display: flex;
+        justify-content: space-between;
+    }
+
     @media screen {}
 
     .btn-warning:hover {
@@ -223,15 +228,6 @@
             <header class="card-header"> My Purchase </header>
             <div class="card-body">
                 <h6>Order ID: OD45345345435</h6>
-                <article class="card">
-                    <div class="card-body row">
-                        <div class="col"> <strong>Estimated Delivery time:</strong> <br>29 nov 2019 </div>
-                        <div class="col"> <strong>Shipping BY:</strong> <br> BLUEDART, | <i class="fa fa-phone"></i>
-                            +1598675986 </div>
-                        <div class="col"> <strong>Status:</strong> <br> Pending </div>
-                        <div class="col"> <strong>Tracking #:</strong> <br> BD045903594059 </div>
-                    </div>
-                </article>
                 <div class="track">
                     <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span
                             class="text">Order Confirmed</span> </div>
@@ -246,7 +242,12 @@
                 <br>
                 <ul class="row">
                     <li class="col-md-4">
-                        <p class="title">SUMMARY</p>
+                        <div class="summary">
+                            <div class="group">
+                            <span>HAwaiian</span>
+                            <div class="price">P 199.00</div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
 

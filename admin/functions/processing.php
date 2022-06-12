@@ -172,3 +172,19 @@ if (isset($_POST['order_id_view'])) {
         echo "view-order-delivered?id=" . $encryptedId;
     }
 }
+
+// EDIT UPDATES MODAL
+if (isset($_REQUEST['updates_id'])) {
+    $updates_id = $_REQUEST['updates_id'];
+    $get_updates = mysqli_query($conn, "SELECT * FROM updates WHERE updates_id = '$updates_id'");
+
+    $result_array = array();
+    while ($result = mysqli_fetch_assoc($get_updates)) {
+        $result_array['updates_id'] = $result['updates_id'];
+        $result_array['updates_text'] = $result['updates_text'];
+        $result_array['updates_image'] = $result['updates_image'];
+        $result_array['updates_date'] = $result['updates_date'];
+    }
+
+    echo json_encode($result_array);
+}

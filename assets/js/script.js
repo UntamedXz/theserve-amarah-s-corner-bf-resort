@@ -3,29 +3,28 @@ let overlay = document.querySelector('#backgroundOverlay');
 let mobileMenu = document.querySelector('.dropdown-nav');
 let alertbox = document.querySelector('.alert');
 
-document.querySelector('#search-btn').onclick = () => {
-    searchForm.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
+document.querySelector('#search-btn').addEventListener('click', function() {
+    searchForm.classList.add('active');
+    overlay.classList.add('active');
+    document.querySelector('.tracking_wrapper').classList.remove('active');
+})
 
-document.querySelector('#backgroundOverlay').onclick = () => {
+document.querySelector('#backgroundOverlay').addEventListener('click', function () {
     searchForm.classList.remove('active');
     overlay.classList.remove('active');
-}
+})
 
-document.querySelector('#navbar').onclick = () => {
-    mobileMenu.classList.toggle('active');
-}
+document.querySelector('#navbar').addEventListener('click', function() {
+    mobileMenu.classList.add('active');
+})
 
-document.querySelector('#close-menu').onclick = () => {
+document.querySelector('#close-menu').addEventListener('click', function() {
     mobileMenu.classList.remove('active');
-}
+})
 
-document.querySelector('.dropdown-nav').onclick = () => {
+document.querySelector('.dropdown-nav').addEventListener('click', function () {
     mobileMenu.classList.remove('active');
-}
-
-
+})
 
 var updates_col = document.querySelectorAll('.col');
 var load_more = document.querySelector('.load-more');

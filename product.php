@@ -181,7 +181,7 @@ if(isset($_SESSION['id'])) {
                     <span>Special Instructions (Optional)</span>
                     <textarea class="instruction" type="text" name="" id=""></textarea>
 
-                    <fieldset>
+                    <!-- <fieldset>
 
 <legend> SIZE </legend>
 
@@ -211,7 +211,7 @@ if(isset($_SESSION['id'])) {
       <label for="size">OVERLOAD</label>
     </div>
 
-</fieldset>
+</fieldset> -->
 
 
                 </div>

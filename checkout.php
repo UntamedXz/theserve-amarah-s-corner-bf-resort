@@ -448,7 +448,7 @@ foreach ($get_info as $info) {
                     processData: false,
                     success: function(response) {
                         if(response == 'success') {
-                            window.location.href = "place-order";
+                            window.location.href = "index";
                         }
                         console.log(response);
                     }

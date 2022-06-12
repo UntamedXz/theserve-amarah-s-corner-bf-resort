@@ -10,11 +10,7 @@
         <li><a href="index" class="active"><i class='bx bxs-dashboard icon'></i>Dashboard</a></li>
         <li class="divider" data-text="social">Social</li>
         <li>
-            <a href="#"><i class='bx bx-edit icon'></i>Updates <i class="bx bx-chevron-right icon-right"></i></a>
-            <ul class="side-dropdown">
-                <li><a href="#">Insert Update</a></li>
-                <li><a href="#">View Update</a></li>
-            </ul>
+            <a href="updates"><i class='bx bx-edit icon'></i>Updates</a>
         </li>
         <li><a href="#"><i class='bx bx-chat icon'></i>Messages</a></li>
         <li class="divider" data-text="categories">Categories</li>

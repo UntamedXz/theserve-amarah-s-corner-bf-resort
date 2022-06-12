@@ -108,6 +108,7 @@ if ($payment == 2) {
                 $response = json_decode($server_output);
                 if ($response->Messages[0]->Status == 'success') {
                     $_SESSION['order_id'] = $order_id;
+                    $_SESSION['checkout'] = 'success';
                     echo 'success';
                 }
             }
@@ -195,6 +196,7 @@ if ($payment == 2) {
                 $response = json_decode($server_output);
                 if ($response->Messages[0]->Status == 'success') {
                     $_SESSION['order_id'] = $order_id;
+                    $_SESSION['checkout'] = 'success';
                     echo 'success';
                 }
             }

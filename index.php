@@ -127,35 +127,24 @@ if(isset($_SESSION['id'])) {
     <section class="updates" id="updates">
         <h3 class="title-header">Updates</h3>
         <div class="row">
+            <?php
+            $get_updates = mysqli_query($conn, "SELECT * FROM updates");
+
+            foreach($get_updates as $updates) {
+            ?>
             <!-- UPDATE 1 -->
             <div class="col">
                 <div class="image-cont">
-                    <img src="./assets/images/acousticnight.png" alt="">
+                    <img src="./assets/images/<?php echo $updates['updates_image'] ?>" alt="">
                 </div>
-                <h4>Posted on June 01, 2022</h4>
-                <h5>Take a break from your busy schedule and make time for some pizza with us this Friday. 
-🍕 Come and visit us we have a live acoustic band with 4th Station AP at 7pm. See you! 🤗💛</h5>
+                <h4>Posted on <?php echo $updates['updates_date']; ?></h4>
+                <h5><?php echo $updates['updates_text']; ?></h5>
             </div>
-            <!-- UPDATE 2 -->
-            <div class="col">
-                <div class="image-cont">
-                
-                <img src="./assets/images/pizzatime.jpg" alt="">
-                </div>
-                <h4>Posted on June 01, 2022</h4>
-                <h5>We're having an acoustic night session every Wednesday until Sunday. 
-                    This coming June 1 to 5, 2022, from 8pm to 12mn. Visit Us!<3 </h5> </div> <!-- UPDATE 3 -->
-                        <div class="col">
-                            <div class="image-cont">
-                            <img src="./assets/images/wingsss.png" alt="">
-                            </div>
-                            <h4>Posted on June 01, 2022</h4>
-                            <h5>On a scale of 1 to 5 pano mo kainin ang chicken wings mo? Unlimited Chicken wings 
-                                + Rice for only 349php is still available. 
-                                Visit us today we have an acoustic jam session at 7 pm. See you! 💛 <br> #amarahscorner <br> #amarahscornerph <br> #katambay<3 </h5> </div>
-                                    </div> <div id="load-more">
-                                    <input type="submit" class="load-more" value="LOAD MORE">
-                        </div>
+            <?php } ?>
+        </div> 
+        <div id="load-more">
+            <input type="submit" class="load-more" value="LOAD MORE">
+        </div>
     </section>
     <!-- FEEDBACK SECTION -->
     <section class="feedbacks" id="feedbacks">
@@ -274,6 +263,49 @@ if(isset($_SESSION['id'])) {
             <input type="submit" class="load-more-feedbacks" value="LOAD MORE">
         </div>
     </section>
+
+    <?php
+    if(isset($_SESSION['cancelled'])) {
+        echo "
+            <script>
+                $('#toast').addClass('active');
+                $('.progress').addClass('active');
+                $('#toast-icon').removeClass(
+                    'fa-solid fa-triangle-exclamation').addClass(
+                    'fa-solid fa-check warning');
+                $('.text-1').text('Success!');
+                $('.text-2').text('Order cancelled successfully!');
+                setTimeout(() => {
+                    $('#toast').removeClass('active');
+                    $('.progress').removeClass('active');
+                }, 5000);
+            </script>
+        ";
+        unset($_SESSION['cancelled']);
+    }
+
+    if(isset($_SESSION['checkout'])) {
+        echo "
+            <script>
+                $('#toast').addClass('active');
+                $('.progress').addClass('active');
+                $('#toast-icon').removeClass(
+                    'fa-solid fa-triangle-exclamation').addClass(
+                    'fa-solid fa-check warning');
+                $('.text-1').text('Success!');
+                $('.text-2').text('The order confirmation has been sent to your email account and mobile number!');
+                setTimeout(() => {
+                    $('#toast').removeClass('active');
+                    $('.progress').removeClass('active');
+                }, 5000);
+            </script>
+        ";
+        unset($_SESSION['checkout']);
+    }
+    ?>
+
+
+
     <?php include './includes/footer.php';?>
 
     <?php include './includes/cart-count.php' ?>
@@ -288,6 +320,14 @@ if(isset($_SESSION['id'])) {
 
         window.addEventListener("load", function () {
             loader.style.display = "none";
+        })
+
+        $(window).on('load', function() {
+            $(document).ready(function() {
+                if (window.location.href.indexOf("tracking") > -1) {
+                    $('.tracking_wrapper').addClass('active');
+                }
+            });
         })
     </script>
 </body>
