@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2022 at 06:16 PM
+-- Generation Time: Jun 13, 2022 at 08:10 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -186,24 +186,23 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `user_id`, `payment_method`, `delivery_method`, `shipping_fee`, `screenshot_payment`, `reference`, `order_total`, `order_date`, `order_status`) VALUES
 (41, 1, 1, 2, '200.00', NULL, NULL, '1157.00', 'June 10, 2022 06:44 PM', 5),
-(42, 2, 1, 1, '0.00', NULL, NULL, '1943.00', 'June 10, 2022 07:08 PM', 2),
+(42, 2, 1, 1, '0.00', NULL, NULL, '1943.00', 'June 10, 2022 07:08 PM', 5),
 (43, 1, 1, 2, '200.00', NULL, NULL, '1048.00', 'June 11, 2022 01:56 AM', 2),
-(45, 2, 1, 2, '200.00', NULL, NULL, '489.00', 'June 11, 2022 03:41 AM', 2),
+(45, 2, 1, 2, '200.00', NULL, NULL, '489.00', 'June 11, 2022 03:41 AM', 3),
 (46, 4, 1, 2, '200.00', NULL, NULL, '489.00', 'June 11, 2022 03:45 AM', 4),
 (47, 5, 1, 2, '200.00', NULL, NULL, '1067.00', 'June 11, 2022 03:48 AM', 5),
 (48, 6, 1, 1, '0.00', NULL, NULL, '578.00', 'June 11, 2022 03:52 AM', 2),
 (49, 7, 1, 1, '0.00', NULL, NULL, '289.00', 'June 11, 2022 03:58 AM', 2),
-(50, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
-(51, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
-(52, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
 (53, 8, 1, 2, '200.00', NULL, NULL, '688.00', 'June 11, 2022 11:57 AM', 1),
 (54, 8, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 12:00 PM', 1),
 (55, 1, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 12:01 PM', 1),
 (56, 9, 1, 1, '0.00', NULL, NULL, '289.00', 'June 11, 2022 12:04 PM', 1),
 (57, 5, 1, 2, '200.00', NULL, NULL, '939.00', 'June 11, 2022 12:14 PM', 1),
 (58, 5, 1, 2, '200.00', NULL, NULL, '939.00', 'June 11, 2022 12:14 PM', 1),
-(59, 1, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 10:59 PM', 1),
-(60, 1, 1, 1, '0.00', NULL, NULL, '90.00', 'June 11, 2022 11:10 PM', 5);
+(59, 1, 1, 2, '200.00', NULL, NULL, '399.00', 'June 11, 2022 10:59 PM', 5),
+(60, 1, 1, 1, '0.00', NULL, NULL, '90.00', 'June 11, 2022 11:10 PM', 5),
+(61, 1, 1, 2, '200.00', NULL, NULL, '290.00', 'June 12, 2022 09:20 PM', 1),
+(62, 1, 1, 2, '200.00', NULL, NULL, '778.00', 'June 12, 2022 09:33 PM', 2);
 
 -- --------------------------------------------------------
 
@@ -235,9 +234,6 @@ INSERT INTO `order_address` (`order_address_id`, `order_id`, `billing_name`, `bi
 (33, 47, 'Jennifer Sabado', '09162622138', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (34, 48, 'Jomarc Bapor', '09423642846', 'Block 145, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (35, 49, 'Paul Adrian Cayago', '09542522353', 'Block 132, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
-(36, 50, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
-(37, 51, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
-(38, 52, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (39, 53, 'Nicole Kay Anacleto', '09656526546', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (40, 54, 'Nicole Kay Anacleto', '09542522353', 'Block 127, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (41, 55, 'Jennifer Sabado', '09423642846', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
@@ -245,7 +241,9 @@ INSERT INTO `order_address` (`order_address_id`, `order_id`, `billing_name`, `bi
 (43, 57, 'Jennifer Sabado', '09542522353', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (44, 58, 'Jennifer Sabado', '09542522353', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
 (45, 59, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
-(46, 60, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III');
+(46, 60, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(47, 61, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III'),
+(48, 62, 'Jennifer Sabado', '09915362419', 'Block 130, Bagong Kampi St., Green Valley', 'Cavite', 'Bacoor', 'San Nicolas III');
 
 -- --------------------------------------------------------
 
@@ -284,8 +282,6 @@ INSERT INTO `order_items` (`order_items_id`, `order_id`, `product_id`, `subcateg
 (70, 48, 3, 1, '2', '180.00'),
 (71, 49, 1, 0, '1', '199.00'),
 (72, 49, 5, 1, '1', '90.00'),
-(73, 50, 5, 1, '1', '90.00'),
-(74, 50, 8, 3, '2', '398.00'),
 (75, 54, 1, 0, '1', '199.00'),
 (76, 55, 1, 0, '1', '199.00'),
 (77, 56, 4, 1, '1', '90.00'),
@@ -294,7 +290,10 @@ INSERT INTO `order_items` (`order_items_id`, `order_id`, `product_id`, `subcateg
 (80, 57, 5, 1, '1', '90.00'),
 (81, 57, 2, 3, '1', '450.00'),
 (82, 59, 1, 0, '1', '199.00'),
-(83, 60, 4, 1, '1', '90.00');
+(83, 60, 4, 1, '1', '90.00'),
+(84, 61, 5, 1, '1', '90.00'),
+(85, 62, 7, 3, '2', '398.00'),
+(86, 62, 5, 1, '2', '180.00');
 
 -- --------------------------------------------------------
 
@@ -373,7 +372,8 @@ INSERT INTO `product` (`category_id`, `subcategory_id`, `product_id`, `product_t
 (3, 3, 6, 'Pepperoni Pizza', '', 'pepperoni-pizza', '62a1717836410.jpg', NULL, NULL, 'Pepperoni Pizza', '199.00', '', 1),
 (3, 3, 7, 'Beef & Mushroom Pizza', '', 'beef-mushroom-pizza', '62a171ac5085c.jpg', NULL, NULL, 'Beef & Mushroom Pizza', '199.00', '', 1),
 (3, 3, 8, 'Ham & Cheese', '', 'ham-cheese', '62a171decb3fa.jpg', NULL, NULL, 'Ham & Cheese', '199.00', '', 1),
-(3, 4, 9, 'Beef & Mushroom Overload', 'Loaded with beef, mushroom, pineapple, onion & bellpepper plus mozarella cheese', 'beef-mushroom-overload', '62a2cbaf50695.jpg', NULL, NULL, 'Beef & Mushroom Overload', '249.00', '', 1);
+(3, 4, 9, 'Beef & Mushroom Overload', 'Loaded with beef, mushroom, pineapple, onion & bellpepper plus mozarella cheese', 'beef-mushroom-overload', '62a2cbaf50695.jpg', NULL, NULL, 'Beef & Mushroom Overload', '249.00', '', 1),
+(4, NULL, 10, 'Buffalo', '', 'buffalo', '62a6cfe3e90aa.jpg', NULL, NULL, 'Buffalo', '168.00', '', 2);
 
 -- --------------------------------------------------------
 
@@ -424,7 +424,8 @@ CREATE TABLE `product_variant` (
 
 INSERT INTO `product_variant` (`variant_id`, `variant_title`) VALUES
 (1, 'FLAVOR'),
-(6, 'SIZE');
+(6, 'SIZE'),
+(7, 'ADDONS');
 
 -- --------------------------------------------------------
 
@@ -470,6 +471,29 @@ INSERT INTO `subcategory` (`category_id`, `subcategory_id`, `subcategory_title`)
 (6, 10, 'Fruit Tea'),
 (6, 11, 'Lemonade'),
 (2, 12, 'Classic Flavor');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `updates`
+--
+
+CREATE TABLE `updates` (
+  `updates_id` int(11) NOT NULL,
+  `updates_text` varchar(900) DEFAULT NULL,
+  `updates_image` varchar(255) DEFAULT NULL,
+  `updates_date` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `updates`
+--
+
+INSERT INTO `updates` (`updates_id`, `updates_text`, `updates_image`, `updates_date`) VALUES
+(5, 'Some days, you just need a sweet sip of cool coffee to make you feel better. ☕ ORDER NOW!\r\n\r\nWE DELIVER ❗❗\r\n?0908-812-6310\r\n⏰ 11:00am-3:00amI Daily\r\n? Amarah\'s Corner BF Resort\r\nB5 L71 JB TAN ST BF RESORT VILLAGE TALON DOS LAS PINAS\r\n✔️Dine-In\r\n✔️Takeout\r\n✔️Delivery\r\n✔️Pick-Up\r\n✔️Advance Order\r\nMessage us to Order!\r\n( FREE DELIVERY WITHIN BF RESORT VILLAGE)\r\n#amarahscornerbf\r\n#chickenwings\r\n#pizza\r\n#milktea\r\n#coffee', '62a67281c7cff.jpg', 'June 13, 2022'),
+(6, 'Netflix & chill? We\'re chilling with this combo you need to try! Message us to order.\r\nWE DELIVER ❗❗\r\n?0908-812-6310\r\n⏰ 11:00am-3:00amI Daily\r\n? Amarah\'s Corner BF Resort\r\nB5 L71 JB TAN ST BF RESORT VILLAGE TALON DOS LAS PINAS\r\n✔️Dine-In\r\n✔️Takeout\r\n✔️Delivery\r\n✔️Pick-Up\r\n✔️Advance Order\r\nMessage us to Order!\r\n( FREE DELIVERY WITHIN BF RESORT VILLAGE)\r\n#amarahscornerbf\r\n#chickenwings\r\n#pizza\r\n#milktea\r\n#coffee', '62a677b76208b.jpg', 'June 13, 2022'),
+(7, 'Another acoustic jam session here at Amarah\'s Corner - Bf Resort x Lando\'s this coming Wednesday to Sunday at 8pm. See you! ?', '62a6782ac0b3f.jpg', 'June 13, 2022'),
+(9, 'Have this great food as your company with your busy schedule this Monday! Message us to order. ?\r\nCREAM CHEESE SUPREME 12\" PHP 289 | 10\" PHP 249\r\nWE DELIVER ❗❗\r\n?0908-812-6310\r\n⏰ 11:00am-3:00am I Daily\r\n? Amarah\'s Corner BF Resort\r\nB5 L71 JB TAN ST BF RESORT VILLAGE TALON DOS LAS PINAS\r\n✔️Dine-In\r\n✔️Takeout\r\n✔️Delivery\r\n✔️Pick-Up\r\n✔️Advance Order\r\nMessage us to Order!\r\n( FREE DELIVERY WITHIN BF RESORT VILLAGE)\r\n#amarahscornerbf\r\n#chickenwings\r\n#pizza\r\n#milktea\r\n#coffee', '62a6aa2546311.jpg', 'June 13, 2022');
 
 --
 -- Indexes for dumped tables
@@ -593,6 +617,12 @@ ALTER TABLE `subcategory`
   ADD KEY `subcategory_ibfk_1` (`category_id`);
 
 --
+-- Indexes for table `updates`
+--
+ALTER TABLE `updates`
+  ADD PRIMARY KEY (`updates_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -612,7 +642,7 @@ ALTER TABLE `admin_type`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -636,19 +666,19 @@ ALTER TABLE `delivery`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `order_address`
 --
 ALTER TABLE `order_address`
-  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_items_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `order_items_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -666,7 +696,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product_attribute`
@@ -684,7 +714,7 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `product_variant`
 --
 ALTER TABLE `product_variant`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_variation`
@@ -697,6 +727,12 @@ ALTER TABLE `product_variation`
 --
 ALTER TABLE `subcategory`
   MODIFY `subcategory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `updates`
+--
+ALTER TABLE `updates`
+  MODIFY `updates_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

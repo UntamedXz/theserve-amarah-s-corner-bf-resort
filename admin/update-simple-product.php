@@ -276,6 +276,7 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                                 }
                                 ?>
                             </select>
+                            <span class="error error-status"></span>
                         </div>
                         <button type="submit" id="update-simple-product">UPDATE</button>
                     </form>
@@ -404,6 +405,12 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                     } else {
                         $('.error-keyword').text('');
                     }
+                    if($.trim($('#product_status').val()) == "") {
+                    $('.error-status').text('Product Status required');
+                    } else {
+                        $('.error-status').text('');
+                    }
+
                     if ($('.error-category').text() != '' || $('.error-subcategory').text() != '' || $('.error-title').text() != '' || $('.error-url').text() != '' || $('.error-price').text() != '' || $('.error-price').text() != '' || $('.error-salePrice').text() != '' || $('.error-image').text() != '' || $('.error-keyword').text() != '') {
                         $('#toast').addClass('active');
                         $('.progress').addClass('active');
@@ -437,9 +444,7 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                                         $('.progress').removeClass("active");
                                     }, 5000);
                                     $('#example').DataTable().ajax.reload();
-                                }
-
-                                if (data === 'failed') {
+                                } else if (data === 'failed') {
                                     $('.edit-modal').removeClass("active");
                                     $('#toast').addClass('active');
                                     $('.progress').addClass('active');
@@ -453,9 +458,7 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                                         $('.progress').removeClass("active");
                                     }, 5000);
                                     $('#example').DataTable().ajax.reload();
-                                }
-
-                                if (data === 'product already exist') {
+                                } else if (data === 'product already exist') {
                                     $('.edit-modal').removeClass("active");
                                     $('#toast').addClass('active');
                                     $('.progress').addClass('active');
@@ -469,6 +472,15 @@ while ($result = mysqli_fetch_assoc($getSimpleProduct)) {
                                         $('.progress').removeClass("active");
                                     }, 5000);
                                     $('#example').DataTable().ajax.reload();
+                                } else {
+                                    $('#toast').addClass('active');
+                                    $('.progress').addClass('active');
+                                    $('.text-1').text('Error!');
+                                    $('.text-2').text('Something went wrong!');
+                                    setTimeout(() => {
+                                        $('#toast').removeClass("active");
+                                        $('.progress').removeClass("active");
+                                    }, 5000);
                                 }
 
                                 console.log(data);

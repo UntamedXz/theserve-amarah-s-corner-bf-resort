@@ -173,7 +173,6 @@ $admin_type = $info['admin_type'];
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Product ID</th>
                             <th>Product Image</th>
                             <th>Category</th>
                             <th>Subcategory</th>
@@ -212,6 +211,7 @@ $admin_type = $info['admin_type'];
                     [5, 10, 15, 100]
                 ],
                 "iDisplayLength": 5,
+                order: [[0, 'desc']],
                 "ajax": {
                     url: "./functions/product-table",
                     type: "post"
@@ -293,6 +293,15 @@ $admin_type = $info['admin_type'];
                                     $('.progress').removeClass("active");
                                 }, 5000);
                                 $('#example').DataTable().ajax.reload();
+                            } else {
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('.text-1').text('Error!');
+                                $('.text-2').text('Something went wrong!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
                             }
                         }
                     })

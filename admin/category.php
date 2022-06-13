@@ -252,7 +252,6 @@ $admin_type = $info['admin_type'];
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Category ID</th>
                             <th>Category Title</th>
                             <th>Category Thumbnail</th>
                             <th>Action</th>
@@ -288,6 +287,7 @@ $admin_type = $info['admin_type'];
                     [5, 10, 15, 100]
                 ],
                 "iDisplayLength": 5,
+                order: [[0, 'desc']],
                 "ajax": {
                     url: "./functions/category-table",
                     type: "post"

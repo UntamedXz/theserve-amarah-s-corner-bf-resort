@@ -85,7 +85,27 @@ if(isset($_SESSION['id'])) {
 
     <!-- BANNER SECTION -->
     <section class="banner" id="home">
-        <img src="./assets/images/banner2.jpg" alt="">
+        <!-- <img src="./assets/images/banner2.jpg" alt=""> -->
+
+        <div class="banner__wrapper swiper mySwiper">
+            <div class="banner__content swiper-wrapper">
+                <div class="banner__card swiper-slide">
+                    <div class="banner__image">
+                        <img src="./assets/images/banner2.jpg" alt="">
+                    </div>
+                </div>
+                <div class="banner__card swiper-slide">
+                    <div class="banner__image">
+                        <img src="./assets/images/banner.jpg" alt="">
+                    </div>
+                </div>
+                <div class="banner__card swiper-slide">
+                    <div class="banner__image">
+                        <img src="./assets/images/banner4.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- BRANCH NAME SECTION -->
     <section class="branch">
@@ -128,7 +148,7 @@ if(isset($_SESSION['id'])) {
         <h3 class="title-header">Updates</h3>
         <div class="row">
             <?php
-            $get_updates = mysqli_query($conn, "SELECT * FROM updates");
+            $get_updates = mysqli_query($conn, "SELECT * FROM updates ORDER BY updates_id DESC");
 
             foreach($get_updates as $updates) {
             ?>
@@ -137,8 +157,10 @@ if(isset($_SESSION['id'])) {
                 <div class="image-cont">
                     <img src="./assets/images/<?php echo $updates['updates_image'] ?>" alt="">
                 </div>
-                <h4>Posted on <?php echo $updates['updates_date']; ?></h4>
-                <h5><?php echo $updates['updates_text']; ?></h5>
+                <div class="details">
+                    <h4>Posted on <?php echo $updates['updates_date']; ?></h4>
+                    <h5><?php echo $updates['updates_text']; ?></h5>
+                </div>
             </div>
             <?php } ?>
         </div> 
@@ -146,6 +168,11 @@ if(isset($_SESSION['id'])) {
             <input type="submit" class="load-more" value="LOAD MORE">
         </div>
     </section>
+
+    <div class="image_popup">
+        <img src="./assets/images/62a6782ac0b3f.jpg" alt="">
+    </div>
+
     <!-- FEEDBACK SECTION -->
     <section class="feedbacks" id="feedbacks">
         <h3 class="title-header">FEEDBACKS</h3>
@@ -326,9 +353,26 @@ if(isset($_SESSION['id'])) {
             $(document).ready(function() {
                 if (window.location.href.indexOf("tracking") > -1) {
                     $('.tracking_wrapper').addClass('active');
+                    document.getElementById('backgroundOverlay').classList.add('active');
+
+                    document.getElementById('backgroundOverlay').addEventListener('click', function() {
+                        document.getElementById('backgroundOverlay').classList.remove('active');
+                        tracking_form.classList.remove('active');
+                    })
                 }
             });
         })
+
+        document.querySelectorAll('.image-cont img').forEach(image => {
+                image.onclick = () => {
+                    document.querySelector('.image_popup').style.display = 'flex';
+                    document.querySelector('.image_popup img').src = image.getAttribute('src');
+                }
+            });
+
+            document.querySelector('.image_popup').onclick = () => {
+                document.querySelector('.image_popup').style.display = 'none';
+            };
     </script>
 </body>
 

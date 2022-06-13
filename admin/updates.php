@@ -147,26 +147,6 @@ $admin_type = $info['admin_type'];
         </div>
     </div>
 
-    <!-- VIEW -->
-    <div id="popup-box" class="popup-box view-modal">
-        <div class="top">
-            <h3>Edit Category</h3>
-            <div id="modalClose" class="fa-solid fa-xmark"></div>
-        </div>
-        <hr>
-        <form enctype="multipart/form-data">
-            <h5>Category: <span style="color: #ffaf08; padding-left: 5px;" id="category_title_view"></span></h5>
-            <h5>Category Thumbnail: <br> <img id="category_thumbnail_view" style="width: 150px; margin-top: 5px;"
-                    src=""></h5>
-        </form>
-        <hr>
-        <div class="bottom">
-            <div class="buttons">
-                <button id="modalClose" type="button" class="cancel">CLOSE</button>
-            </div>
-        </div>
-    </div>
-
     <!-- UPDATE -->
     <div id="popup-box" class="popup-box edit-modal">
         <div class="top">
@@ -175,25 +155,24 @@ $admin_type = $info['admin_type'];
         </div>
         <hr>
         <form enctype="multipart/form-data" id="update-updates">
-            <div class="form-group" style="display: none;">
+            <div class="form-group" style="display: flex;">
                 <span>Updates ID</span>
                 <input type="text" style="border-radius: 5px; padding: 0 5px;" name="update_updates_id" id="update_updates_id"></input>
-                <span class="error-text" style="color: #ffaf08; font-size: 13px; font-weight: 600;"></span>
             </div>
             <div class="form-group">
                 <span>Updates Text</span>
                 <textarea style="border-radius: 5px; padding: 0 5px;" name="update_updates_text" id="update_updates_text" cols="20" rows="5"></textarea>
-                <span class="error-text" style="color: #ffaf08; font-size: 13px; font-weight: 600;"></span>
+                <span class="error-text-update" style="color: #ffaf08; font-size: 13px; font-weight: 600;"></span>
             </div>
             <div class="form-group">
                 <span>Update Image</span>
                 <input type="file" accept=".jpg, .jpeg, .png" class="file" name="update_updates_image"
                     id="update_updates_image">
-                <span class="error-image" style="color: #ffaf08; font-size: 13px; font-weight: 600;"></span>
+                <span class="error-image-update" style="color: #ffaf08; font-size: 13px; font-weight: 600;"></span>
             </div>
             <div class="form-group">
                 <span>Image Preview</span>
-                <img id="insertFile" style="width: 100px;" src="">
+                <img id="file" style="width: 100px;" src="">
             </div>
         </form>
         <hr>
@@ -257,7 +236,6 @@ $admin_type = $info['admin_type'];
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Update ID</th>
                             <th>Update Text</th>
                             <th>Update Image</th>
                             <th>Date Posted</th>
@@ -267,18 +245,6 @@ $admin_type = $info['admin_type'];
                 </table>
             </div>
         </section>
-
-        <script>
-            if($('#admin_type').val() != 1) {
-                $('#getInsert').hide();
-                $('.edit-modal').hide();
-                $('.delete-modal').hide();
-            } else {
-                $('#getInsert').show();
-                $('.edit-modal').show();
-                $('.delete-modal').show();
-            }
-        </script>
 
         <script>
             // DATA TABLES
@@ -294,6 +260,7 @@ $admin_type = $info['admin_type'];
                     [5, 10, 15, 100]
                 ],
                 "iDisplayLength": 5,
+                order: [[0, 'desc']],
                 "ajax": {
                     url: "./functions/updates-table",
                     type: "post"
@@ -303,7 +270,7 @@ $admin_type = $info['admin_type'];
 
         <!-- IMAGE PREVIEW -->
         <script>
-            $('#update_category_thumbnail').on('change', function () {
+            $('#update_updates_image').on('change', function () {
                 var file = this.files[0];
 
                 if (file) {
@@ -317,7 +284,7 @@ $admin_type = $info['admin_type'];
                 }
             })
 
-            $('#insert_category_thumbnail').on('change', function () {
+            $('#updates_image').on('change', function () {
                 var file = this.files[0];
 
                 if (file) {
@@ -382,9 +349,82 @@ $admin_type = $info['admin_type'];
 
         <script>
             // SUBMIT EDIT
-            $(document).ready(function () {
-                $("#edit-category").on('submit', function (e) {
+                $(document).ready(function () {
+                $("#update-updates").on('submit', function (e) {
                     e.preventDefault();
+
+                    if($('#update_updates_text').val() == '') {
+                        $('.error-text-update').text('');
+                    } else {
+                        $('.error-text-update').text('');
+                    } 
+
+                    if($.trim($('#update_updates_image').val()).length == 0) {
+                        $('.error-image-update').text('Upload image!');
+                    } else {
+                        var imgExt = $('#update_updates_image').val().split('.').pop().toLowerCase();
+
+                        if ($.inArray(imgExt, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                        $('.error-image-update').text('File not supported');
+                        } else {
+                            var imgSize = $('#update_updates_image')[0].files[0].size;
+
+                            if (imgSize > 10485760) {
+                                $('.error-image-update').text('File too large');
+                            } else {
+                                $('.error-image-update').text('');
+                            }
+                        }
+                    }
+
+                    if($('.error-text-update').text() != '' && $('.error-image-update').text() != '') {
+                        $('#toast').addClass('active');
+                        $('.progress').addClass('active');
+                        $('.text-1').text('Error!');
+                        $('.text-2').text('Fill all required fields!');
+                        setTimeout(() => {
+                            $('#toast').removeClass("active");
+                            $('.progress').removeClass("active");
+                        }, 5000);
+                    } else {
+                        $.ajax({
+                            url: "./functions/update-updates",
+                            type: "POST",
+                            data: new FormData(this),
+                            dataType: 'text',
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                if(data == 'success') {
+                                    $('.edit-modal').removeClass("active");
+                                    $('#toast').addClass('active');
+                                    $('.progress').addClass('active');
+                                    $('#toast-icon').removeClass(
+                                        'fa-solid fa-triangle-exclamation').addClass(
+                                        'fa-solid fa-check warning');
+                                    $('.text-1').text('Success!');
+                                    $('.text-2').text('Update updates successfully!');
+                                    setTimeout(() => {
+                                        $('#toast').removeClass("active");
+                                        $('.progress').removeClass("active");
+                                    }, 5000);
+                                    $('#example').DataTable().ajax.reload();
+                                    $('#update-updates')[0].reset();
+                                } else {
+                                    $('#toast').addClass('active');
+                                    $('.progress').addClass('active');
+                                    $('.text-1').text('Error!');
+                                    $('.text-2').text('Something went wrong!');
+                                    setTimeout(() => {
+                                        $('#toast').removeClass("active");
+                                        $('.progress').removeClass("active");
+                                    }, 5000);
+                                }
+                                console.log(data);
+                            }
+                        })
+                    }
                 })
 
                 // SUBMIT INSERT
@@ -450,7 +490,17 @@ $admin_type = $info['admin_type'];
                                     }, 5000);
                                     $('#example').DataTable().ajax.reload();
                                     $('#insert-updates')[0].reset();
+                                } else {
+                                    $('#toast').addClass('active');
+                                    $('.progress').addClass('active');
+                                    $('.text-1').text('Error!');
+                                    $('.text-2').text('Something went wrong!');
+                                    setTimeout(() => {
+                                        $('#toast').removeClass("active");
+                                        $('.progress').removeClass("active");
+                                    }, 5000);
                                 }
+                                console.log(data);
                             }
                         })
                     }
@@ -487,7 +537,7 @@ $admin_type = $info['admin_type'];
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
                                 $('.text-1').text('Error!');
-                                $('.text-2').text(response);
+                                $('.text-2').text('Something went wrong!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");

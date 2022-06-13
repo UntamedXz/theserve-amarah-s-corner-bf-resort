@@ -647,7 +647,14 @@ if ($alert == 'success') {
                         if (response == 'success') {
                             location.reload();
                         } else {
-                            alert(response);
+                            $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('.text-1').text('Error!');
+                                $('.text-2').text('Something went wrong!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
                         }
                     }
                 })

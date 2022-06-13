@@ -212,8 +212,6 @@ $userProfileIcon = $info['profile_image'];
                     data: 'order_id_view=' + order_id_view,
                     success: function (res) {
                         location.href = res;
-
-                        console.log(res);
                     }
                 })
             });

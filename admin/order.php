@@ -161,7 +161,6 @@ $userProfileIcon = $info['profile_image'];
             <table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Order No.</th>
                         <th>Ship To</th>
                         <th>Customer Email</th>
                         <th>Order Date</th>
@@ -188,6 +187,7 @@ $userProfileIcon = $info['profile_image'];
                     [5, 10, 15, 100]
                 ],
                 "iDisplayLength": 5,
+                order: [[0, 'desc']],
                 "ajax": {
                     url: "./functions/order-table",
                     type: "post"

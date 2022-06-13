@@ -33,7 +33,7 @@ var current_updates_col = 2;
 load_more.addEventListener('click', function() {
     for (var i = current_updates_col; i < current_updates_col + 2; i++) {
         if (updates_col[i]) {
-            updates_col[i].style.display = 'block';
+            updates_col[i].style.display = 'flex';
         }
     }
     current_updates_col += 2;

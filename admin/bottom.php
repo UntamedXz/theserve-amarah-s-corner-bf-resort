@@ -191,5 +191,10 @@
             }
         }
     })
+
+    $('.close').on('click', function(e) {
+        $('#toast').removeClass("active");
+        $('.progress').removeClass("active");
+    })
 </script>
 <!-- SCRIPT -->

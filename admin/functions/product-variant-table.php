@@ -29,7 +29,6 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
-    $subdata[] = $row[0];
     $subdata[] = $row[1];
     $subdata[] = '
     <button type="button" id="getEdit" data-id="' . $row[0] . '"><i class="fa-solid fa-pen"></i><span>Edit</span></button>

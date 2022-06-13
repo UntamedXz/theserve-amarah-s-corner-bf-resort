@@ -637,6 +637,11 @@ if(isset($_SESSION['id'])) {
                 })
             }
         })
+
+        $('.close').on('click', function(e) {
+        $('#toast').removeClass("active");
+        $('.progress').removeClass("active");
+        })
     </script>
 </body>
 

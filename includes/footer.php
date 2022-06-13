@@ -1,4 +1,4 @@
-<footer>
+<footer id="footer">
     <div class="footer-wrapper">
         <span class="connect">Connect with amarah's corner</span>
         <div class="icons">

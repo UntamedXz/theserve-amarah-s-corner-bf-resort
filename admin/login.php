@@ -155,6 +155,15 @@ if (isset($_SESSION['admin_id']) && !empty($_SESSION['id'])) {
                                 $('#toast').removeClass("active");
                                 $('.progress').removeClass("active");
                             }, 5000);
+                        } else {
+                            $('#toast').addClass('active');
+                            $('.progress').addClass('active');
+                            $('.text-1').text('Error!');
+                            $('.text-2').text('Something went wrong!');
+                            setTimeout(() => {
+                                $('#toast').removeClass("active");
+                                $('.progress').removeClass("active");
+                            }, 5000);
                         }
                         console.log(response);
                     }

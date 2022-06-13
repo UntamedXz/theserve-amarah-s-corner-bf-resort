@@ -428,6 +428,11 @@ body {
         $(".delete-modal").removeClass("active");
         $(".delete-all-modal").removeClass("active");
     })
+
+    $('.close').on('click', function(e) {
+        $('#toast').removeClass("active");
+        $('.progress').removeClass("active");
+    })
     </script>
 </body>
 

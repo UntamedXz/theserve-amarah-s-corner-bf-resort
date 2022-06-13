@@ -23,6 +23,7 @@ $userProfileIcon = $info['profile_image'];
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../assets/css/admin.css">
     <title>Admin Panel</title>
 </head>
@@ -105,7 +106,7 @@ $userProfileIcon = $info['profile_image'];
 
                     <div class="box">
                         <div class="titles">
-                            <i class='bx bx-recycle'></i>
+                            <i class="fa-solid fa-clock"></i>
                             <div class="label">
                                 <?php
                                 $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 1");
@@ -181,7 +182,7 @@ $userProfileIcon = $info['profile_image'];
                     </div>
                     <div class="box">
                         <div class="titles">
-                        <i class='bx bx-fork' ></i>
+                        <i class="fa-solid fa-utensils"></i>
                             <div class="label">
                             <?php
                                 $get_pending = mysqli_query($conn, "SELECT COUNT(order_status) as count FROM orders WHERE order_status = 5");

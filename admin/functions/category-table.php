@@ -9,7 +9,7 @@ $col = array(
 );
 //create column like table in database
 
-$sql = "SELECT * FROM category";
+$sql = "SELECT * FROM category ORDER BY category_id DESC";
 $query = mysqli_query($conn, $sql);
 
 $totalData = mysqli_num_rows($query);
@@ -22,6 +22,8 @@ if (!empty($request['search']['value'])) {
     $sql .= " AND (category_title Like '" . $request['search']['value'] . "%' ";
     $sql .= " OR categoty_thumbnail Like '" . $request['search']['value'] . "%' )";
 }
+
+
 $query = mysqli_query($conn, $sql);
 $totalData = mysqli_num_rows($query);
 
@@ -35,7 +37,6 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
-    $subdata[] = $row[0];
     $subdata[] = $row[1];
     $subdata[] = '<img style="width: 80px;" src="../assets/images/'.$row[2].'" alt="">';
     $subdata[] = '

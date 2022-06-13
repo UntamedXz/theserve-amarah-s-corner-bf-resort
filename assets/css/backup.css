@@ -982,8 +982,22 @@ section {
 .banner {
   padding: 0;
 }
-.banner img {
+.banner .banner__wrapper {
   width: 100%;
+}
+.banner .banner__wrapper .banner__content {
+  width: 100%;
+}
+.banner .banner__wrapper .banner__content .banner__card {
+  width: 100%;
+}
+.banner .banner__wrapper .banner__content .banner__card .banner__image {
+  width: 100%;
+  object-fit: cover;
+}
+.banner .banner__wrapper .banner__content .banner__card .banner__image img {
+  width: 100%;
+  height: 100%;
 }
 
 .branch {
@@ -1072,57 +1086,103 @@ section {
   flex-wrap: wrap;
 }
 .updates .row .col {
-  width: 500px;
+  width: 600px;
+  height: 400px;
   background: var(--black);
   color: #fff;
   padding: 20px;
   padding-bottom: 15px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   display: none;
 }
-.updates .row .col h4 {
-  padding-top: 10px;
+@media (min-width: 768px) {
+  .updates .row .col {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+.updates .row .col .details {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  overflow-y: scroll;
+  scroll-padding-top: 65px;
+  scroll-behavior: smooth;
+}
+@media (min-width: 768px) {
+  .updates .row .col .details {
+    width: 50%;
+    height: unset;
+  }
+}
+.updates .row .col .details::-webkit-scrollbar {
+  width: 4px;
+}
+.updates .row .col .details::-webkit-scrollbar-track {
+  background-color: #070506;
+}
+.updates .row .col .details::-webkit-scrollbar-thumb {
+  background-color: #ffaf08;
+}
+.updates .row .col .details h4 {
   font-weight: 600;
 }
 @media (min-width: 768px) {
-  .updates .row .col h4 {
+  .updates .row .col .details h4 {
     font-size: 16px;
   }
 }
 @media (min-width: 992px) {
-  .updates .row .col h4 {
+  .updates .row .col .details h4 {
     font-size: 18px;
   }
 }
-.updates .row .col h5 {
+.updates .row .col .details h5 {
   font-weight: 500;
+  white-space: pre-wrap;
 }
 @media (min-width: 768px) {
-  .updates .row .col h5 {
+  .updates .row .col .details h5 {
     font-size: 14px;
   }
 }
 @media (min-width: 992px) {
-  .updates .row .col h5 {
+  .updates .row .col .details h5 {
     font-size: 15px;
   }
 }
 .updates .row .col .image-cont {
   width: 100%;
-  height: 35vh;
+  height: 300px;
   object-fit: cover;
+  object-position: center;
+  -o-object-fit: cover;
+  -o-object-position: center;
   overflow: hidden;
   border-radius: 5px;
+}
+@media (min-width: 768px) {
+  .updates .row .col .image-cont {
+    width: 50%;
+    height: 100%;
+  }
 }
 .updates .row .col .image-cont img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .updates .row .col .image-cont img:hover {
   transform: scale(1.1);
 }
 .updates .row .col:nth-child(1), .updates .row .col:nth-child(2) {
-  display: block;
+  display: flex;
 }
 .updates #load-more {
   display: flex;
@@ -1143,6 +1203,25 @@ section {
   border-color: var(--primary);
   color: var(--black);
   border: 1px solid var(--primary);
+}
+
+.image_popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 177, 8, 0.7882352941);
+  height: 100vh;
+  width: 100vw;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.image_popup img {
+  max-height: 50%;
+  height: 100%;
+  max-width: 90%;
 }
 
 .feedbacks .feedbacks__cont {

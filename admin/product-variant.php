@@ -211,7 +211,6 @@ $admin_type = $info['admin_type'];
                 <table id="example" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Product Variant ID</th>
                             <th>Product Variant Title</th>
                             <th id="action">Action</th>
                         </tr>
@@ -246,6 +245,7 @@ $admin_type = $info['admin_type'];
                     [5, 10, 15, 100]
                 ],
                 "iDisplayLength": 5,
+                order: [[0, 'desc']],
                 "ajax": {
                     url: "./functions/product-variant-table",
                     type: "post"
@@ -352,9 +352,8 @@ $admin_type = $info['admin_type'];
                             } else {
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
-                                // $('#toast-icon').removeClass('fa-solid fa-triangle-exclamation').addClass('fa-solid fa-circle-exclamation');
                                 $('.text-1').text('Error!');
-                                $('.text-2').text(response);
+                                $('.text-2').text('Something went wrong!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");
@@ -412,7 +411,7 @@ $admin_type = $info['admin_type'];
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
                                 $('.text-1').text('Error!');
-                                $('.text-2').text(response);
+                                $('.text-2').text('Something went wrong!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");
@@ -452,7 +451,7 @@ $admin_type = $info['admin_type'];
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
                                 $('.text-1').text('Error!');
-                                $('.text-2').text(response);
+                                $('.text-2').text('Something went wrong!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");

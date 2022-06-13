@@ -3,7 +3,7 @@ require_once '../../includes/database_conn.php';
 
 date_default_timezone_set('Asia/Manila');
 $date = date('F j, Y');
-$updates_text = $_POST['updates_text'];
+$updates_text = mysqli_real_escape_string($conn, $_POST['updates_text']);
 $updates_image = $_FILES['updates_image']['name'];
 $updates_image_tmp = $_FILES['updates_image']['tmp_name'];
 

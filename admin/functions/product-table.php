@@ -42,7 +42,6 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
-    $subdata[] = $row[0];
     $subdata[] = '<img style="width: 80px; border-radius: 50%;" src="../assets/images/' . $row[1] . '" alt="">';
     $subdata[] = $row[2];
     $subdata[] = $row[3];

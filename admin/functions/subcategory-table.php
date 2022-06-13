@@ -37,7 +37,6 @@ $data = array();
 
 while ($row = mysqli_fetch_array($query)) {
     $subdata = array();
-    $subdata[] = $row[0];
     $subdata[] = $row[1];
     $subdata[] = $row[2];
     $subdata[] = '

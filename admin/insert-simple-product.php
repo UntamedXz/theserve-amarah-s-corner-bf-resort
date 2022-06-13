@@ -383,7 +383,7 @@ $admin_type = $info['admin_type'];
                 } else {
                     $('.error-keyword').text('');
                 }
-                if($.trim($('#product_status').val() == "")) {
+                if($.trim($('#product_status').val()) == "") {
                     $('.error-status').text('Product Status required');
                 } else {
                     $('.error-status').text('');
@@ -449,7 +449,7 @@ $admin_type = $info['admin_type'];
                                 $('#toast').addClass('active');
                                 $('.progress').addClass('active');
                                 $('.text-1').text('Error!');
-                                $('.text-2').text(data);
+                                $('.text-2').text('Something went wrong!');
                                 setTimeout(() => {
                                     $('#toast').removeClass("active");
                                     $('.progress').removeClass("active");
