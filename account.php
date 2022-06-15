@@ -91,6 +91,8 @@ if(isset($_SESSION['id'])) {
     $getProfileInfo = mysqli_query($conn, "SELECT * FROM customers WHERE user_id = $userId");
     
     $rowInfo = mysqli_fetch_array($getProfileInfo);
+    $bday = strtotime($rowInfo['user_birthday']);
+    $str_bday = date("F j, Y", $bday);
     ?>
     <section class="account">
         <div class="account-wrapper">
@@ -164,7 +166,7 @@ if(isset($_SESSION['id'])) {
                         <span class="basicInformation">BASIC INFORMATION</span>
                         <hr>
                         <div class="basicInfoWrapper">
-                            <span>Birthday: <strong><?php if($rowInfo['user_birthday'] != '0000-00-00') { echo $rowInfo['user_birthday']; }  ?></strong></span>
+                            <span>Birthday: <strong><?php if($rowInfo['user_birthday'] != '0000-00-00') { echo $str_bday; }  ?></strong></span>
                             <span>Gender: <strong><?php echo $rowInfo['user_gender'] ?></strong></span>
                         </div>
                     </div>
@@ -189,10 +191,10 @@ if(isset($_SESSION['id'])) {
                         <div class="form-group">
                             <span>Gender</span>
                             <div class="gender">
-                                <input type="radio" name="gender" id="" value="FEMALE" <?php if($rowInfo['user_gender'] == "FEMALE") { echo "checked"; } ?>>
+                              <input type="radio" name="gender" id="" value="FEMALE" <?php if($rowInfo['user_gender'] == "FEMALE") { echo "checked"; } ?>>
                                 <label for="for female">FEMALE</label>
                                 <input type="radio" name="gender" id="" value="MALE" <?php if($rowInfo['user_gender'] == "MALE") { echo "checked"; } ?>>
-                                <label for="for female">MALE</label>
+                                <label   for="for female">MALE</label>
                             </div>
                         </div>
                         <button type="submit">UPDATE</button>

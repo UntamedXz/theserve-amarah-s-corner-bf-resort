@@ -149,7 +149,7 @@ if(isset($_SESSION['id'])) {
                             //     'fa-solid fa-triangle-exclamation').addClass(
                             //     'fa-solid fa-check warning');
                             $('.text-1').text('Error!');
-                            $('.text-2').text('Email not registered!');
+                            $('.text-2').text('Email or Username not registered!');
 
                             setTimeout(() => {
                                 $('#toast').removeClass("active");

@@ -26,7 +26,7 @@
 }
 
 html {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     scroll-padding-top: 124px;
   }
 
@@ -63,7 +63,7 @@ body {
 }
 
 .toast {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     width: auto;
     top: 130px;
     left: unset;
@@ -159,7 +159,7 @@ body {
   }
 
   &.active {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       bottom: unset;
       right: 20px;
     }
@@ -342,7 +342,7 @@ body {
 
 // FOR ALL TITLES IN PAGE
 .title-header {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     font-size: 20px;
   }
 
@@ -362,7 +362,7 @@ body {
 
 // HEADER CONTAINER
 .header {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     margin-bottom: 114px;
   }
 
@@ -370,7 +370,7 @@ body {
 
   // NAVIGATION BAR 1 STYLE
   .header-1 {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       padding: 15px 6%;
       transform-style: unset;
     }
@@ -396,7 +396,7 @@ body {
         top: 0px;
       }
 
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         top: 15px;
       }
 
@@ -411,7 +411,7 @@ body {
     }
 
     .search-form {
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         width: 50%;
         margin-left: 140px;
         position: unset;
@@ -464,7 +464,7 @@ body {
     }
 
     .left {
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
 
         #search-btn,
         #navbar {
@@ -481,7 +481,7 @@ body {
       }
 
       .tracking {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           font-size: 14px;
           background-color: #ffaf08;
           border-radius: 5px;
@@ -498,13 +498,13 @@ body {
         cursor: pointer;
 
         i {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             padding-right: 5px;
           }
         }
 
         span {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             display: flex;
           }
           display: none;
@@ -593,7 +593,7 @@ body {
 
       div,
       a {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           padding-left: 15px;
         }
 
@@ -621,7 +621,7 @@ body {
 
 // NAVIGATION BAR 2 STYLE
 .custom-nav {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     display: block;
     background: var(--primary);
     position: fixed;
@@ -764,9 +764,12 @@ body {
 
 // LOGIN FORM STYLE
 .login-form-container {
-  position: fixed;
-  top: 0px;
-  height: 100%;
+  @media (min-width: 992px) {
+    height: calc(100% - 114px);
+    min-height: calc(100vh - 114px);
+  }
+  height: calc(100% - 55px);
+  min-height: calc(100vh - 55px);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -932,24 +935,31 @@ body {
 
 // REGISTRATION FORM STYLE
 .reg-form-container {
-  position: fixed;
-  top: 0px;
-  height: 100%;
+  @media (min-width: 992px) {
+    height: calc(100% - 114px);
+    min-height: calc(100vh - 114px);
+  }
+  height: calc(100% - 55px);
+  min-height: calc(100vh - 55px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
 
   form {
     position: relative;
     border: var(--border);
-    width: 350px;
+    width: 600px;
     margin: 20px;
     padding: 15px;
     box-shadow: var(--box-shadow);
     border-radius: 5px;
     background: var(--black);
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     .logo {
       position: absolute;
@@ -977,47 +987,67 @@ body {
       margin-top: 20px;
     }
 
-    span {
-      @media (min-width: 321px) {
-        font-size: 14px;
+    .group_form {
+      @media (min-width: 758px) {
+        flex-direction: row;
       }
-
-      display: block;
-      text-transform: capitalize;
-      font-size: 12px;
-    }
-
-    .box {
-      @media (min-width: 321px) {
-        height: 40px;
-      }
-
-      border: var(--border);
-      width: 100%;
-      height: 30px;
-      border-radius: 5px;
-      padding: 10px;
-      font-size: 13px;
-      margin: 5px 0;
-    }
-
-    .checkbox {
       display: flex;
-      align-items: center;
-      padding: 5px 1;
-      gap: 5px;
-
-      input[type="checkbox"] {
-        transform: scale(1.1);
-      }
-
-      label {
-        @media (min-width: 321px) {
+      flex-direction: column;
+      gap: 10px;
+      .form_group {
+        width: 100%;
+        span {
+          @media (min-width: 321px) {
+            font-size: 14px;
+          }
+    
+          display: block;
+          text-transform: capitalize;
+          font-size: 12px;
+        }
+    
+        .box {
+          @media (min-width: 321px) {
+            height: 40px;
+          }
+    
+          border: var(--border);
+          width: 100%;
+          height: 30px;
+          border-radius: 5px;
+          padding: 10px;
           font-size: 13px;
+          margin: 5px 0;
         }
 
-        font-size: 12px;
-        text-transform: capitalize;
+        .gender {
+          @media (min-width: 321px) {
+            height: 40px;
+          }
+
+          display: flex;
+          align-items: center;
+          height: 30px;
+          background-color: #fff;
+          padding: 10px;
+          gap: 10px;
+          margin: 5px 0;
+          border-radius: 5px;
+          color: #070506;
+          font-size: 14px;
+
+          .gender_wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-weight: 400;
+          }
+        }
+
+        .reg-bday {
+          display: flex;
+          align-items: center;
+        }
       }
     }
 
@@ -1064,7 +1094,7 @@ body {
 
 // SECTION STYLE
 section {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     padding: 0 6%;
   }
 
@@ -1107,7 +1137,7 @@ section {
   text-align: center;
 
   h1 {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       font-size: 32px;
     }
 
@@ -1119,7 +1149,7 @@ section {
   }
 
   h5 {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       font-size: 16px;
     }
 
@@ -1199,7 +1229,7 @@ section {
     flex-wrap: wrap;
 
     .col {
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         flex-direction: row;
         gap: 20px;
       }
@@ -1216,7 +1246,7 @@ section {
       display: none;
 
       .details {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           width: 50%;
           height: unset;
         }
@@ -1243,7 +1273,7 @@ section {
         }
 
         h4 {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             font-size: 16px;
           }
   
@@ -1255,7 +1285,7 @@ section {
         }
   
         h5 {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             font-size: 14px;
           }
   
@@ -1269,7 +1299,7 @@ section {
       }
 
       .image-cont {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           width: 50%;
           height: 100%;
         }
@@ -1368,7 +1398,7 @@ section {
       display: none;
 
       .feedbacks__top {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           flex-wrap: unset;
         }
 
@@ -1402,7 +1432,7 @@ section {
             flex-direction: column;
 
             h4 {
-              @media (min-width: 768px) {
+              @media (min-width: 992px) {
                 font-size: 16px;
               }
 
@@ -1415,7 +1445,7 @@ section {
             }
 
             h5 {
-              @media (min-width: 768px) {
+              @media (min-width: 992px) {
                 font-size: 14px;
               }
 
@@ -1429,7 +1459,7 @@ section {
         }
 
         .feedbacks__rate {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             margin-top: unset;
           }
 
@@ -1450,7 +1480,7 @@ section {
 
     .feedbacks__comments {
       h5 {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           font-size: 14px;
         }
 
@@ -1505,7 +1535,7 @@ footer {
     padding-top: 10px;
 
     .connect {
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         font-size: unset;
       }
 
@@ -1528,7 +1558,7 @@ footer {
         color: #070506;
 
         i {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             height: 40px;
             width: 40px;
           }
@@ -1556,7 +1586,7 @@ footer {
       align-items: center;
 
       ul {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           flex-direction: unset;
           gap: unset;
         }
@@ -1572,7 +1602,7 @@ footer {
         margin-bottom: 5px;
 
         li {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             border-right: 1px solid #ffaf08;
           }
 
@@ -1582,7 +1612,7 @@ footer {
           height: 13px;
 
           a {
-            @media (min-width: 768px) {
+            @media (min-width: 992px) {
               font-size: unset;
             }
 
@@ -1617,7 +1647,7 @@ footer {
       font-weight: 600;
 
       span {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           font-size: 16px;
         }
 
@@ -1889,7 +1919,7 @@ footer {
           overflow: hidden;
 
           .img {
-            @media (min-width: 768px) {
+            @media (min-width: 992px) {
               width: 30%;
             }
 
@@ -1899,7 +1929,7 @@ footer {
           }
 
           .content {
-            @media (min-width: 768px) {
+            @media (min-width: 992px) {
               width: 70%;
             }
 
@@ -1924,7 +1954,7 @@ footer {
             }
 
             .qty-remove {
-              @media (min-width: 768px) {
+              @media (min-width: 992px) {
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
@@ -1962,7 +1992,7 @@ footer {
             }
 
             .btn-area {
-              @media (min-width: 768px) {
+              @media (min-width: 992px) {
                 float: right;
               }
 
@@ -1996,7 +2026,7 @@ footer {
       }
 
       .right-bar {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           align-self: flex-end;
           width: 50%;
         }
@@ -2051,7 +2081,7 @@ footer {
 }
 
 .product-details {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     padding: 0 15%;
   }
 
@@ -2063,7 +2093,7 @@ footer {
   padding-bottom: 130px;
 
   .product-details__wrapper {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       flex-direction: row;
     }
 
@@ -2078,7 +2108,7 @@ footer {
     overflow: hidden;
 
     .left {
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         width: 30%;
         gap: 10px;
       }
@@ -2130,7 +2160,7 @@ footer {
       }
 
       .product-details {
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
           justify-content: flex-start;
           align-items: flex-start;
         }
@@ -2165,7 +2195,7 @@ footer {
     }
 
     .right {
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         width: 70%;
       }
 
@@ -2217,7 +2247,7 @@ footer {
 }
 
 .product-footer {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     padding: 0 15%;
   }
 
@@ -2340,7 +2370,7 @@ footer {
         gap: 0px;
 
         .totalText {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             font-size: unset;
           }
 
@@ -2349,7 +2379,7 @@ footer {
         }
 
         .totalPrice {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             font-size: 28px;
           }
 
@@ -2363,7 +2393,7 @@ footer {
         align-items: center;
 
         button {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             padding: 10px;
           }
 
@@ -2386,7 +2416,7 @@ footer {
 
 // ACCOUNT PAGE
 .account {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     padding: 0 10%;
   }
 
@@ -2547,7 +2577,7 @@ footer {
           border-radius: 5px;
 
           button {
-            @media (min-width: 768px) {
+            @media (min-width: 992px) {
               font-size: 18px;
             }
 
@@ -2838,7 +2868,7 @@ footer {
     padding-top: 20px;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     padding: 0 10%;
     padding-top: 20px;
   }
@@ -2897,7 +2927,7 @@ footer {
         }
 
         .group_form_group {
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
           flex-direction: row;
           }
           display: flex;

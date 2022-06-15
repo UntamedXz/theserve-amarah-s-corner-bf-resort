@@ -80,17 +80,66 @@ if(isset($_SESSION['id'])) {
         <form id="register">
             <a href="#" class="logo"><img src="./assets/images/official_logo.png" alt=""></a>
             <h3>sign up</h3>
-            <span>Username</span>
-            <input type="text" name="reg-username" class="box" placeholder="enter your username" id="username"
-                value="<?php if (isset($_POST['username'])) { echo $_POST['username']; } ?>">
-            <input type="hidden" name="" id="error-username">
-            <span>email</span>
-            <input type="email" name="reg-email" class="box" placeholder="enter your email" id="email" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; } ?>">
-            <input type="hidden" name="" id="error-email">
-            <span>password</span>
-            <input type="password" name="reg-password" class="box" placeholder="enter your password" id="password"
-                value="<?php if (isset($_POST['password'])) { echo $_POST['password']; } ?>">
-            <input type="hidden" name="" id="error-password">
+            <div class="group_form">
+                <div class="form_group">
+                    <span>name</span>
+                    <input type="text" class="box" name="reg-name" id="reg-name" placeholder="enter your name">
+                    <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-name"></span>
+                </div>
+                <div class="form_group">
+                    <span>Username</span>
+                    <input type="text" name="reg-username" class="box" placeholder="enter your username" id="username"
+                        value="">
+                    <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-username"></span>
+                </div>
+            </div>
+            <div class="group_form">
+                <div class="form_group">
+                    <span>email</span>
+                    <input type="email" name="reg-email" class="box" placeholder="enter your email" id="reg-email" value="">
+                    <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-email"></span>
+                </div>
+                <div class="form_group">
+                    <span>Phone Number</span>
+                    <input type="tel" name="reg-tel" id="reg-tel" class="box" placeholder="enter your phone number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                    <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-tel"></span>
+                </div>
+            </div>
+            <div class="group_form">
+                <div class="form_group">
+                    <span>Gender</span>
+                    <div class="gender">
+                        <div class="gender_wrapper">
+                            <input type="radio" name="gender" id="gender" value="FEMALE">
+                            <label for="for female">FEMALE</label>
+                        </div>
+                        <div class="gender_wrapper">
+                            <input type="radio" name="gender" id="gender" value="MALE">
+                            <label for="for female">MALE</label>
+                        </div>
+                    </div>
+                    <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-gender"></span>
+                </div>
+                <div class="form_group">
+                    <span>Birthday</span>
+                    <input type="date" name="reg-bday" id="reg-bday" class="box">
+                    <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-bday"></span>
+                </div>
+            </div>
+            <div class="group_form">
+                <div class="form_group">
+                    <span>password</span>
+                    <input type="password" name="reg-password" class="box" placeholder="enter your password" id="password"
+                        value="">
+                        <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-password"></span>
+                </div>
+                <div class="form_group">
+                    <span>confirm password</span>
+                    <input type="password" name="reg-confirm-password" class="box" placeholder="enter confirm password" id="reg-confirm-password"
+                        value="">
+                        <span style="color: #dc3545; font-size: 12px; font-weight: 600;" id="error-confirm-password"></span>
+                </div>
+            </div>
             <input type="submit" name="register" value="sign up" class="btn">
             <p>have an account? <a href="login">login now</a></p>
         </form>
@@ -101,73 +150,82 @@ if(isset($_SESSION['id'])) {
         $('#register').on('submit', function (e) {
             e.preventDefault();
 
-            if ($('#username').val() == '') {
-                $('#error-username').val('Input Username!');
+            if($.trim($('#reg-name').val()).length == 0) {
+                $('#error-name').text('Input name!');
             } else {
-                $('#error-username').val('');
+                $('#error-name').text('');
             }
 
-            if ($('#email').val() == '') {
-                $('#error-email').val('Input email!');
+            if ($.trim($('#username').val()).length == 0) {
+                $('#error-username').text('Input username!');
             } else {
-                $('#error-email').val('');
+                $('#error-username').text('');
+            }
+
+            if ($.trim($('#reg-email').val()).length == 0) {
+                $('#error-email').text('Input email!');
+            } else {
+                $('#error-email').text('');
+            }
+
+            if($.trim($('#reg-tel').val()).length == 0) {
+                $('#error-tel').text('Input phone number!');
+            } else {
+                if($.trim($('#reg-tel').val()).length < 11) {
+                    $('#error-tel').text('Phone number invalid!');
+                } else {
+                    $('#error-tel').text('');
+                }
+            }
+
+            if($('input[name="gender"]:checked').length == 0) {
+                $('#error-gender').text('Select gender!');
+            } else {
+                $('#error-gender').text('');
+            }
+
+            if($('#reg-bday').val().length == 0) {
+                $('#error-bday').text('Input bday!');
+            } else {
+                var bday = $('#reg-bday').val();
+                d = new Date(bday.split("/").reverse().join("-"))
+                var curDate = new Date();
+
+                curDate.setYear(curDate.getFullYear() - 18);
+                if(curDate >= d) {
+                    $('#error-bday').text('');
+                } else {
+                    $('#error-bday').text('You must be at least 18 years of age!');
+                    setTimeout(() => {
+                        $('#toast').removeClass("active");
+                        $('.progress').removeClass("active");
+                    }, 5000);
+                }
             }
 
             if ($('#password').val() == '') {
-                $('#error-password').val('Input password!');
+                $('#error-password').text('Input password!');
             } else if($('#password').val().length < 8) {
-                $('#error-password').val('Password too short');
+                $('#error-password').text('Password too short');
             } else {
-                $('#error-password').val('');
+                $('#error-password').text('');
             }
 
-            if ($('#error-username').val() != '') {
-                $('#toast').addClass('active');
-                $('.progress').addClass('active');
-                // $('#toast-icon').removeClass(
-                //     'fa-solid fa-triangle-exclamation').addClass(
-                //     'fa-solid fa-check warning');
-                $('.text-1').text('Error!');
-                $('.text-2').text('Input username!');
+            if ($('#reg-confirm-password').val() == '') {
+                $('#error-confirm-password').text('Input confirm password');
+            } else {
+                if ($('#reg-confirm-password').val() != $('#password').val()) {
+                    $('#error-confirm-password').text('The password confirmation does not match!');
+                } else {
+                    $('#error-confirm-password').text('');
+                }
+            }
 
-                setTimeout(() => {
-                    $('#toast').removeClass("active");
-                    $('.progress').removeClass("active");
-                }, 5000);
-            } else if ($('#error-email').val() != '') {
+            if($('#error-name').text() != '' || $('#error-username').text() != '' || $('#error-email').text() != '' || $('#error-tel').text() != '' || $('#error-gender').text() != '' || $('#error-bday').text() != '' || $('#error-password').text() != '' || $('#error-confirm-password').text() != '') {
                 $('#toast').addClass('active');
                 $('.progress').addClass('active');
-                // $('#toast-icon').removeClass(
-                //     'fa-solid fa-triangle-exclamation').addClass(
-                //     'fa-solid fa-check warning');
                 $('.text-1').text('Error!');
-                $('.text-2').text('Input email!');
-
-                setTimeout(() => {
-                    $('#toast').removeClass("active");
-                    $('.progress').removeClass("active");
-                }, 5000);
-            } else if($('#error-password').val() == 'Password too short') {
-                $('#toast').addClass('active');
-                $('.progress').addClass('active');
-                // $('#toast-icon').removeClass(
-                //     'fa-solid fa-triangle-exclamation').addClass(
-                //     'fa-solid fa-check warning');
-                $('.text-1').text('Error!');
-                $('.text-2').text('Password too short!');
-                setTimeout(() => {
-                    $('#toast').removeClass("active");
-                    $('.progress').removeClass("active");
-                }, 5000);
-            } else if ($('#error-password').val() != '') {
-                $('#toast').addClass('active');
-                $('.progress').addClass('active');
-                // $('#toast-icon').removeClass(
-                //     'fa-solid fa-triangle-exclamation').addClass(
-                //     'fa-solid fa-check warning');
-                $('.text-1').text('Error!');
-                $('.text-2').text('Input password!');
-
+                $('.text-2').text('Fill all fields!');
                 setTimeout(() => {
                     $('#toast').removeClass("active");
                     $('.progress').removeClass("active");
@@ -175,54 +233,55 @@ if(isset($_SESSION['id'])) {
             } else {
                 $.ajax({
                     type: "POST",
-                    url: "./functions/register-validation",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response == 'Email already exist!') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Email already used!');
-
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
+                        url: "./functions/register-validation",
+                        data: new FormData(this),
+                        dataType: 'text',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (response) {
+                            if(response == 'Username already exist!') {
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('.text-1').text('Error!');
+                                $('.text-2').text('Username already used!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
+                            } else if(response == 'Email already exist!') {
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('.text-1').text('Error!');
+                                $('.text-2').text('Email already used!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
+                            } else if(response == 'Registered Successfully!') {
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('#toast-icon').removeClass(
+                                    'fa-solid fa-triangle-exclamation').addClass(
+                                    'fa-solid fa-check warning');
+                                $('.text-1').text('Success!');
+                                $('.text-2').text('Registered account successfully!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
+                            } else {
+                                $('#toast').addClass('active');
+                                $('.progress').addClass('active');
+                                $('.text-1').text('Error!');
+                                $('.text-2').text('Something went wrong!');
+                                setTimeout(() => {
+                                    $('#toast').removeClass("active");
+                                    $('.progress').removeClass("active");
+                                }, 5000);
+                            }
+                            console.log(response);
                         }
-
-                        if (response == 'Registered Successfully!') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            $('#toast-icon').removeClass(
-                                'fa-solid fa-triangle-exclamation').addClass(
-                                'fa-solid fa-check warning');
-                            $('.text-1').text('Success!');
-                            $('.text-2').text('Registered Successfully!');
-
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-
-                        if (response == 'Something went wrong!') {
-                            $('#toast').addClass('active');
-                            $('.progress').addClass('active');
-                            // $('#toast-icon').removeClass(
-                            //     'fa-solid fa-triangle-exclamation').addClass(
-                            //     'fa-solid fa-check warning');
-                            $('.text-1').text('Error!');
-                            $('.text-2').text('Something went wrong!');
-
-                            setTimeout(() => {
-                                $('#toast').removeClass("active");
-                                $('.progress').removeClass("active");
-                            }, 5000);
-                        }
-                    }
                 })
             }
         })
